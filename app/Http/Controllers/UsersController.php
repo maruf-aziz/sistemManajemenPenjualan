@@ -74,6 +74,24 @@ class UsersController extends Controller
     public function update(Request $request, User $user)
     {
         //
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|unique:App\User,email->ignore($user->email)',
+            'phone' => 'required|max:13'
+        ]);
+
+        User::where('id', $user->id)
+                ->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'description' => $request->description,
+                    'address' => $request->address
+                ]);
+        
+        return redirect('/users')->with('status', 'Data berhasil diubah');
     }
 
     /**

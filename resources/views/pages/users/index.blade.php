@@ -8,6 +8,11 @@
 
   <div class="content">
     <div class="container-fluid">
+      @if (session('status'))
+          <div class="alert alert-success">
+              {{ session('status') }}
+          </div>
+      @endif
       <div class="row">
         <div class="col-md-8">
           <div class="card">
@@ -15,8 +20,9 @@
               <h4 class="card-title">My Profile</h4>
               <p class="card-category">Complete your profile</p>
             </div>
+            
             <div class="card-body">
-              <form method="post" action="/students/{{ Auth::user()->id }}" enctype="multipart/form-data">
+              <form method="post" action="/users/{{ Auth::user()->id }}" enctype="multipart/form-data">
                 @method('patch')
                 @csrf
                 <div class="row">
@@ -28,14 +34,24 @@
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label class="bmd-label-floating">Name</label>
-                      <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}">
+                      <label class="bmd-label-floating">Name *</label>
+                      <input type="text" class="form-control @error('name') is-invalid @enderror"" name="name" value="{{ Auth::user()->name }}">
+                      @error('name')
+                      <div class="invalid-feedback">
+                          {{ $message }}
+                      </div>
+                    @enderror
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label class="bmd-label-floating">Email address</label>
-                      <input type="email" class="form-control" value="{{ Auth::user()->email }}">
+                      <label class="bmd-label-floating">Email address *</label>
+                      <input type="email" class="form-control @error('email') is-invalid @enderror"" name="email" value="{{ Auth::user()->email }}">
+                      @error('email')
+                      <div class="invalid-feedback">
+                          {{ $message }}
+                      </div>
+                    @enderror
                     </div>
                   </div>
                 </div>
@@ -43,19 +59,24 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label class="bmd-label-floating">Fist Name</label>
-                      <input type="text" class="form-control">
+                      <input type="text" class="form-control" name="first_name" value="{{ Auth::user()->first_name }}">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
                       <label class="bmd-label-floating">Last Name</label>
-                      <input type="text" class="form-control">
+                      <input type="text" class="form-control" name="last_name" value="{{ Auth::user()->last_name }}">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label class="bmd-label-floating">Phone</label>
-                      <input type="text" class="form-control" value="{{ Auth::user()->phone }}">
+                      <label class="bmd-label-floating">Phone *</label>
+                      <input type="text" class="form-control @error('phone') is-invalid @enderror"" name="phone" value="{{ Auth::user()->phone }}">
+                      @error('phone')
+                      <div class="invalid-feedback">
+                          {{ $message }}
+                      </div>
+                    @enderror
                     </div>
                   </div>
                 </div>
@@ -63,7 +84,7 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label class="bmd-label-floating">Adress</label>
-                      <input type="text" class="form-control">
+                      <input type="text" class="form-control" name="address" value="{{ Auth::user()->address }}">
                     </div>
                   </div>
                 </div>
@@ -72,7 +93,7 @@
                     <div class="form-group">
                       <label>About Me</label>
                       <div class="form-group">
-                        <textarea class="form-control" rows="5"></textarea>
+                        <textarea class="form-control" rows="5" name="description">{{ Auth::user()->description }}</textarea>
                       </div>
                     </div>
                   </div>
@@ -94,7 +115,7 @@
               <h6 class="card-category text-gray">{{ Auth::user()->role }}</h6>
               <h4 class="card-title">{{ Auth::user()->name }}</h4>
               <p class="card-description">
-                {{-- desc --}}
+                {{ Auth::user()->description }}
               </p>
             </div>
           </div>
@@ -105,9 +126,10 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">All User</h4>
+              <h4 class="card-title">All User</h4>              
             </div>
             <div class="card-body">
+              <a href="" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>
               <table class="table table-hover">
                 <thead>
                   <tr>
