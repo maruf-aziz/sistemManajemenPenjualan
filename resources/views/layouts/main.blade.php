@@ -61,8 +61,8 @@ The above copyright notice and this permission notice shall be included in all c
               <p>User Profile</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./user.html">
+          <li class="nav-item {{ Request::segment(1) == 'suppliers' ? 'active' : '' }}">
+            <a class="nav-link" href="/suppliers">
               <i class="material-icons">assignment_ind</i>
               <p>Supplier</p>
             </a>

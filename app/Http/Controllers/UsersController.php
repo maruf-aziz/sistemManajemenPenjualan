@@ -48,7 +48,7 @@ class UsersController extends Controller
         $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email:rfc,dns|unique:App\User,email',
-            'images' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
+            'images' => 'file|image|mimes:jpeg,png,jpg|max:2048',
             'phone' => 'required|max:13',
             'role' => 'required',
             'password' => 'required|string|min:8|confirmed',
@@ -58,11 +58,19 @@ class UsersController extends Controller
             'description' => 'max:255'
         ]);
 
-        $images = $request->file('images');
+        if ($request->file('images') != null) {
+            # code...
+            $images = $request->file('images');
 
-        $nama_file = time()."_".$images->getClientOriginalName();
-        $tujuan_upload = 'images';
-        $images->move($tujuan_upload,$nama_file);
+            $nama_file = time()."_".$images->getClientOriginalName();
+            $tujuan_upload = 'images';
+            $images->move($tujuan_upload,$nama_file);
+        }
+
+        else{
+            $nama_file = 'default.png';
+        }
+        
 
         User::create([
             'name' => $request->name,
@@ -147,6 +155,7 @@ class UsersController extends Controller
                     'name' => $request->name,
                     'email' => $request->email,
                     'phone' => $request->phone,
+                    'role' => $request->role,
                     'first_name' => $request->first_name,
                     'last_name' => $request->last_name,
                     'description' => $request->description,

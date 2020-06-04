@@ -25,7 +25,7 @@
                 @method('patch')
                 @csrf
                 <div class="row">
-                  <div class="col-md-5">
+                  <div class="col-md-6">
                     <div class="form-group">
                       <label class="bmd-label-floating">Name *</label>
                       <input type="text" class="form-control @error('name') is-invalid @enderror"" name="name" value="{{ $user->name }}" disabled>
@@ -36,7 +36,7 @@
                     @enderror
                     </div>
                   </div>
-                  <div class="col-md-5">
+                  <div class="col-md-6">
                     <div class="form-group">
                       <label class="bmd-label-floating">Email address *</label> 
                       <input type="email" class="form-control @error('email') is-invalid @enderror"" name="email" value="{{ $user->email }}" disabled>

@@ -25,7 +25,7 @@
                 @method('patch')
                 @csrf
                 <div class="row">
-                  <div class="col-md-5">
+                  <div class="col-md-4">
                     <div class="form-group">
                       <label class="bmd-label-floating">Name *</label>
                       <input type="text" class="form-control @error('name') is-invalid @enderror"" name="name" value="{{ $user->name }}">
@@ -36,7 +36,7 @@
                     @enderror
                     </div>
                   </div>
-                  <div class="col-md-5">
+                  <div class="col-md-4">
                     <div class="form-group">
                       <label class="bmd-label-floating">Email address *</label>
                       <input type="email" class="form-control @error('email') is-invalid @enderror"" name="email" value="{{ $user->email }}">
@@ -44,7 +44,21 @@
                       <div class="invalid-feedback">
                           {{ $message }}
                       </div>
-                    @enderror
+                    	@enderror
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <select class="custom-select custom-select-md @error('role') is-invalid @enderror" name="role" id="role">
+												<option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+												<option value="pimpinan" {{ $user->role == 'pimpinan' ? 'selected' : '' }}>Pimpinan</option>
+												<option value="sales" {{ $user->role == 'sales' ? 'selected' : '' }}>Sales</option>
+											</select>
+											@error('role')
+												<div class="invalid-feedback">
+													{{ $message }}
+												</div>
+											@enderror
                     </div>
                   </div>
                 </div>
@@ -101,7 +115,8 @@
                       </div>
                     </div>
                   </div>
-                </div>
+								</div>
+								<a href="/users/{{ $user->id }}" class="btn btn-warning">Back</a>
                 <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
                 <div class="clearfix"></div>
               </form>

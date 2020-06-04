@@ -24,3 +24,4 @@ Route::get('/home', 'PagesController@dashboard')->name('home')->middleware('auth
 // Route::get('/user', 'PagesController@user')->name('user')->middleware('auth');
 
 Route::resource('users', 'UsersController')->middleware('auth');
+Route::resource('suppliers', 'SuppliersController')->middleware('auth');

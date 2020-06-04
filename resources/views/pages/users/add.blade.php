@@ -65,7 +65,7 @@
                     <option selected value="">-- Pilih Hak Akses --</option>
                     <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
                     <option value="pimpinan" {{ old('role') == 'pimpinan' ? 'selected' : '' }}>Pimpinan</option>
-                    <option value="sales" {{ old('role') == 'user' ? 'selected' : '' }}>User</option>
+                    <option value="sales" {{ old('role') == 'sales' ? 'selected' : '' }}>Sales</option>
                   </select>
                   @error('role')
                     <div class="invalid-feedback">
@@ -95,7 +95,7 @@
                 </div>
 
                 <div class="mt-3">
-                  <label for="images">Foto *</label>
+                  <label for="images">Foto</label>
                   <input type="file" class="form-control-file @error('images') is-invalid @enderror" name="images" id="images">
                   @error('images')
                     <div class="invalid-feedback">
