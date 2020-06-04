@@ -124,7 +124,7 @@ class UsersController extends Controller
         //
         $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|email:rfc,dns|unique:App\User,email->ignore($user->email)',
+            'email' => 'required|email:rfc,dns|unique:App\User,email->ignore($user->email)',            
             'phone' => 'required|max:13',
             'images' => 'file|image|mimes:jpeg,png,jpg|max:2048',
             'first_name' => 'max:255',
@@ -132,6 +132,13 @@ class UsersController extends Controller
             'address' => 'max:255',
             'description' => 'max:255'
         ]);
+
+        if ($request->password != null) {
+            # code...
+            $request->validate([
+                'password' => 'string|min:8|confirmed'
+            ]);
+        }
 
         if ($request->file('images') != null) {
             # code...
@@ -175,5 +182,7 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         //
+        User::destroy($user->id);
+        return redirect('/users')->with('status', 'Data berhasil dihapus');
     }
 }

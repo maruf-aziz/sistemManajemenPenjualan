@@ -21,7 +21,7 @@
             </div>
             
             <div class="card-body">
-              <form method="post" action="/users/{{ $user->id }}" enctype="multipart/form-data">
+              <div>
                 @method('patch')
                 @csrf
                 <div class="row">
@@ -99,7 +99,7 @@
 									<button type="button" data-nama="{{ $user->name }}" data-formid="{{ $user->id }}" class="btn btn-danger pull-right delete-btn">Delete</button>
 								</form>
                 <div class="clearfix"></div>
-              </form>
+              </div>
             </div>
           </div>
         </div>

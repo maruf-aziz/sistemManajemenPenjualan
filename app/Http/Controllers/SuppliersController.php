@@ -15,6 +15,10 @@ class SuppliersController extends Controller
     public function index()
     {
         //
+        $data = array(
+            'suppliers' => Supplier::all()
+        );
+        return view('pages.suppliers.index', $data);
     }
 
     /**
@@ -36,6 +40,16 @@ class SuppliersController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'unique:App\Supplier,email',
+            'phone' => 'required|max:13',
+        ]);
+        
+        Supplier::create($request->all());
+
+        return redirect('/suppliers')->with('status', 'Data berhasil ditambah');
+
     }
 
     /**
@@ -47,6 +61,7 @@ class SuppliersController extends Controller
     public function show(Supplier $supplier)
     {
         //
+        return view('pages.suppliers.show', compact('supplier'));
     }
 
     /**
@@ -70,6 +85,20 @@ class SuppliersController extends Controller
     public function update(Request $request, Supplier $supplier)
     {
         //
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'unique:App\Supplier,email->ignore($supplier->email)',
+            'phone' => 'required|max:13',
+        ]);
+
+        Supplier::where('id', $supplier->id)
+                ->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                ]);
+        
+        return redirect('/suppliers')->with('status', 'Data berhasil diubah');
     }
 
     /**
@@ -81,5 +110,7 @@ class SuppliersController extends Controller
     public function destroy(Supplier $supplier)
     {
         //
+        Supplier::destroy($supplier->id);
+        return redirect('/suppliers')->with('status', 'Data berhasil dihapus');
     }
 }

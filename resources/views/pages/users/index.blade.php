@@ -100,6 +100,30 @@
                   </div>
                 </div>
                 <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">New Password</label>
+                      <input type="password" class="form-control @error('password') is-invalid @enderror" name="password">
+                      @error('password')
+                      <div class="invalid-feedback">
+                          {{ $message }}
+                      </div>
+                      @enderror
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Konfirmasi Password *</label>
+                      <input type="password" class="form-control @error('password-confirm') is-invalid @enderror" name="password_confirmation" id="password-confirm">
+                      @error('password-confirm')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                      @enderror
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>About Me</label>
