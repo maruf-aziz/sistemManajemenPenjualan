@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Supplier;
+use App\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class SuppliersController extends Controller
+class CustomersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,10 @@ class SuppliersController extends Controller
     {
         //
         $data = array(
-            'suppliers' => Supplier::all()
+            'customers' => Customer::all()
         );
-        return view('pages.suppliers.index', $data);
+
+        return view('pages.customers.index', $data);
     }
 
     /**
@@ -43,38 +44,38 @@ class SuppliersController extends Controller
         //
         $request->validate([
             'name' => 'required|max:255',
-            // 'email' => 'unique:App\Supplier,email',
+            // 'email' => 'unique:App\Customer,email',
             'email' => [
-                Rule::unique('suppliers')->where('email', !null),
+                Rule::unique('customers')->where('email', !null),
             ],
             'phone' => 'required|max:13',
+            'address' => 'max:255',
         ]);
         
-        Supplier::create($request->all());
+        Customer::create($request->all());
 
-        return redirect('/suppliers')->with('status', 'Data berhasil ditambah');
-
+        return redirect('/customers')->with('status', 'Data berhasil ditambah');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Supplier  $supplier
+     * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function show(Supplier $supplier)
+    public function show(Customer $customer)
     {
         //
-        return view('pages.suppliers.show', compact('supplier'));
+        return view('pages.customers.show', compact('customer'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Supplier  $supplier
+     * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Supplier $supplier)
+    public function edit(Customer $customer)
     {
         //
     }
@@ -83,41 +84,43 @@ class SuppliersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Supplier  $supplier
+     * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Supplier $supplier)
+    public function update(Request $request, Customer $customer)
     {
         //
         $request->validate([
             'name' => 'required|max:255',
-            // 'email' => 'unique:App\Supplier,email->ignore($supplier->email)',
+            // 'email' => 'unique:App\Customer,email->ignore($customer->email)',
             'email' => [
-                Rule::unique('suppliers')->ignore($supplier->id),
+                Rule::unique('customers')->ignore($customer->id),
             ],
             'phone' => 'required|max:13',
+            'address' => 'max:255',
         ]);
-
-        Supplier::where('id', $supplier->id)
+        
+        Customer::where('id', $customer->id)
                 ->update([
                     'name' => $request->name,
                     'email' => $request->email,
                     'phone' => $request->phone,
+                    'address' => $request->address,
                 ]);
-        
-        return redirect('/suppliers')->with('status', 'Data berhasil diubah');
+
+        return redirect('/customers')->with('status', 'Data berhasil diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Supplier  $supplier
+     * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Supplier $supplier)
+    public function destroy(Customer $customer)
     {
         //
-        Supplier::destroy($supplier->id);
-        return redirect('/suppliers')->with('status', 'Data berhasil dihapus');
+        Customer::destroy($customer->id);
+        return redirect('/customers')->with('status', 'Data berhasil dihapus');
     }
 }

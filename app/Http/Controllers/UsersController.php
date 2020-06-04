@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
@@ -124,7 +125,10 @@ class UsersController extends Controller
         //
         $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|email:rfc,dns|unique:App\User,email->ignore($user->email)',            
+            // 'email' => 'required|email:rfc,dns|unique:App\User,email->ignore($user->email)',
+            'email' => [
+                Rule::unique('users')->ignore($user->id),
+            ],         
             'phone' => 'required|max:13',
             'images' => 'file|image|mimes:jpeg,png,jpg|max:2048',
             'first_name' => 'max:255',
@@ -162,7 +166,8 @@ class UsersController extends Controller
                     'name' => $request->name,
                     'email' => $request->email,
                     'phone' => $request->phone,
-                    'role' => $request->role,
+                    'role' => ($request->role != null ? $request->role : $user->role),
+                    'password' => ($request->password != null ? Hash::make($request->password) : $user->password),
                     'first_name' => $request->first_name,
                     'last_name' => $request->last_name,
                     'description' => $request->description,
