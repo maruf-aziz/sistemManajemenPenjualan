@@ -25,6 +25,7 @@ class BrandsController extends Controller
     public function create()
     {
         //
+        return view('pages.brands.add');
     }
 
     /**
@@ -36,6 +37,22 @@ class BrandsController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name.*' => 'required|max:255',
+        ]);
+        
+        if(count($request->name) > 0){
+            foreach ($request->name as $item=> $val) {
+                # code...
+                $data = array(
+                    'name' => $request->name[$item]
+                );
+                // Brand::create($data);
+            }
+           
+        }
+
+        // return redirect('/products')->with('status', 'Data berhasil ditambah');
     }
 
     /**

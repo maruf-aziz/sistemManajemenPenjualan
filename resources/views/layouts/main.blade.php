@@ -32,6 +32,7 @@ The above copyright notice and this permission notice shall be included in all c
   {{-- <link href="/assets/demo/demo.css" rel="stylesheet" /> --}}
 
   <script src="/assets/js/core/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 </head>
@@ -73,8 +74,8 @@ The above copyright notice and this permission notice shall be included in all c
               <p>Customers</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./typography.html">
+          <li class="nav-item {{ Request::segment(1) == 'products' | Request::segment(1) == 'brands' | Request::segment(1) == 'units' ? 'active' : '' }}">
+            <a class="nav-link" href="/products">
               <i class="material-icons">library_books</i>
               <p>Products</p>
             </a>
@@ -136,7 +137,7 @@ The above copyright notice and this permission notice shall be included in all c
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
+            {{-- <form class="navbar-form">
               <div class="input-group no-border">
                 <input type="text" value="" class="form-control" placeholder="Search...">
                 <button type="submit" class="btn btn-white btn-round btn-just-icon">
@@ -144,7 +145,7 @@ The above copyright notice and this permission notice shall be included in all c
                   <div class="ripple-container"></div>
                 </button>
               </div>
-            </form>
+            </form> --}}
             <ul class="navbar-nav">
               {{-- <li class="nav-item">
                 <a class="nav-link" href="javascript:;">
@@ -507,6 +508,7 @@ The above copyright notice and this permission notice shall be included in all c
 
     $(document).ready(function() {
         $('#example').DataTable();
+        $('table.display').DataTable();
     } );
   </script>
 </body>

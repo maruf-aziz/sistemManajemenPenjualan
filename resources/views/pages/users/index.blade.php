@@ -35,7 +35,7 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label class="bmd-label-floating">Name *</label>
-                      <input type="text" class="form-control @error('name') is-invalid @enderror"" name="name" value="{{ Auth::user()->name }}">
+                      <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ Auth::user()->name }}">
                       @error('name')
                       <div class="invalid-feedback">
                           {{ $message }}
