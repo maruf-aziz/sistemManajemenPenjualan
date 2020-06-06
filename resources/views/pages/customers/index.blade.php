@@ -100,7 +100,7 @@
                   @foreach ($customers as $item)
 											<tr>
 												<td scope="row">{{ $loop->iteration }}</td>
-												<td><a href="/customers/{{ $item->id }}" class="badge badge-primary">{{ $item->name }}</a></td>
+												<td><a href="/customers/{{ $item->id }}" class="btn btn-outline-primary btn-sm">{{ $item->name }}</a></td>
 												<td>{{ $item->email }}</td>
 												<td>{{ $item->phone }}</td>
 											</tr>

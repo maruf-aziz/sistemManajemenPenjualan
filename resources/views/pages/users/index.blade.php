@@ -180,7 +180,7 @@
                     <tr>
                       <th scope="row">{{ $loop->iteration }}</th>
                       {{-- <td>{{ $item->name }}</td> --}}
-                      <td><a href="/users/{{ $item->id }}" class="badge badge-primary">{{ $item->name }}</a></td>
+                      <td><a href="/users/{{ $item->id }}" class="btn btn-outline-primary btn-sm">{{ $item->name }}</a></td>
                       <td>{{ $item->email }}</td>
                       <td>{{ $item->phone }}</td>
                       <td>{{ $item->role }}</td>

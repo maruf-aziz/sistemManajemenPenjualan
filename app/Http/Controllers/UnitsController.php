@@ -83,6 +83,12 @@ class UnitsController extends Controller
     public function update(Request $request, Unit $unit)
     {
         //
+        Unit::where('id_unit', $unit->id_unit)
+                ->update([
+                    'unit' => $request->unit,
+                ]);
+
+        return redirect('/products')->with('status', 'Data berhasil diubah');
     }
 
     /**

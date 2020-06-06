@@ -84,6 +84,12 @@ class BrandsController extends Controller
     public function update(Request $request, Brand $brand)
     {
         //
+        Brand::where('id_brands', $brand->id_brands)
+                ->update([
+                    'name' => $request->name,
+                ]);
+
+        return redirect('/products')->with('status', 'Data berhasil diubah');
     }
 
     /**

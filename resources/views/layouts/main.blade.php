@@ -28,12 +28,61 @@ The above copyright notice and this permission notice shall be included in all c
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
   <link href="/assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   {{-- <link href="/assets/demo/demo.css" rel="stylesheet" /> --}}
 
   <script src="/assets/js/core/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/accounting.js/0.4.1/accounting.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/accounting.js/0.4.1/accounting.min.js"></script>
+
+  <style>
+    .input-css{
+      padding: .2em .2em .2em .2em;
+      border: 1px solid #aaa;
+      border-radius: .5em;
+    }
+
+    .select-css {
+      display: block;
+      font-size: 14px;
+      font-family: sans-serif;
+      font-weight: 700;
+      color: #444;
+      line-height: 1.5;
+      padding: .3em 1.4em .5em .8em;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      margin: 0;
+      border: 1px solid #aaa;
+      box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+      border-radius: .5em;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .select-css::-ms-expand {
+      display: none;
+    }
+    .select-css:hover {
+      border-color: #888;
+    }
+    .select-css:focus {
+      border-color: #aaa;
+      box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+      box-shadow: 0 0 0 3px -moz-mac-focusring;
+      color: #222;
+      outline: none;
+    }
+    .select-css option {
+      font-weight:normal;
+    }
+  </style>
+  
 
 </head>
 
@@ -514,6 +563,8 @@ The above copyright notice and this permission notice shall be included in all c
           "lengthMenu": [[5, 20, 50, -1], [5, 20, 50, "All"]]
         });
     } );
+
+    
   </script>
 </body>
 

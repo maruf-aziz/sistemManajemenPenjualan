@@ -37,7 +37,7 @@
 										<tbody>
 											<tr>
 												<td>
-													<input type="text" class="name" style="width: 100%;" id="name" name="name[]" value="" required>
+													<input type="text" class="input-css name" style="width: 100%;" id="name" name="name[]" value="" required>
 												</td>
 												<td align="center">
 													<a href="#" class="btn btn-danger remove">X</a>
@@ -46,7 +46,7 @@
 										</tbody>
 									</table>
 									<button type="submit" class="btn btn-primary pull-right">Simpan</button>
-									<a href="/products" class="btn btn-warning">Back</a>
+									<a href="/products" class="btn btn-warning">Kembali</a>
 								</form>
 							</div>
 						</div>
@@ -65,7 +65,7 @@
 		function addRow(){
 			var row = $('tbody tr').length;
 			var tr = '<tr>'+
-							'<td><input type="text" class="name" style="width: 100%;" id="name'+row+'" name="name[]" value="" required></td>'+
+							'<td><input type="text" class="input-css name" style="width: 100%;" id="name'+row+'" name="name[]" value="" required></td>'+
 							'<td align="center"><a href="#" class="btn btn-danger remove">X</a></td>'+
 							'</tr>';
 
