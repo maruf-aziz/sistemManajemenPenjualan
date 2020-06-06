@@ -17,7 +17,7 @@
         <div class="col-md-8">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Update User</h4>
+              <h4 class="card-title">Edit User</h4>
             </div>
             
             <div class="card-body">
@@ -116,8 +116,8 @@
                     </div>
                   </div>
 								</div>
-								<a href="/users/{{ $user->id }}" class="btn btn-warning">Back</a>
-                <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
+								<a href="/users/{{ $user->id }}" class="btn btn-warning">Kembali</a>
+                <button type="submit" class="btn btn-primary pull-right">Simpan Edit</button>
                 <div class="clearfix"></div>
               </form>
             </div>

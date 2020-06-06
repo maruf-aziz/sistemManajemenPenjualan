@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Brand;
+use App\Unit;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -15,7 +17,11 @@ class ProductsController extends Controller
     public function index()
     {
         //
-        return view('pages.products.index');
+        $data = array(
+            'brands' => Brand::all(),
+            'units' => Unit::all(),
+        );
+        return view('pages.products.index', $data);
     }
 
     /**

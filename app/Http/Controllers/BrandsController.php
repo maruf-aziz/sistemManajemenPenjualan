@@ -37,9 +37,6 @@ class BrandsController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate([
-            'name.*' => 'required|max:255',
-        ]);
         
         if(count($request->name) > 0){
             foreach ($request->name as $item=> $val) {
@@ -47,12 +44,12 @@ class BrandsController extends Controller
                 $data = array(
                     'name' => $request->name[$item]
                 );
-                // Brand::create($data);
+                Brand::create($data);
             }
            
         }
 
-        // return redirect('/products')->with('status', 'Data berhasil ditambah');
+        return redirect('/products')->with('status', 'Data berhasil ditambah');
     }
 
     /**
@@ -98,5 +95,7 @@ class BrandsController extends Controller
     public function destroy(Brand $brand)
     {
         //
+        Brand::destroy($brand->id_brands);
+        return redirect('/products')->with('status', 'Data berhasil dihapus');
     }
 }

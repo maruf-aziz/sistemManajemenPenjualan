@@ -12,7 +12,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Upate Customer</h4>
+              <h4 class="card-title">Edit Customer</h4>
             </div>
             
             <div class="card-body">
@@ -67,14 +67,14 @@
 										</div>
 									</div>
 								</div>
-								<button type="submit" class="btn btn-primary pull-right">Update</button>
+								<button type="submit" class="btn btn-primary pull-right">Edit</button>
 								
                 <div class="clearfix"></div>
 							</form>
 							<form action="{{ $customer->id }}" method="POST" class="d-inline" id="delete{{ $customer->id }}">
 								@method('delete')
 								@csrf
-								<button type="button" data-nama="{{ $customer->name }}" data-formid="{{ $customer->id }}" class="btn btn-danger pull-right delete-btn">Delete</button>
+								<button type="button" data-nama="{{ $customer->name }}" data-formid="{{ $customer->id }}" class="btn btn-danger pull-right delete-btn">Hapus</button>
 							</form>
             </div>
           </div>

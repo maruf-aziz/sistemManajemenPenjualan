@@ -1,8 +1,8 @@
 @extends('layouts/main')
 
-@section('title', 'Brands')
+@section('title', 'Satuan')
 
-@section('title_pages', 'Brands')
+@section('title_pages', 'Satuan')
 
 @section('content')
 
@@ -18,17 +18,17 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Tambah Brands</h4>
+              <h4 class="card-title">Tambah Satuan</h4>
             </div>
 						
 						<div class="container">
 							<div class="card-body">
-								<form method="post" action="/brands" enctype="multipart/form-data">
+								<form method="post" action="/units" enctype="multipart/form-data">
 									@csrf
 									<table class="table table-striped">
 										<thead align="center">
 											<tr>
-												<th scope="col">Nama Merek (Brands)</th>
+												<th scope="col">Nama Satuan</th>
 												<th scope="col" width="100px">
 													<a href="#" class="btn btn-success addRow">+</a>
 												</th>

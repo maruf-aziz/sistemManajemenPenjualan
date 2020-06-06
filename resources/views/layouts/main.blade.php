@@ -508,7 +508,11 @@ The above copyright notice and this permission notice shall be included in all c
 
     $(document).ready(function() {
         $('#example').DataTable();
-        $('table.display').DataTable();
+        $('table.display').DataTable({
+          "pageLength": 5,
+          "ordering": false,
+          "lengthMenu": [[5, 20, 50, -1], [5, 20, 50, "All"]]
+        });
     } );
   </script>
 </body>

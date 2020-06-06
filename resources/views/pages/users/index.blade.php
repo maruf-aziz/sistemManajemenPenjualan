@@ -17,8 +17,7 @@
         <div class="col-md-8">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">My Profile</h4>
-              <p class="card-category">Complete your profile</p>
+              <h4 class="card-title">Profil Saya</h4>
             </div>
             
             <div class="card-body">
@@ -133,7 +132,7 @@
                     </div>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
+                <button type="submit" class="btn btn-primary pull-right">Simpan Edit</button>
                 <div class="clearfix"></div>
               </form>
             </div>
@@ -162,7 +161,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">All User</h4>              
+              <h4 class="card-title">Data User</h4>              
             </div>
             <div class="card-body">
               <a href="/users/create" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>

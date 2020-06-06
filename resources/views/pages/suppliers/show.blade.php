@@ -54,14 +54,14 @@
                     </div>
                   </div>
                 </div>
-								<button type="submit" class="btn btn-primary pull-right">Update</button>
+								<button type="submit" class="btn btn-primary pull-right">Edit</button>
 								
                 <div class="clearfix"></div>
 							</form>
 							<form action="{{ $supplier->id }}" method="POST" class="d-inline" id="delete{{ $supplier->id }}">
 								@method('delete')
 								@csrf
-								<button type="button" data-nama="{{ $supplier->name }}" data-formid="{{ $supplier->id }}" class="btn btn-danger pull-right delete-btn">Delete</button>
+								<button type="button" data-nama="{{ $supplier->name }}" data-formid="{{ $supplier->id }}" class="btn btn-danger pull-right delete-btn">Hapus</button>
 							</form>
             </div>
           </div>

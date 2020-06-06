@@ -25,6 +25,7 @@ class UnitsController extends Controller
     public function create()
     {
         //
+        return view('pages.units.add');
     }
 
     /**
@@ -36,6 +37,18 @@ class UnitsController extends Controller
     public function store(Request $request)
     {
         //
+        if(count($request->name) > 0){
+            foreach ($request->name as $item=> $val) {
+                # code...
+                $data = array(
+                    'unit' => $request->name[$item]
+                );
+                Unit::create($data);
+            }
+           
+        }
+
+        return redirect('/products')->with('status', 'Data berhasil ditambah');
     }
 
     /**
@@ -81,5 +94,7 @@ class UnitsController extends Controller
     public function destroy(Unit $unit)
     {
         //
+        Unit::destroy($unit->id_unit);
+        return redirect('/products')->with('status', 'Data berhasil dihapus');
     }
 }

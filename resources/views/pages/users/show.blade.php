@@ -91,12 +91,12 @@
                     </div>
                   </div>
                 </div>
-                <a href="/users" class="btn btn-warning">Back</a>
-                <a href="{{ $user->id }}/edit" class="btn btn-success pull-right">Update</a>
+                <a href="/users" class="btn btn-warning">Kembali</a>
+                <a href="{{ $user->id }}/edit" class="btn btn-success pull-right">Edit</a>
                 <form action="{{ $user->id }}" method="POST" class="d-inline" id="{{ $user->id }}">
 									@method('delete')
 									@csrf
-									<button type="button" data-nama="{{ $user->name }}" data-formid="{{ $user->id }}" class="btn btn-danger pull-right delete-btn">Delete</button>
+									<button type="button" data-nama="{{ $user->name }}" data-formid="{{ $user->id }}" class="btn btn-danger pull-right delete-btn">Hapus</button>
 								</form>
                 <div class="clearfix"></div>
               </div>

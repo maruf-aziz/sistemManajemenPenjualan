@@ -28,3 +28,4 @@ Route::resource('suppliers', 'SuppliersController')->middleware('auth');
 Route::resource('customers', 'CustomersController')->middleware('auth');
 Route::resource('products', 'ProductsController')->middleware('auth');
 Route::resource('brands', 'BrandsController')->middleware('auth');
+Route::resource('units', 'UnitsController')->middleware('auth');
