@@ -129,8 +129,8 @@ The above copyright notice and this permission notice shall be included in all c
               <p>Products</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./map.html">
+          <li class="nav-item {{ Request::segment(1) == 'transactions' ? 'active' : '' }}">
+            <a class="nav-link" href="/transactions">
               <i class="material-icons">monetization_on</i>
               <p>Transaction</p>
             </a>

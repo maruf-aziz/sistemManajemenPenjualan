@@ -135,5 +135,7 @@ class ProductsController extends Controller
     public function destroy(Product $product)
     {
         //
+        Product::destroy($product->id_product);
+        return redirect('/products')->with('status', 'Data berhasil dihapus');
     }
 }

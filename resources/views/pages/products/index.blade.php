@@ -129,7 +129,7 @@
 																@method('patch')
 																@csrf	
 																<div class="form-group">
-																	<label for="name">Nama Merek</label>
+																	<label for="name">Nama Satuan</label>
 																	<input type="text" class="input-css" id="unit" name="unit" value="{{ $item->unit }}" style="width: 100%" required>
 																</div>
 																<div class="modal-footer">
