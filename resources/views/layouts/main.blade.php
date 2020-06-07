@@ -132,7 +132,13 @@ The above copyright notice and this permission notice shall be included in all c
           <li class="nav-item {{ Request::segment(1) == 'transactions' ? 'active' : '' }}">
             <a class="nav-link" href="/transactions">
               <i class="material-icons">monetization_on</i>
-              <p>Transaction</p>
+              <p>Sales Transaction</p>
+            </a>
+          </li>
+          <li class="nav-item {{ Request::segment(1) == 'dssd' ? 'active' : '' }}">
+            <a class="nav-link" href="/transactions">
+              <i class="material-icons">add_shopping_cart</i>
+              <p>Product Buying</p>
             </a>
           </li>
           <li class="nav-item ">
@@ -561,6 +567,11 @@ The above copyright notice and this permission notice shall be included in all c
           "pageLength": 5,
           "ordering": false,
           "lengthMenu": [[5, 20, 50, -1], [5, 20, 50, "All"]]
+        });
+        $('#transaksi').DataTable({
+          "pageLength": 10,
+          "ordering": false,
+          "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]]
         });
     } );
 

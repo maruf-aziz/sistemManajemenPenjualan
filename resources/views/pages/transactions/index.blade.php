@@ -22,20 +22,30 @@
             </div>
             <div class="card-body">
 							<a href="/transactions/create" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>
-              <table class="table table-hover display" style="width:100%">
+              <table class="table table-hover" id="transaksi" style="width:100%">
                 <thead>
                   <tr>
                     <th scope="col" width="5%">#</th>
-                    <th scope="col" width="25%">Nama</th>
-                    <th scope="col" width="20%">Merek</th>
-                    <th scope="col" width="15%">Harga</th>
-                    <th scope="col" width="10%">Stok</th>
-                    <th scope="col" width="10%">Satuan</th>
-										<th scope="col" width="15%">Update Terakhir</th>
+                    <th scope="col" width="25%">Pelanggan</th>
+                    <th scope="col" width="20%">Tanggal</th>
+                    <th scope="col" width="10%">Disc</th>
+                    <th scope="col" width="10%">PPN</th>
+                    <th scope="col" width="15%">Total</th>
+                    <th scope="col" width="15%">Petugas</th>
                   </tr>
                 </thead>
                 <tbody>
-                  
+                  @foreach ($transactions as $item)
+											<tr>
+												<td>{{ $loop->iteration }}</td>
+												<td><a href="/transactions/{{ $item->id_tr }}" class="btn btn-outline-primary btn-sm">{{ $item->pelanggan }}</a></td>
+												<td>{{ $item->dibuat }}</td>
+												<td>{{ $item->disc }} %</td>
+												<td>@currency($item->tax)</td>
+												<td>@currency($item->total_cost)</td>
+												<td>{{ $item->petugas }}</td>
+											</tr>
+									@endforeach
                 </tbody>
               </table>
             </div>

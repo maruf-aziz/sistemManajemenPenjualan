@@ -75,17 +75,25 @@
 									<label for="">Merek</label>
 									<input type="text" class="input-css name" style="width: 100%; border: 1px solid red;" id="field-merek" value="" disabled>
 								</div>
-								<div class="col-md-2">
+								<div class="col-md-1">
 									<label for="">harga</label>
 									<input type="text" class="input-css name" style="width: 100%; border: 1px solid red;" id="field-harga" value="" disabled>
 								</div>
-								<div class="col-md-2">
+								<div class="col-md-1">
+									<label for="">Satuan</label>
+									<input type="text" class="input-css name" style="width: 100%; border: 1px solid red;" id="field-satuan" value="" disabled>
+								</div>
+								<div class="col-md-1">
 									<label for="">Stok</label>
 									<input type="text" class="input-css name" style="width: 100%; border: 1px solid red;" id="field-stock" disabled>
 								</div>
+								<div class="col-md-1">
+									<label for="">Disc item%</label>
+									<input type="text" class="input-css name" style="width: 100%;" id="field-disc" value="" maxlength="2" onkeypress="return hanyaAngka(event)" required>
+								</div>
 								<div class="col-md-2">
 									<label for="">Beli</label>
-									<input type="text" class="input-css name" style="width: 100%;" id="field-beli" value="" onkeypress="return hanyaAngka(event)" required>
+									<input type="text" class="input-css name" style="width: 100%;" id="field-beli" value="" maxlength="2" onkeypress="return hanyaAngka(event)" required>
 								</div>
 							</div>
 							<button type="button" id="tambahItem" class="btn btn-primary pull-right mt-5 addRow">Tambah Item</button>
@@ -102,7 +110,7 @@
               <h4 class="card-title">List Item Terpilih</h4>
             </div>
 						<div class="card-body">
-							<form method="post" action="/products" enctype="multipart/form-data">
+							<form method="post" action="/transactions" enctype="multipart/form-data">
 								@csrf
 								<table class="table table-striped" id="dataItem">
 									<thead align="center">
@@ -115,9 +123,10 @@
 											<th scope="col" width="10%">#</th> --}}
 
 											<th scope="col" width="30%"></th>
+											<th scope="col" width="15%"></th>
+											<th scope="col" width="15%"></th>
+											<th scope="col" width="15%"></th>
 											<th scope="col" width="20%"></th>
-											<th scope="col" width="20%"></th>
-											<th scope="col" width="25%"></th>
 											<th scope="col" width="5%"></th>
 										</tr>
 									</thead>
@@ -125,11 +134,12 @@
 										<tr>
 											<td colspan="2">
 												<label for="">Nama Pelanggan</label>
-												<select name="customers_id" id="pelanggan" style="width: 100%" required>
+												<select name="customer_id" id="pelanggan" style="width: 100%" required>
 													<option value="">-- Cari Pelanggan --</option>
 													@foreach ($customers as $item)
 															<option value="{{ $item->id }}">{{ $item->name }}</option>
 													@endforeach
+													<input type="hidden" name="user_id" value="{{ Auth::user()->id }}" readonly>
 												</select>
 											</td>
 										</tr>
@@ -159,14 +169,30 @@
 									</tbody>
 									<tfoot>
 										<tr>
-											<td colspan="2"></td>
+											<td colspan="3"></td>
 											<td colspan="1">
-												<label for="">PPN 10%</label>
-												<input type="text" class="form-control" style="width: 100%;" id="tax" name="tax" value="" required readonly>
+												<label for="">Discount %</label>
+												<input type="text" class="form-control" style="width: 100%;" id="discount" name="disc" value="" maxlength="2" onkeypress="return hanyaAngka(event)" required>
 											</td>
 											<td colspan="1">
-												<label for="">Total</label>
-												<input type="text" class="form-control" style="width: 100%;" id="total" name="Total" value="" required readonly>
+												<label for="">Total Awal</label>
+												<input type="text" class="form-control" style="width: 100%;" id="first_total" value="" maxlength="2" readonly>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3"></td>											
+											<td colspan="1">
+												<label for="">PPN 10%</label>
+												<input type="text" class="form-control" style="width: 100%;" id="tax" name="tax" value="" readonly>
+											</td>
+											<td colspan="1">
+												<label for="">Total Akhir</label>
+												<input type="text" class="form-control" style="width: 100%;" id="total" name="total_cost" value="" readonly>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="5" align="right">
+												<input type="checkbox" required> Saya menyatakan transaksi ini sudah benar
 											</td>
 										</tr>
 									</tfoot>
@@ -194,9 +220,11 @@
 			$('#field-merek').val(merek);
 			$('#field-hargaInt').val(hargaInt);
 			$('#field-stock').val(stock);
+			$('#field-satuan').val(satuan);
 		}
 
 		$('.addRow').on('click', function(){
+			$('#discount').val(0);
 			addRow();
 		});
 
@@ -239,13 +267,23 @@
 
 			else{
 				var nama = $('#field-product option:selected').attr('nama');
+				var id = $('#field-product option:selected').val();
 				var harga = $('#field-product option:selected').attr('harga');
 				var hargaInt = $('#field-product option:selected').attr('hargaInt');
 				var merek = $('#field-product option:selected').attr('merek');
 				var stock = $('#field-product option:selected').attr('stock');
 				var beli = $('#field-beli').val();
+				var disc = $('#field-disc').val();
+				var discInt;
 
-				var subTotal = parseInt(hargaInt) * parseInt(beli);
+				if (disc == '') {
+					discInt = 0;
+				}
+				else{
+					discInt = parseInt(disc);
+				}
+
+				var subTotal = parseInt(hargaInt) * parseInt(beli) - (parseInt(hargaInt) * parseInt(beli)) * discInt / 100;
 				// var tax = 0.1 * subTotal;
 
 				var subTotalRP = formatCurrency(subTotal);
@@ -257,18 +295,25 @@
 												'<td>'+
 													'<label for="">Nama Produk</label>'+
 													'<input type="text" class="form-control" style="width: 100%;" id="name" name="name_product[]" value="'+nama+'" readonly>'+
+													'<input type="hidden" class="form-control" style="width: 100%;" id="product_id" name="product_id[]" value="'+id+'" readonly>'+
 												'</td>'+
 												'<td>'+
 													'<label for="">Harga</label>'+
 													'<input type="text" class="form-control" style="width: 100%;" id="price" name="price[]" value="'+harga+'" readonly>'+
+													'<input type="hidden" class="form-control" style="width: 100%;" id="price" name="unit_price[]" value="'+hargaInt+'" readonly>'+
+												'</td>'+
+												'<td>'+
+													'<label for="">Disc Item %</label>'+
+													'<input type="text" class="form-control" style="width: 100%;" id="disc" name="disc_item[]" value="'+discInt+'" readonly>'+
 												'</td>'+
 												'<td>'+
 													'<label for="">Beli</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" id="stock" name="beli[]" value="'+beli+'" readonly>'+
+													'<input type="text" class="form-control" style="width: 100%;" id="stock" name="amount[]" value="'+beli+'" readonly>'+
 												'</td>'+
 												'<td>'+
 													'<label for="">Sub Total</label>'+
-													'<input type="text" class="form-control subTotal" style="width: 100%;" id="subTotal" name="subTotal[]" value="'+subTotalRP+'" readonly>'+
+													'<input type="text" class="form-control subTotal" style="width: 100%;" id="subTotal" name="sub[]" value="'+subTotalRP+'" readonly>'+
+													'<input type="hidden" class="form-control subTotal" style="width: 100%;" id="subTotal" name="subTotal[]" value="'+subTotal+'" readonly>'+
 												'</td>'+
 												'<td align="center">'+
 													'<label for="">Hapus</label>'+
@@ -278,6 +323,7 @@
 								'</tr>';
 
 				set_total(subTotal);
+				set_discount();
 
 				$('tbody').append(tr);
 
@@ -286,6 +332,7 @@
 				$('#field-hargaInt').val('');
 				$('#field-stock').val('');
 				$('#field-beli').val('');
+				$('#field-disc').val('');
 				$('#field-product').val(null).trigger('change');
 			}
 
@@ -296,12 +343,25 @@
 		var tax = 0;
 		function set_total(subTotal){
 			
-				total += subTotal;
+			total += subTotal;
 
 				
 			tax = 0.1 * total;
+			$('#first_total').val(formatCurrency(total));
 			$('#total').val(formatCurrency(total));
 			$('#tax').val(formatCurrency(tax));
+			
+		}
+
+		function set_discount(){
+			$('#discount').on('keyup', function() {
+				var discount = $(this).val();
+				var totalAkhir = total - (parseInt(discount) * total / 100);
+
+				tax = 0.1 * totalAkhir;
+				$('#total').val(formatCurrency(totalAkhir));
+				$('#tax').val(formatCurrency(tax));
+			});
 		}
 		
 		$('.remove').live('click', function(){
@@ -319,7 +379,9 @@
 				// console.log(sub);
 				total = total-sub;
 				tax = 0.1 * total;
-				
+
+				$('#discount').val(0);
+				$('#first_total').val(formatCurrency(total));
 				$('#total').val(formatCurrency(total));
 				$('#tax').val(formatCurrency(tax));
 
@@ -328,6 +390,7 @@
 			}
 			
 		});
+		
 
 		$(document).ready(function() {
         $('#pelanggan').select2();
