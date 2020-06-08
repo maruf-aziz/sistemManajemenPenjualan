@@ -115,12 +115,20 @@ class TransactionsController extends Controller
     {
         //
         $data = array(
-            'transactions' => Transaction::select('*', 'customers.name AS pelanggan', 'users.name AS petugas', 'transactions.created_at AS dibuat', 'transactions.id AS id_tr')
+            'transactions' => Transaction::select('*', 'customers.name AS pelanggan', 'users.name AS petugas', 'transactions.created_at AS dibuat', 'transactions.id AS id_tr', 'customers.address AS alamat')
                                         ->join('customers', 'transactions.customer_id','=','customers.id')
                                         ->join('users', 'transactions.user_id', '=', 'users.id')
                                         ->where('transactions.id', $transaction->id)
                                         ->orderby('transactions.created_at','DESC')
-                                        ->first()
+                                        ->first(),
+            
+            'detail' => Detail_Transaction::join('transactions', 'detail_transactions.transaction_id', '=', 'transactions.id')
+                                        ->join('products','detail_transactions.product_id','=','products.id_product')
+                                        ->join('brands','products.brand_id', '=','brands.id_brands')
+                                        ->join('units', 'products.unit_id','=','units.id_unit')
+                                        ->where('transaction_id', $transaction->id)
+                                        ->get(),
+            'total' => Detail_Transaction::where('transaction_id', $transaction->id)->sum('subTotal')
         );
         return view('pages.transactions.show', $data);
     }

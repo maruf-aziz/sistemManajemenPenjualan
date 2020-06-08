@@ -30,8 +30,9 @@
                     <th scope="col" width="20%">Tanggal</th>
                     <th scope="col" width="10%">Disc</th>
                     <th scope="col" width="10%">PPN</th>
-                    <th scope="col" width="15%">Total</th>
-                    <th scope="col" width="15%">Petugas</th>
+                    <th scope="col" width="10%">Total</th>
+                    <th scope="col" width="10%">Status</th>
+                    <th scope="col" width="10%">Petugas</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -43,6 +44,7 @@
 												<td>{{ $item->disc }} %</td>
 												<td>@currency($item->tax)</td>
 												<td>@currency($item->total_cost)</td>
+												<td>{{ $item->status }}</td>
 												<td>{{ $item->petugas }}</td>
 											</tr>
 									@endforeach

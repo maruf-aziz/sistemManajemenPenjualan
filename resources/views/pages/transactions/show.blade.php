@@ -21,65 +21,44 @@
             </div>
             
             <div class="card-body">
-              <form method="post" action="/users/{{ Auth::user()->id }}" enctype="multipart/form-data">
+              <form method="post" action="" enctype="multipart/form-data">
                 @method('patch')
                 @csrf
                 <div class="row">
                   <div class="col-md-5">
                     <div class="form-group">
-                      <label class="bmd-label-floating">Company (disabled)</label>
-                      <input type="text" class="form-control" value="Apotik Sugih Waras" disabled>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label class="bmd-label-floating">Name *</label>
-                      <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ Auth::user()->name }}">
-                      @error('name')
-                      <div class="invalid-feedback">
-                          {{ $message }}
-                      </div>
-                    @enderror
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label class="bmd-label-floating">Email address *</label>
-                      <input type="email" class="form-control @error('email') is-invalid @enderror"" name="email" value="{{ Auth::user()->email }}">
-                      @error('email')
-                      <div class="invalid-feedback">
-                          {{ $message }}
-                      </div>
-                    @enderror
+                      <label class="bmd-label-floating">Tanggal Transaksi</label>
+                      <input type="text" class="form-control" value="{{ $transactions->dibuat }}" disabled>
                     </div>
                   </div>
                 </div>
-                <div class="row">
+                <div class="row">                  
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label class="bmd-label-floating">Fist Name</label>
-                      <input type="text" class="form-control" name="first_name" value="{{ Auth::user()->first_name }}">
+                      <label class="bmd-label-floating">Discount </label>
+                      <input type="text" class="form-control" name="last_name" value="{{ $transactions->disc }} %">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label class="bmd-label-floating">Last Name</label>
-                      <input type="text" class="form-control" name="last_name" value="{{ Auth::user()->last_name }}">
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label class="bmd-label-floating">Phone *</label>
-                      <input type="text" class="form-control @error('phone') is-invalid @enderror"" name="phone" value="{{ Auth::user()->phone }}">
+                      <label class="bmd-label-floating">PPN 10%</label>
+                      <input type="text" class="form-control @error('phone') is-invalid @enderror"" name="phone" value="@currency($transactions->tax)">
                       @error('phone')
                       <div class="invalid-feedback">
                           {{ $message }}
                       </div>
                     @enderror
                     </div>
+									</div>
+									<div class="col-md-4">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Total</label>
+                      <input type="text" class="form-control" name="first_name" value="@currency($transactions->total_cost)">
+                    </div>
                   </div>
-                </div>
-                <button type="submit" class="btn btn-primary pull-right">Simpan Edit</button>
+								</div>
+								<a href="/transactions" class="btn btn-warning">Kembali</a>
+                <button type="button" class="btn {{ $transactions->status == 'sukses' ? 'btn-outline-success' : 'btn-outline-danger' }} pull-right">{{ $transactions->status }}</button>
                 <div class="clearfix"></div>
               </form>
             </div>
@@ -95,7 +74,7 @@
             <div class="card-body">
               <h6 class="card-category text-gray">Customer</h6>
               <h4 class="card-title">{{ $transactions->pelanggan }}</h4>
-              <h5 class="card-title">{{ $transactions->address }}</h5>
+              <h5 class="card-title">{{ $transactions->alamat }}</h5>
             </div>
           </div>
         </div>
@@ -108,20 +87,34 @@
               <h4 class="card-title">Detail Item</h4>              
             </div>
             <div class="card-body">
-              <a href="/users/create" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>
               <table class="table table-hover" id="example" style="width:100%">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nama</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">No Phone</th>
-                    <th scope="col">Akses</th>
+                    <th scope="col">Produk</th>
+                    <th scope="col">Merek</th>
+                    <th scope="col">Harga Satuan</th>
+                    <th scope="col">Beli</th>
+                    <th scope="col">Sub Total</th>
                   </tr>
                 </thead>
                 <tbody>
-                  
-                </tbody>
+                  @foreach ($detail as $item)
+										<tr>
+											<td>{{ $loop->iteration }}</td>	
+											<td>{{ $item->name_product }}</td>	
+											<td>{{ $item->name }}</td>	
+											<td>@currency($item->unit_price) /{{ $item->unit }}</td>	
+											<td>{{ $item->amount }}</td>	
+											<td>@currency($item->subTotal)</td>	
+										</tr>											
+									@endforeach
+								</tbody>
+								<tr>
+									<td colspan="4"></td>
+									<th colspan="1" align="right">Total</th>
+									<td>@currency($total)</td>
+								</tr>
               </table>
             </div>
           </div>
