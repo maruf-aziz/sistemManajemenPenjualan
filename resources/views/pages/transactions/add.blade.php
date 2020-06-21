@@ -56,7 +56,7 @@
 								<div class="col-md-4">
 									<label for="">Produk</label>
 									<select name="" id="field-product" style="width: 100%" onchange="cekProduct()">
-										<option seelcted value="">-- Pilih Produk --</option>
+										<option selected value="">-- Pilih Produk --</option>
 										@foreach ($products as $item)
 												<option value="{{ $item->id_product }}" 
 

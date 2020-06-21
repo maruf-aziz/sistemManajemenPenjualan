@@ -30,3 +30,4 @@ Route::resource('products', 'ProductsController')->middleware('auth');
 Route::resource('brands', 'BrandsController')->middleware('auth');
 Route::resource('units', 'UnitsController')->middleware('auth');
 Route::resource('transactions', 'TransactionsController')->middleware('auth');
+Route::resource('purchases', 'PurchasesController')->middleware('auth');

@@ -135,8 +135,8 @@ The above copyright notice and this permission notice shall be included in all c
               <p>Sales Transaction</p>
             </a>
           </li>
-          <li class="nav-item {{ Request::segment(1) == 'dssd' ? 'active' : '' }}">
-            <a class="nav-link" href="/transactions">
+          <li class="nav-item {{ Request::segment(1) == 'purchases' ? 'active' : '' }}">
+            <a class="nav-link" href="/purchases">
               <i class="material-icons">add_shopping_cart</i>
               <p>Product Buying</p>
             </a>
