@@ -87,40 +87,72 @@
               <h4 class="card-title">Detail Item</h4>              
             </div>
             <div class="card-body">
-              <table class="table table-hover" id="example" style="width:100%">
-                <thead>
+              <form method="post" action="/transactions/{{ $transactions->id_tr}}" enctype="multipart/form-data" id="batal{{ $transactions->id_tr }}">
+                @method('patch')
+                @csrf
+                <table class="table table-hover" id="example" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Produk</th>
+                      <th scope="col">Merek</th>
+                      <th scope="col">Harga Satuan</th>
+                      <th scope="col">Beli</th>
+                      <th scope="col">Sub Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <input type="hidden" name="id" value="{{ $transactions->id_tr }}" readonly>
+                    @foreach ($detail as $item)
+                      <tr>
+                        <td>{{ $loop->iteration }}</td>	
+                        <td>{{ $item->name_product }}</td>	
+                        <input type="hidden" name="product_id[]" value="{{ $item->product_id }}" readonly>
+                        <input type="hidden" name="amount[]" value="{{ $item->amount }}" readonly>
+                        <td>{{ $item->name }}</td>	
+                        <td>@currency($item->unit_price) /{{ $item->unit }}</td>	
+                        <td>{{ $item->amount }}</td>	
+                        <td>@currency($item->subTotal)</td>	
+                      </tr>											
+                    @endforeach
+                  </tbody>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Produk</th>
-                    <th scope="col">Merek</th>
-                    <th scope="col">Harga Satuan</th>
-                    <th scope="col">Beli</th>
-                    <th scope="col">Sub Total</th>
+                    <td colspan="4"></td>
+                    <th colspan="1" align="right">Total</th>
+                    <td>@currency($total)</td>
                   </tr>
-                </thead>
-                <tbody>
-                  @foreach ($detail as $item)
-										<tr>
-											<td>{{ $loop->iteration }}</td>	
-											<td>{{ $item->name_product }}</td>	
-											<td>{{ $item->name }}</td>	
-											<td>@currency($item->unit_price) /{{ $item->unit }}</td>	
-											<td>{{ $item->amount }}</td>	
-											<td>@currency($item->subTotal)</td>	
-										</tr>											
-									@endforeach
-								</tbody>
-								<tr>
-									<td colspan="4"></td>
-									<th colspan="1" align="right">Total</th>
-									<td>@currency($total)</td>
-								</tr>
-              </table>
+                </table>
+                @if ($transactions->status != 'dibatalkan')
+                  <button type="button" data-formid="{{ $transactions->id_tr }}" class="btn btn-outline-danger pull-right delete-btn">Batalkan Transaksi</button>
+                @endif
+                
+              </form>
+              
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <script type="text/javascript">
+		$('.delete-btn').on('click', function(e){
+			e.preventDefault();
+			var self = $(this);
+			var formid = $(this).attr("data-formid");
+			Swal.fire({
+				icon: 'warning',
+				title: 'Konfirmasi Batalkan Transaksi',
+				text: 'Transaksi ini yakin dibatalkan ?',
+				showCancelButton: true,
+				confirmButtonText: 'Yes, Batalkan !'
+			}).then((result) => {
+				if (result.value) {
+					$("#batal"+formid).submit();
+					console.log(formid);
+				}
+			});
+		});
+	</script>
 
 @endsection

@@ -154,6 +154,29 @@ class TransactionsController extends Controller
     public function update(Request $request, Transaction $transaction)
     {
         //
+
+        Transaction::where('id', $transaction->id)
+                ->update([
+                    'status' => 'dibatalkan'
+                ]);
+
+        if (count($request->product_id) > 0) {
+            foreach ($request->product_id as $item=> $val) {
+                # code...
+                
+                $produk = Product::where('id_product', $request->product_id[$item])->first();
+
+                $stock = $produk->stock;
+
+                Product::where('id_product', $request->product_id[$item])
+                        ->update([
+                            'stock' => ($stock + $request->amount[$item]),
+                        ]);
+
+            }
+        }
+
+        return redirect('/transactions')->with('status', 'Data berhasil dibatalkan');
     }
 
     /**

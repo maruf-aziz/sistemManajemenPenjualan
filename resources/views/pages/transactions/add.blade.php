@@ -187,7 +187,7 @@
 											</td>
 											<td colspan="1">
 												<label for="">Total Akhir</label>
-												<input type="text" class="form-control" style="width: 100%;" id="total" name="total_cost" value="" readonly>
+												<input type="text" class="form-control" style="width: 100%;" id="total" name="total_cost" value="" readonly required>
 											</td>
 										</tr>
 										<tr>

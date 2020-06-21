@@ -44,7 +44,7 @@
 												<td>{{ $item->disc }} %</td>
 												<td>@currency($item->tax)</td>
 												<td>@currency($item->total_cost)</td>
-												<td>{{ $item->status }}</td>
+												<td><span class="{{ $item->status != 'sukses' ? 'badge badge-danger' : 'badge badge-success' }}">{{ $item->status }}</span></td>
 												<td>{{ $item->petugas }}</td>
 											</tr>
 									@endforeach
