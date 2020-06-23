@@ -182,6 +182,13 @@
 	</div>
 	
 	<script type="text/javascript">
+
+		$(document).ready(function(){
+			$('#field-product').load("/produk");
+			$('#field-units').load("/satuan");
+			$('#field-brands').load("/merek");
+		});
+
 		function cekJenisProduct(){
 			var jenis = $('#field-jenis_product').val()
 
@@ -190,18 +197,27 @@
 				$('.product-baru').css("display","none");
 				$('.new-satuan').css("display","none");
 				$('.new-merek').css("display","none");
+				
+        $('#field-units').val(null).trigger('change');
+        $('#field-brands').val(null).trigger('change');
 			}
 			else if(jenis == 'new'){
 				$('.product-lama').css("display","none");
 				$('.product-baru').css("display","block");
 				$('.new-satuan').css("display","none");
 				$('.new-merek').css("display","none");
+
+				$('#field-product').val(null).trigger('change');
 			}
 			else{
 				$('.product-lama').css("display","none");
 				$('.product-baru').css("display","none");
 				$('.new-satuan').css("display","none");
 				$('.new-merek').css("display","none");
+
+				$('#field-product').val(null).trigger('change');
+				$('#field-units').val(null).trigger('change');
+        $('#field-brands').val(null).trigger('change');
 			}
 		}
 

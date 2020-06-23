@@ -21,37 +21,6 @@
               <h4 class="card-title">Tambah Transaksi Penjualan</h4>
             </div>
 						<div class="card-body">
-							{{-- <form>
-								<table class="table table-striped">
-									<thead align="center">
-										<tr>
-											<th scope="col" width="30%">Produk</th>
-											<th scope="col" width="15%">Merek</th>
-											<th scope="col" width="15%">Harga</th>
-											<th scope="col" width="15%">Stok</th>
-											<th scope="col" width="15%">Beli</th>
-										</tr>
-									</thead>
-										<tr>
-											<td>
-												<input type="text" class="input-css name" style="width: 100%;" id="name" name="name_product[]" value="" required>
-											</td>
-											<td>
-												<input type="text" class="input-css name" style="width: 100%;" id="name" name="name_product[]" value="" required>
-											</td>
-											<td>
-												<input type="text" class="input-css name" style="width: 100%;" id="price" name="price[]" value="" onkeypress="return hanyaAngka(event)" required>
-											</td>
-											<td>
-												<input type="text" class="input-css name" style="width: 100%;" id="stock" name="stock[]" value="" onkeypress="return hanyaAngka(event)" required>
-											</td>
-											<td>
-												<input type="text" class="input-css name" style="width: 100%;" id="stock" name="stock[]" value="" onkeypress="return hanyaAngka(event)" required>
-											</td>
-										</tr>
-								</table>
-								<button type="submit" class="btn btn-primary pull-right">Tambah Item</button>
-							</form> --}}
 							<div class="row">
 								<div class="col-md-4">
 									<label for="">Produk</label>
@@ -115,13 +84,6 @@
 								<table class="table table-striped" id="dataItem">
 									<thead align="center">
 										<tr>
-											{{-- <th scope="col" width="30%">Nama Produk</th>
-											<th scope="col" width="15%">Merek</th>
-											<th scope="col" width="15%">Harga Satuan</th>
-											<th scope="col" width="15%">Beli</th>
-											<th scope="col" width="15%">Sub Total</th>
-											<th scope="col" width="10%">#</th> --}}
-
 											<th scope="col" width="30%"></th>
 											<th scope="col" width="15%"></th>
 											<th scope="col" width="15%"></th>
@@ -143,29 +105,6 @@
 												</select>
 											</td>
 										</tr>
-										{{-- <tr>
-											<td>
-												<label for="">Nama Produk</label>
-												<input type="text" class="form-control" style="width: 100%;" id="name" name="name_product[]" value="" readonly>
-											</td>
-											<td>
-												<label for="">Harga</label>
-												<input type="text" class="form-control" style="width: 100%;" id="price" name="price[]" value="" readonly>
-											</td>
-											<td>
-												<label for="">Beli</label>
-												<input type="text" class="form-control" style="width: 100%;" id="stock" name="beli[]" value="" readonly>
-											</td>
-											<td>
-												<label for="">Sub Total</label>
-												<input type="text" class="form-control" style="width: 100%;" id="subTotal" name="subTotal[]" value="" readonly>
-											</td>
-											<td align="center">
-												<label for="">Hapus</label>
-												<br>
-												<a href="#" class="btn btn-danger btn-sm remove">X</a>
-											</td>
-										</tr> --}}
 									</tbody>
 									<tfoot>
 										<tr>

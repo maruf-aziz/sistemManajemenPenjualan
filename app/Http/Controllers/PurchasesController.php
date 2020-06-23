@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Purchase;
+use App\Product;
+use App\Unit;
+use App\Brand;
 use Illuminate\Http\Request;
 
 class PurchasesController extends Controller
@@ -83,5 +86,31 @@ class PurchasesController extends Controller
     public function destroy(Purchase $purchase)
     {
         //
+    }
+
+    public function getProduct(){
+        $data = Product::all();
+        echo "<option selected value=''>-- Pilih Produk --</option>";
+        foreach ($data as $key => $value) {
+            echo "<option value='".$value->id_product."'>".$value->name_product."</option>";
+        }
+    }
+
+    public function getSatuan(){
+        $data = Unit::all();
+        echo "<option selected value=''>-- Satuan --</option>";
+        foreach ($data as $key => $value) {
+            echo "<option value='".$value->id_unit."'>".$value->unit."</option>";
+        }
+        echo "<option value='new'>Tambah Satuan</option>";
+    }
+
+    public function getMerek(){
+        $data = Brand::all();
+        echo "<option selected value=''>-- Merek --</option>";
+        foreach ($data as $key => $value) {
+            echo "<option value='".$value->id_brands."'>".$value->name."</option>";
+        }
+        echo "<option value='new'>Tambah Satuan</option>";
     }
 }
