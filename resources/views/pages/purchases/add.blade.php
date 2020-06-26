@@ -71,35 +71,35 @@
 								{{-- new merek --}}
 								<div class="col-md-2 new-merek" style="display: none">
 									<label for="">Merek Baru</label>
-									<input type="text" class="input-css" style="width: 100%;" id="field-new_satuan" value="" required>
+									<input type="text" class="input-css" style="width: 100%;" id="field-new_merek" value="" required>
 								</div>
 
 							</div>
 
 							<div class="row">
-								<div class="col-md-1">
+								<div class="col-md-2">
 									<label for="">Jumlah Beli</label>
-									<input type="text" class="input-css name" style="width: 100%;" id="field-merek" value="" onkeypress="return hanyaAngka(event)" required>
+									<input type="text" class="input-css name" style="width: 100%;" id="field-jumlah" value="" onkeypress="return hanyaAngka(event)" required>
 								</div>
-								<div class="col-md-1">
+								<div class="col-md-2">
 									<label for="">Satuan Beli</label>
-									<input type="text" class="input-css name" style="width: 100%;" id="field-harga" value="" >
+									<input type="text" class="input-css name" style="width: 100%;" id="field-satuan-beli" value="" >
 								</div>
-								<div class="col-md-1">
+								<div class="col-md-2">
 									<label for=""><small>Isi Dalam Satuan</small></label>
-									<input type="text" class="input-css name" style="width: 100%;" id="field-satuan" value="" onkeypress="return hanyaAngka(event)" required>
+									<input type="text" class="input-css name" style="width: 100%;" id="field-isi" value="" onkeypress="return hanyaAngka(event)" required>
 								</div>
-								<div class="col-md-1">
+								<div class="col-md-2">
 									<label for="">Total Harga</label>
-									<input type="text" class="input-css name" style="width: 100%;" id="field-stock" onkeypress="return hanyaAngka(event)" required>
+									<input type="text" class="input-css name" style="width: 100%;" id="field-total-harga" onkeypress="return hanyaAngka(event)" required>
 								</div>
-								<div class="col-md-1">
+								<div class="col-md-2">
 									<label for=""><small>Harga Beli /Satuan</small></label>
-									<input type="text" class="input-css name" style="width: 100%; border: 1px solid red;" id="field-disc" value="" maxlength="2" onkeypress="return hanyaAngka(event)" required readonly>
+									<input type="text" class="input-css name" style="width: 100%; border: 1px solid red;" id="field-harga-satuan" value="" maxlength="2" onkeypress="return hanyaAngka(event)" required readonly>
 								</div>
-								<div class="col-md-1">
+								<div class="col-md-2">
 									<label for=""><small>Harga Jual /Satuan</small></label>
-									<input type="text" class="input-css name" style="width: 100%;" id="field-price_jual" value="" maxlength="2" onkeypress="return hanyaAngka(event)" required>
+									<input type="text" class="input-css name" style="width: 100%;" id="field-harga-jual" value="" maxlength="2" onkeypress="return hanyaAngka(event)" required>
 								</div>
 							</div>
 							<button type="button" id="tambahItem" class="btn btn-primary pull-right mt-5 addRow">Tambah Item</button>
@@ -242,8 +242,6 @@
 				$('.new-merek').css("display","none");
 			}
 		}
-
-
 
 		$('.addRow').on('click', function(){
 			$('#discount').val(0);

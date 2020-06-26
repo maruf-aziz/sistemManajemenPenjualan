@@ -113,4 +113,16 @@ class PurchasesController extends Controller
         }
         echo "<option value='new'>Tambah Satuan</option>";
     }
+
+    public function addNewProduct(){
+        #code with response json
+    }
+
+    public function addNewUnit(){
+        #code with response json
+    }
+
+    public function addNewBrand(){
+        #code with response json
+    }
 }
