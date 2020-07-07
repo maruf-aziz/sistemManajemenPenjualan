@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 23, 2020 at 01:44 PM
+-- Generation Time: Jul 07, 2020 at 05:25 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -45,7 +45,9 @@ INSERT INTO `brands` (`id_brands`, `name`, `created_at`, `updated_at`, `deleted_
 (3, 'Bodrex', '2020-06-05 07:56:28', '2020-06-11 05:37:34', NULL),
 (4, 'paramex', '2020-06-05 07:56:28', '2020-06-06 02:47:31', NULL),
 (5, 'Oskadon', '2020-06-05 17:47:37', '2020-06-05 17:47:37', NULL),
-(6, 'Kimia', '2020-06-05 17:47:38', '2020-06-05 17:47:38', NULL);
+(6, 'Kimia', '2020-06-05 17:47:38', '2020-06-05 17:47:38', NULL),
+(7, 'Danone', '2020-06-24 00:45:19', '2020-06-24 00:45:19', NULL),
+(8, 'Mixagrip Baru', '2020-06-24 00:45:19', '2020-06-24 00:47:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -114,7 +116,9 @@ CREATE TABLE `detail_transactions` (
 INSERT INTO `detail_transactions` (`unit_price`, `disc_item`, `amount`, `subTotal`, `product_id`, `transaction_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (15000, 5, 2, 28500, 4, 5, '2020-06-07 08:43:51', '2020-06-07 08:43:51', NULL),
 (3500, 0, 3, 10500, 3, 5, '2020-06-07 08:43:51', '2020-06-07 08:43:51', NULL),
-(2000, 0, 5, 10000, 1, 6, '2020-06-07 08:50:49', '2020-06-07 08:50:49', NULL);
+(2000, 0, 5, 10000, 1, 6, '2020-06-07 08:50:49', '2020-06-07 08:50:49', NULL),
+(3500, 0, 10, 35000, 3, 7, '2020-06-24 00:52:40', '2020-06-24 00:52:40', NULL),
+(15000, 5, 5, 71250, 4, 7, '2020-06-24 00:52:41', '2020-06-24 00:52:41', NULL);
 
 -- --------------------------------------------------------
 
@@ -169,7 +173,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (19, '2020_06_21_131320_create_purchases_table', 18),
 (20, '2020_06_21_154552_drop_field_purchases', 19),
 (21, '2020_06_21_154856_add_field_to_purchases', 20),
-(22, '2020_06_21_155013_create_detail_purchases_table', 21);
+(22, '2020_06_21_155013_create_detail_purchases_table', 21),
+(23, '2020_07_02_185003_create_retur_purchases_table', 22),
+(24, '2020_07_02_185417_create_retur_sales_table', 22);
 
 -- --------------------------------------------------------
 
@@ -215,8 +221,8 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`id_product`, `name_product`, `price`, `unit_id`, `stock`, `brand_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'mixagrip flu batuk', 2000, 4, 20, 1, '2020-06-06 00:36:56', '2020-06-21 04:52:35', NULL),
 (2, 'oskadon pusing', 3500, 4, 50, 5, '2020-06-06 00:36:56', '2020-06-07 08:27:10', NULL),
-(3, 'mixagrip flu', 3500, 6, 47, 1, '2020-06-06 01:10:22', '2020-06-07 08:43:51', NULL),
-(4, 'Air Raksa', 15000, 8, 18, 6, '2020-06-06 10:40:24', '2020-06-07 08:43:51', NULL);
+(3, 'mixagrip flu', 3500, 6, 97, 1, '2020-06-06 01:10:22', '2020-06-24 00:58:00', NULL),
+(4, 'Air Raksa', 15000, 8, 18, 6, '2020-06-06 10:40:24', '2020-06-24 00:53:28', NULL);
 
 -- --------------------------------------------------------
 
@@ -228,6 +234,36 @@ CREATE TABLE `purchases` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `total_cost` int(11) NOT NULL,
   `supplier_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `retur_purchases`
+--
+
+CREATE TABLE `retur_purchases` (
+  `id_retur` bigint(20) UNSIGNED NOT NULL,
+  `purchase_id` bigint(20) UNSIGNED NOT NULL,
+  `desc` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `retur_sales`
+--
+
+CREATE TABLE `retur_sales` (
+  `id_retur` bigint(20) UNSIGNED NOT NULL,
+  `sale_id` bigint(20) UNSIGNED NOT NULL,
+  `desc` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -283,7 +319,8 @@ CREATE TABLE `transactions` (
 
 INSERT INTO `transactions` (`id`, `total_cost`, `disc`, `tax`, `status`, `user_id`, `customer_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (5, 37050, 5, 3705, 'sukses', 1, 2, '2020-06-07 08:43:51', '2020-06-07 08:43:51', NULL),
-(6, 10000, 0, 1000, 'dibatalkan', 1, 1, '2020-06-07 08:50:49', '2020-06-21 04:52:35', NULL);
+(6, 10000, 0, 1000, 'dibatalkan', 1, 1, '2020-06-07 08:50:49', '2020-06-21 04:52:35', NULL),
+(7, 100937, 5, 10093, 'dibatalkan', 1, 1, '2020-06-24 00:52:40', '2020-06-24 00:53:27', NULL);
 
 -- --------------------------------------------------------
 
@@ -411,6 +448,20 @@ ALTER TABLE `purchases`
   ADD KEY `purchases_supplier_id_foreign` (`supplier_id`);
 
 --
+-- Indexes for table `retur_purchases`
+--
+ALTER TABLE `retur_purchases`
+  ADD PRIMARY KEY (`id_retur`),
+  ADD KEY `retur_purchases_purchase_id_foreign` (`purchase_id`);
+
+--
+-- Indexes for table `retur_sales`
+--
+ALTER TABLE `retur_sales`
+  ADD PRIMARY KEY (`id_retur`),
+  ADD KEY `retur_sales_sale_id_foreign` (`sale_id`);
+
+--
 -- Indexes for table `suppliers`
 --
 ALTER TABLE `suppliers`
@@ -445,7 +496,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id_brands` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_brands` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -463,7 +514,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -478,6 +529,18 @@ ALTER TABLE `purchases`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `retur_purchases`
+--
+ALTER TABLE `retur_purchases`
+  MODIFY `id_retur` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `retur_sales`
+--
+ALTER TABLE `retur_sales`
+  MODIFY `id_retur` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
@@ -487,7 +550,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `units`
@@ -530,6 +593,18 @@ ALTER TABLE `products`
 --
 ALTER TABLE `purchases`
   ADD CONSTRAINT `purchases_supplier_id_foreign` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`);
+
+--
+-- Constraints for table `retur_purchases`
+--
+ALTER TABLE `retur_purchases`
+  ADD CONSTRAINT `retur_purchases_purchase_id_foreign` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`);
+
+--
+-- Constraints for table `retur_sales`
+--
+ALTER TABLE `retur_sales`
+  ADD CONSTRAINT `retur_sales_sale_id_foreign` FOREIGN KEY (`sale_id`) REFERENCES `transactions` (`id`);
 
 --
 -- Constraints for table `transactions`
