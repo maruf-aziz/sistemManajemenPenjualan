@@ -79,7 +79,7 @@
 							<div class="row">
 								<div class="col-md-2">
 									<label for="">Jumlah Beli</label>
-									<input type="text" class="input-css name" style="width: 100%;" id="field-jumlah" value="" onkeypress="return hanyaAngka(event)" required>
+									<input type="text" class="input-css name" style="width: 100%;" id="field-jumlah" value="0" onkeypress="return hanyaAngka(event)" required>
 								</div>
 								<div class="col-md-2">
 									<label for="">Satuan Beli</label>
@@ -87,19 +87,19 @@
 								</div>
 								<div class="col-md-2">
 									<label for=""><small>Isi Dalam Satuan</small></label>
-									<input type="text" class="input-css name" style="width: 100%;" id="field-isi" value="" onkeypress="return hanyaAngka(event)" required>
+									<input type="text" class="input-css name" style="width: 100%;" id="field-isi" value="0" onkeypress="return hanyaAngka(event)" required>
 								</div>
 								<div class="col-md-2">
 									<label for="">Total Harga</label>
-									<input type="text" class="input-css name" style="width: 100%;" id="field-total-harga" onkeypress="return hanyaAngka(event)" required>
+									<input type="text" class="input-css name" style="width: 100%;" id="field-total-harga" onkeypress="return hanyaAngka(event)" onkeyup="hitungHargBeli()" required>
 								</div>
 								<div class="col-md-2">
 									<label for=""><small>Harga Beli /Satuan</small></label>
-									<input type="text" class="input-css name" style="width: 100%; border: 1px solid red;" id="field-harga-satuan" value="" maxlength="2" onkeypress="return hanyaAngka(event)" required readonly>
+									<input type="text" class="input-css name" style="width: 100%; border: 1px solid red;" id="field-harga-satuan" value="" maxlength="2" required readonly>
 								</div>
 								<div class="col-md-2">
 									<label for=""><small>Harga Jual /Satuan</small></label>
-									<input type="text" class="input-css name" style="width: 100%;" id="field-harga-jual" value="" maxlength="2" onkeypress="return hanyaAngka(event)" required>
+									<input type="text" class="input-css name" style="width: 100%;" id="field-harga-jual" value="" onkeypress="return hanyaAngka(event)" required>
 								</div>
 							</div>
 							<button type="button" id="tambahItem" class="btn btn-primary pull-right mt-5 addRow">Tambah Item</button>
@@ -122,10 +122,11 @@
 									<thead align="center">
 										<tr>
 											<th scope="col" width="30%"></th>
+											<th scope="col" width="10%"></th>
+											<th scope="col" width="10%"></th>
 											<th scope="col" width="15%"></th>
 											<th scope="col" width="15%"></th>
 											<th scope="col" width="15%"></th>
-											<th scope="col" width="20%"></th>
 											<th scope="col" width="5%"></th>
 										</tr>
 									</thead>
@@ -256,6 +257,19 @@
 		  return true;
 		}
 
+		function hitungHargBeli(){
+			// var jml_beli = $('#field-jumlah').val();
+			var isi = $('#field-isi').val();
+			var harga = document.getElementById('field-total-harga').value;
+			var cnv_harga = convertToAngka(harga);
+
+			var harga_satuan = parseInt(cnv_harga) / parseInt(isi);
+			if(!isNaN(harga_satuan)){
+					document.getElementById('field-harga-satuan').value = formatCurrency(harga_satuan);
+			}
+
+		}
+
 		function formatCurrency(num){
 			num = num.toString().replace(/\$|\,/g,'');
 			if(isNaN(num)) num = "0";
@@ -265,6 +279,38 @@
 			for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
 			num = num.substring(0,num.length-(4*i+3))+'.'+num.substring(num.length-(4*i+3));
 			return ("Rp. " + num);
+		}
+
+		var rupiah = document.getElementById('field-total-harga');
+		rupiah.addEventListener('keyup', function(e){
+			rupiah.value = formatRupiah(this.value, 'Rp. ');
+		});
+
+		var rupiah2 = document.getElementById('field-harga-jual');
+		rupiah2.addEventListener('keyup', function(e){
+			rupiah2.value = formatRupiah(this.value, 'Rp. ');
+		});
+
+		function formatRupiah(angka, prefix){
+			var number_string = angka.replace(/[^,\d]/g, '').toString(),
+			split   		= number_string.split(','),
+			sisa     		= split[0].length % 3,
+			rupiah     		= split[0].substr(0, sisa),
+			ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+ 
+			// tambahkan titik jika yang di input sudah menjadi angka ribuan
+			if(ribuan){
+				separator = sisa ? '.' : '';
+				rupiah += separator + ribuan.join('.');
+			}
+ 
+			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+		}
+
+		function convertToAngka(rupiah)
+		{
+			return parseInt(rupiah.replace(/,.*|[^0-9]/g, ''), 10);
 		}
 
 		function addRow(){
@@ -286,27 +332,33 @@
 			}
 
 			else{
-				var nama = $('#field-product option:selected').attr('nama');
-				var id = $('#field-product option:selected').val();
-				var harga = $('#field-product option:selected').attr('harga');
-				var hargaInt = $('#field-product option:selected').attr('hargaInt');
-				var merek = $('#field-product option:selected').attr('merek');
-				var stock = $('#field-product option:selected').attr('stock');
-				var beli = $('#field-beli').val();
-				var disc = $('#field-disc').val();
-				var discInt;
 
-				if (disc == '') {
-					discInt = 0;
+				var id_jenis = $('#field-jenis_product').val();
+				var id_product;
+				var nama_product;
+				var jml_beli = $('#field-jumlah').val();
+				var satuan_beli = $('#field-satuan-beli').val();
+				var isi = $('#field-isi').val();
+				var total_harga = $('#field-total-harga').val();
+				var harga_satuan = $('#field-harga-satuan').val();
+				var harga_jual_satuan = $('#field-harga-jual').val();
+
+				if(id_jenis == 'old'){
+					id_product = $('#field-product').val();
+					nama_product = $('#field-product option:selected').attr('nama');
 				}
 				else{
-					discInt = parseInt(disc);
+					// ajax
 				}
 
-				var subTotal = parseInt(hargaInt) * parseInt(beli) - (parseInt(hargaInt) * parseInt(beli)) * discInt / 100;
+				// console.log(id_product);
+				// console.log(nama_product);
+
+
+				// var subTotal = parseInt(hargaInt) * parseInt(beli) - (parseInt(hargaInt) * parseInt(beli)) * discInt / 100;
 				// var tax = 0.1 * subTotal;
 
-				var subTotalRP = formatCurrency(subTotal);
+				// var subTotalRP = formatCurrency(subTotal);
 
 				// console.log(tax);
 
@@ -314,36 +366,38 @@
 				var tr = '<tr>'+
 												'<td>'+
 													'<label for="">Nama Produk</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" id="name" name="name_product[]" value="'+nama+'" readonly>'+
-													'<input type="hidden" class="form-control" style="width: 100%;" id="product_id" name="product_id[]" value="'+id+'" readonly>'+
+													'<input type="text" class="form-control" style="width: 100%;" id="name" name="name_product[]" value="'+nama_product+'" readonly>'+
+													'<input type="hidden" class="form-control" style="width: 100%;" id="product_id" name="product_id[]" value="'+id_product+'" readonly>'+
 												'</td>'+
 												'<td>'+
-													'<label for="">Harga</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" id="price" name="price[]" value="'+harga+'" readonly>'+
-													'<input type="hidden" class="form-control" style="width: 100%;" id="price" name="unit_price[]" value="'+hargaInt+'" readonly>'+
+													'<label for="">Jumlah</label>'+
+													'<input type="text" class="form-control" style="width: 100%;" id="price" name="price[]" value="'+jml_beli+'"/"'+satuan_beli+'" readonly>'+
 												'</td>'+
 												'<td>'+
-													'<label for="">Disc Item %</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" id="disc" name="disc_item[]" value="'+discInt+'" readonly>'+
+													'<label for="">Isi/Satuan</label>'+
+													'<input type="text" class="form-control" style="width: 100%;" id="disc" name="disc_item[]" value="'+isi+'" readonly>'+
 												'</td>'+
 												'<td>'+
-													'<label for="">Beli</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" id="stock" name="amount[]" value="'+beli+'" readonly>'+
+													'<label for="">Total</label>'+
+													'<input type="text" class="form-control" style="width: 100%;" id="stock" name="amount[]" value="'+total_harga+'" readonly>'+
 												'</td>'+
 												'<td>'+
-													'<label for="">Sub Total</label>'+
-													'<input type="text" class="form-control subTotal" style="width: 100%;" id="subTotal" name="sub[]" value="'+subTotalRP+'" readonly>'+
-													'<input type="hidden" class="form-control subTotal" style="width: 100%;" id="subTotal" name="subTotal[]" value="'+subTotal+'" readonly>'+
+													'<label for="">Harga Satuan</label>'+
+													'<input type="text" class="form-control subTotal" style="width: 100%;" id="subTotal" name="sub[]" value="'+harga_satuan+'" readonly>'+
+												'</td>'+
+												'<td>'+
+													'<label for="">Harga Jual</label>'+
+													'<input type="text" class="form-control subTotal" style="width: 100%;" id="subTotal" name="sub[]" value="'+harga_jual_satuan+'" readonly>'+
 												'</td>'+
 												'<td align="center">'+
 													'<label for="">Hapus</label>'+
 													'<br>'+
-													'<a href="#" class="btn btn-danger btn-sm remove" data-harga="'+subTotal+'">X</a>'+
+													'<a href="#" class="btn btn-danger btn-sm remove" data-harga="'+total_harga+'">X</a>'+
 												'</td>'+
 								'</tr>';
 
-				set_total(subTotal);
-				set_discount();
+				// set_total(subTotal);
+				// set_discount();
 
 				$('tbody').append(tr);
 

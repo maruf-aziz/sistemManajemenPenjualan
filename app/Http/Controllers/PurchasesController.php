@@ -92,7 +92,7 @@ class PurchasesController extends Controller
         $data = Product::all();
         echo "<option selected value=''>-- Pilih Produk --</option>";
         foreach ($data as $key => $value) {
-            echo "<option value='".$value->id_product."'>".$value->name_product."</option>";
+            echo "<option value='".$value->id_product."' nama='".$value->name_product."'>".$value->name_product."</option>";
         }
     }
 

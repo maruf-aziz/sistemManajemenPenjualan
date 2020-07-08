@@ -99,8 +99,8 @@ The above copyright notice and this permission notice shall be included in all c
         </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item {{ Request::segment(1) == 'home' ? 'active' : '' }}">
-            <a class="nav-link" href="/home">
+          <li class="nav-item {{ Request::segment(1) == '' ? 'active' : '' }}">
+            <a class="nav-link" href="/">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
