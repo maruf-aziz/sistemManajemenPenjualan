@@ -353,39 +353,53 @@
 					// ajax
 					brands = $('#field-brands').val();
 					units = $('#field-units').val();
+					nama_product = $('#field-name_product').val();
 
-					if(units == "new"){
+					if(units == "new" & brands == "new"){
+						console.log('data baru untuk satuan dan merek');
+					}
+
+					else if(units == "new"){
 						// ajax brands
 						var nama_unit = $('#field-new_satuan').val();
-						
-						// preventDefault();
 
-						// $.ajaxSetup({
-						// 	headers: {
-						// 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						// $.ajax({
+						// 	url			: '/addSatuan',
+						// 	method 	: "get",
+						// 	data		: {
+						// 		"_token": "{{ csrf_token() }}",
+						// 		"name" : nama_unit
+						// 	},
+						// 	dataType	: 'json',
+						// 	success	: function(data){
+						// 		// console.log(data.id_unit);
+						// 		units = data.id_unit;
+								
+						// 		dataRequireSaveNewProduct(nama_product, harga_jual_satuan, units, brands);
 						// 	}
 						// });
-
-						$.ajax({
-							url			: '/addSatuan',
-							method 	: "get",
-							data		: {
-								"_token": "{{ csrf_token() }}",
-								"name" : nama_unit
-							},
-							dataType	: 'json',
-							success	: function(data){
-								console.log(data.id_unit);
-							}
-
-						});
 					}
 					else if(brands == "new"){
 						// ajax unit
-					}
-					else{
+						var nama_brand = $('#field-new_merek').val();
 
-					}
+						// $.ajax({
+						// 	url			: '/addMerek',
+						// 	method 	: "get",
+						// 	data		: {
+						// 		"_token": "{{ csrf_token() }}",
+						// 		"name" : nama_brand
+						// 	},
+						// 	dataType	: 'json',
+						// 	success	: function(data){
+						// 		// console.log(data.id_brand);
+						// 		brand = data.id_brand
+						// 		dataRequireSaveNewProduct(nama_product, harga_jual_satuan, units, brands);
+						// 	}
+
+						// });
+					}				
+					
 				}
 
 				// console.log(id_product);
@@ -448,6 +462,13 @@
 			}
 
 			
+		}
+
+		function dataRequireSaveNewProduct(name , price , unit , brand){
+			console.log(name);
+			console.log(price);
+			console.log(unit);
+			console.log(brand);
 		}
 
 		var total = 0;

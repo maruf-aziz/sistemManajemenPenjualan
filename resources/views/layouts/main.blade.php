@@ -108,7 +108,7 @@ The above copyright notice and this permission notice shall be included in all c
           <li class="nav-item {{ Request::segment(1) == 'users' ? 'active' : '' }}">
             <a class="nav-link" href="/users">
               <i class="material-icons">person</i>
-              <p>User Profile</p>
+              <p>Profile</p>
             </a>
           </li>
           <li class="nav-item {{ Request::segment(1) == 'suppliers' ? 'active' : '' }}">
@@ -120,25 +120,25 @@ The above copyright notice and this permission notice shall be included in all c
           <li class="nav-item {{ Request::segment(1) == 'customers' ? 'active' : '' }}">
             <a class="nav-link" href="/customers">
               <i class="material-icons">people</i>
-              <p>Customers</p>
+              <p>Pelanggan</p>
             </a>
           </li>
           <li class="nav-item {{ Request::segment(1) == 'products' | Request::segment(1) == 'brands' | Request::segment(1) == 'units' ? 'active' : '' }}">
             <a class="nav-link" href="/products">
               <i class="material-icons">library_books</i>
-              <p>Products</p>
+              <p>Produk</p>
             </a>
           </li>
           <li class="nav-item {{ Request::segment(1) == 'transactions' ? 'active' : '' }}">
             <a class="nav-link" href="/transactions">
               <i class="material-icons">monetization_on</i>
-              <p>Sales Transaction</p>
+              <p>Penjualan</p>
             </a>
           </li>
           <li class="nav-item {{ Request::segment(1) == 'purchases' ? 'active' : '' }}">
             <a class="nav-link" href="/purchases">
               <i class="material-icons">add_shopping_cart</i>
-              <p>Product Buying</p>
+              <p>Pembelian</p>
             </a>
           </li>
           <li class="nav-item ">
@@ -147,16 +147,16 @@ The above copyright notice and this permission notice shall be included in all c
               <p>Retur</p>
             </a>
           </li>
-          <li class="nav-item ">
+          {{-- <li class="nav-item ">
             <a class="nav-link" href="./notifications.html">
               <i class="material-icons">notifications</i>
               <p>Notifications</p>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 							<i class="material-icons">dynamic_feed</i>
-								Report
+								Laporan
 						</a>
 						<div class="dropdown-menu">
 							<a class="dropdown-item" href="#">Laporan Barang</a>

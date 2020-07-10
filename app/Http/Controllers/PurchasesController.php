@@ -131,5 +131,12 @@ class PurchasesController extends Controller
 
     public function addNewBrand(Request $request){
         #code with response json
+        $data = array(
+            'name' => $request->name
+        );
+
+        $lastid = Brand::create($data)->id_brands;
+
+        return response()->json(['id_brand'=>$lastid]);
     }
 }

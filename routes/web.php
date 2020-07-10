@@ -35,3 +35,4 @@ Route::get('/produk', 'PurchasesController@getProduct');
 Route::get('/satuan', 'PurchasesController@getSatuan');
 Route::get('/merek', 'PurchasesController@getMerek');
 Route::get('/addSatuan', 'PurchasesController@addNewUnit');
+Route::get('/addMerek', 'PurchasesController@addNewBrand');
