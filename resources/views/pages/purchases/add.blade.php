@@ -144,7 +144,7 @@
 									</tbody>
 									<tfoot>
 										<tr>
-											<td colspan="3"></td>
+											<td colspan="4"></td>
 											<td colspan="1">
 												<label for="">Discount %</label>
 												<input type="text" class="form-control" style="width: 100%;" id="discount" name="disc" value="" maxlength="2" onkeypress="return hanyaAngka(event)" required>
@@ -155,7 +155,7 @@
 											</td>
 										</tr>
 										<tr>
-											<td colspan="3"></td>											
+											<td colspan="4"></td>											
 											<td colspan="1">
 												<label for="">PPN 10%</label>
 												<input type="text" class="form-control" style="width: 100%;" id="tax" name="tax" value="" readonly>
@@ -315,7 +315,7 @@
 
 		function addRow(){
 
-			if($('#field-product').val() == ''){
+			if($('#field-producte').val() == ''){
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
@@ -336,6 +336,8 @@
 				var id_jenis = $('#field-jenis_product').val();
 				var id_product;
 				var nama_product;
+				var brands;
+				var units;
 				var jml_beli = $('#field-jumlah').val();
 				var satuan_beli = $('#field-satuan-beli').val();
 				var isi = $('#field-isi').val();
@@ -349,6 +351,41 @@
 				}
 				else{
 					// ajax
+					brands = $('#field-brands').val();
+					units = $('#field-units').val();
+
+					if(units == "new"){
+						// ajax brands
+						var nama_unit = $('#field-new_satuan').val();
+						
+						// preventDefault();
+
+						// $.ajaxSetup({
+						// 	headers: {
+						// 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						// 	}
+						// });
+
+						$.ajax({
+							url			: '/addSatuan',
+							method 	: "get",
+							data		: {
+								"_token": "{{ csrf_token() }}",
+								"name" : nama_unit
+							},
+							dataType	: 'json',
+							success	: function(data){
+								console.log(data.id_unit);
+							}
+
+						});
+					}
+					else if(brands == "new"){
+						// ajax unit
+					}
+					else{
+
+					}
 				}
 
 				// console.log(id_product);
@@ -362,52 +399,52 @@
 
 				// console.log(tax);
 
-				var row = $('tbody tr').length;
-				var tr = '<tr>'+
-												'<td>'+
-													'<label for="">Nama Produk</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" id="name" name="name_product[]" value="'+nama_product+'" readonly>'+
-													'<input type="hidden" class="form-control" style="width: 100%;" id="product_id" name="product_id[]" value="'+id_product+'" readonly>'+
-												'</td>'+
-												'<td>'+
-													'<label for="">Jumlah</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" id="price" name="price[]" value="'+jml_beli+'"/"'+satuan_beli+'" readonly>'+
-												'</td>'+
-												'<td>'+
-													'<label for="">Isi/Satuan</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" id="disc" name="disc_item[]" value="'+isi+'" readonly>'+
-												'</td>'+
-												'<td>'+
-													'<label for="">Total</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" id="stock" name="amount[]" value="'+total_harga+'" readonly>'+
-												'</td>'+
-												'<td>'+
-													'<label for="">Harga Satuan</label>'+
-													'<input type="text" class="form-control subTotal" style="width: 100%;" id="subTotal" name="sub[]" value="'+harga_satuan+'" readonly>'+
-												'</td>'+
-												'<td>'+
-													'<label for="">Harga Jual</label>'+
-													'<input type="text" class="form-control subTotal" style="width: 100%;" id="subTotal" name="sub[]" value="'+harga_jual_satuan+'" readonly>'+
-												'</td>'+
-												'<td align="center">'+
-													'<label for="">Hapus</label>'+
-													'<br>'+
-													'<a href="#" class="btn btn-danger btn-sm remove" data-harga="'+total_harga+'">X</a>'+
-												'</td>'+
-								'</tr>';
+				// var row = $('tbody tr').length;
+				// var tr = '<tr>'+
+				// 								'<td>'+
+				// 									'<label for="">Nama Produk</label>'+
+				// 									'<input type="text" class="form-control" style="width: 100%;" id="name" name="name_product[]" value="'+nama_product+'" readonly>'+
+				// 									'<input type="hidden" class="form-control" style="width: 100%;" id="product_id" name="product_id[]" value="'+id_product+'" readonly>'+
+				// 								'</td>'+
+				// 								'<td>'+
+				// 									'<label for="">Jumlah</label>'+
+				// 									'<input type="text" class="form-control" style="width: 100%;" id="price" name="price[]" value="'+jml_beli+'"/"'+satuan_beli+'" readonly>'+
+				// 								'</td>'+
+				// 								'<td>'+
+				// 									'<label for="">Isi/Satuan</label>'+
+				// 									'<input type="text" class="form-control" style="width: 100%;" id="disc" name="disc_item[]" value="'+isi+'" readonly>'+
+				// 								'</td>'+
+				// 								'<td>'+
+				// 									'<label for="">Total</label>'+
+				// 									'<input type="text" class="form-control" style="width: 100%;" id="stock" name="amount[]" value="'+total_harga+'" readonly>'+
+				// 								'</td>'+
+				// 								'<td>'+
+				// 									'<label for="">Harga Satuan</label>'+
+				// 									'<input type="text" class="form-control subTotal" style="width: 100%;" id="subTotal" name="sub[]" value="'+harga_satuan+'" readonly>'+
+				// 								'</td>'+
+				// 								'<td>'+
+				// 									'<label for="">Harga Jual</label>'+
+				// 									'<input type="text" class="form-control subTotal" style="width: 100%;" id="subTotal" name="sub[]" value="'+harga_jual_satuan+'" readonly>'+
+				// 								'</td>'+
+				// 								'<td align="center">'+
+				// 									'<label for="">Hapus</label>'+
+				// 									'<br>'+
+				// 									'<a href="#" class="btn btn-danger btn-sm remove" data-harga="'+total_harga+'">X</a>'+
+				// 								'</td>'+
+				// 				'</tr>';
 
-				// set_total(subTotal);
-				// set_discount();
+				// // set_total(subTotal);
+				// // set_discount();
 
-				$('tbody').append(tr);
+				// $('tbody').append(tr);
 
-				$('#field-harga').val('');
-				$('#field-merek').val('');
-				$('#field-hargaInt').val('');
-				$('#field-stock').val('');
-				$('#field-beli').val('');
-				$('#field-disc').val('');
-				$('#field-product').val(null).trigger('change');
+				// $('#field-harga').val('');
+				// $('#field-merek').val('');
+				// $('#field-hargaInt').val('');
+				// $('#field-stock').val('');
+				// $('#field-beli').val('');
+				// $('#field-disc').val('');
+				// $('#field-product').val(null).trigger('change');
 			}
 
 			

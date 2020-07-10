@@ -114,15 +114,22 @@ class PurchasesController extends Controller
         echo "<option value='new'>Tambah Satuan</option>";
     }
 
-    public function addNewProduct(){
+    public function addNewProduct(Request $request){
         #code with response json
     }
 
-    public function addNewUnit(){
+    public function addNewUnit(Request $request){
         #code with response json
+        $data = array(
+            'unit' => $request->name
+        );
+
+        $lastid = Unit::create($data)->id_unit;
+
+        return response()->json(['id_unit'=>$lastid]);
     }
 
-    public function addNewBrand(){
+    public function addNewBrand(Request $request){
         #code with response json
     }
 }
