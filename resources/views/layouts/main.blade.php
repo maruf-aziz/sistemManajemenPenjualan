@@ -142,10 +142,14 @@ The above copyright notice and this permission notice shall be included in all c
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./map.html">
-              <i class="material-icons">cached</i>
-              <p>Retur</p>
-            </a>
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+							<i class="material-icons">cached</i>
+                Retur
+						</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="/retur_pembelian">Retur Pembelian</a>
+							<a class="dropdown-item" href="/retur_penjualan">Retur Penjualan</a>
+						</div>
           </li>
           {{-- <li class="nav-item ">
             <a class="nav-link" href="./notifications.html">

@@ -34,5 +34,8 @@ Route::resource('purchases', 'PurchasesController')->middleware('auth');
 Route::get('/produk', 'PurchasesController@getProduct');
 Route::get('/satuan', 'PurchasesController@getSatuan');
 Route::get('/merek', 'PurchasesController@getMerek');
+Route::get('/supplier', 'PurchasesController@getSupplier');
 Route::get('/addSatuan', 'PurchasesController@addNewUnit');
 Route::get('/addMerek', 'PurchasesController@addNewBrand');
+Route::get('/addMerek', 'PurchasesController@addNewBrand');
+Route::get('/addProduk', 'PurchasesController@addNewProduct');

@@ -26,17 +26,20 @@
                 <thead>
                   <tr>
                     <th scope="col" width="5%">#</th>
-                    <th scope="col" width="25%">Pelanggan</th>
-                    <th scope="col" width="20%">Tanggal</th>
-                    <th scope="col" width="10%">Disc</th>
-                    <th scope="col" width="10%">PPN</th>
-                    <th scope="col" width="10%">Total</th>
-                    <th scope="col" width="10%">Status</th>
-                    <th scope="col" width="10%">Petugas</th>
+                    <th scope="col">Supplier</th>
+                    <th scope="col">Tanggal</th>
+                    <th scope="col">Total</th>
                   </tr>
                 </thead>
                 <tbody>
-                  
+                  @foreach ($purchases as $item)
+					  <tr>
+						  <td>{{ $loop->iteration }}</td>
+						  <td><a href="/purchases/{{ $item->id }}" class="btn btn-outline-info">{{ $item->name }}</a></td>
+						  <td>{{ $item->created_at }}</td>
+						  <td>@currency($item->total_cost)</td>
+					  </tr>
+				  @endforeach
                 </tbody>
               </table>
             </div>

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Purchase;
+use App\Detail_Purchase;
 use App\Product;
 use App\Unit;
 use App\Brand;
+use App\Supplier;
 use Illuminate\Http\Request;
 
 class PurchasesController extends Controller
@@ -18,7 +20,13 @@ class PurchasesController extends Controller
     public function index()
     {
         //
-        return view('pages.purchases.index');
+        $data = array(
+            'purchases' => Purchase::select('purchases.id' , 'purchases.total_cost', 'purchases.created_at', 'suppliers.name')
+                                        ->join('suppliers','purchases.supplier_id','=','suppliers.id')
+                                        ->orderby('purchases.created_at', 'DESC')
+                                        ->get()
+        );
+        return view('pages.purchases.index', $data);
     }
 
     /**
@@ -41,6 +49,46 @@ class PurchasesController extends Controller
     public function store(Request $request)
     {
         //
+        $total = $request->total_cost;
+        $total_str = preg_replace("/[^0-9]/", "", $total);
+        $total_int = (int) $total_str;
+
+        $data_purchase = array(
+            'total_cost' => $total_int,
+            'supplier_id' => $request->supplier_id
+        );
+
+        $lastid = Purchase::create($data_purchase)->id;
+
+        if(count($request->name_product) > 0){
+            foreach ($request->name_product as $item=> $val) {
+                # code...
+                $data2 = array(
+                    'product' => $request->product[$item],
+                    'amount' => $request->amount[$item],
+                    'unit' => $request->unit[$item],
+                    'value' => $request->value[$item],
+                    'price_per_seed' => $request->price_per[$item],
+                    'total_price' => $request->total_price[$item],
+                    'purchase_id' => $lastid
+                );
+
+                Detail_Purchase::create($data2);
+
+                $produk = Product::where('id_product', $request->product[$item])->first();
+
+                $stock = $produk->stock;
+
+                Product::where('id_product', $request->product[$item])
+                        ->update([
+                            'stock' => ($stock + $request->value[$item]),
+                            'price' => $request->price_sell[$item]
+                        ]);
+            }
+           
+        }
+
+        return redirect('/purchases')->with('status', 'Data berhasil ditambah');
     }
 
     /**
@@ -52,6 +100,20 @@ class PurchasesController extends Controller
     public function show(Purchase $purchase)
     {
         //
+        $data = array(
+            'purchases' => Detail_Purchase::select('*', 'purchases.id as id_purchase', 'purchases.created_at as dibuat')
+                                        ->join('purchases', 'detail_purchases.purchase_id', '=', 'purchases.id')
+                                        ->join('suppliers','purchases.supplier_id','=','suppliers.id')                                        
+                                        ->where('purchases.id', $purchase->id)
+                                        ->first(),
+            
+            'detail' => Detail_Purchase::join('products','detail_purchases.product','=','products.id_product')
+                                        ->join('purchases', 'detail_purchases.purchase_id', '=', 'purchases.id')
+                                        ->where('purchase_id', $purchase->id)
+                                        ->get(),
+            // 'total' => Detail_Transaction::where('transaction_id', $transaction->id)->sum('subTotal')
+        );
+        return view('pages.purchases.show', $data);
     }
 
     /**
@@ -88,11 +150,19 @@ class PurchasesController extends Controller
         //
     }
 
+    public function getSupplier(){
+        $data = Supplier::all();
+        echo "<option selected value=''>-- Pilih Supplier --</option>";
+        foreach ($data as $key => $value) {
+            echo "<option value='".$value->id."' >".$value->name."</option>";
+        }
+    }
+
     public function getProduct(){
         $data = Product::all();
         echo "<option selected value=''>-- Pilih Produk --</option>";
         foreach ($data as $key => $value) {
-            echo "<option value='".$value->id_product."' nama='".$value->name_product."'>".$value->name_product."</option>";
+            echo "<option value='".$value->id_product."' nama='".$value->name_product."' harga='".$this->rupiah($value->price)."'>".$value->name_product."</option>";
         }
     }
 
@@ -116,6 +186,10 @@ class PurchasesController extends Controller
 
     public function addNewProduct(Request $request){
         #code with response json
+
+        $lastid = Product::create($request->all())->id_product;
+
+        return response()->json(['id_product'=>$lastid]);
     }
 
     public function addNewUnit(Request $request){
@@ -138,5 +212,12 @@ class PurchasesController extends Controller
         $lastid = Brand::create($data)->id_brands;
 
         return response()->json(['id_brand'=>$lastid]);
+    }
+
+    public function rupiah($angka){
+	
+        $hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+        return $hasil_rupiah;
+     
     }
 }

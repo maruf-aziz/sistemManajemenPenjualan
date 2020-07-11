@@ -33,7 +33,7 @@
 								{{-- product yang sudah ada --}}
 								<div class="col-md-2 product-lama" style="display: none">
 									<label for="">Pilih Product</label>
-									<select name="" id="field-product" style="width: 100%">
+									<select name="" id="field-product" style="width: 100%" onchange="cekProduct()">
 										<option selected value="">-- Produk --</option>
 									</select>
 								</div>
@@ -116,7 +116,7 @@
               <h4 class="card-title">List Item Terbeli</h4>
             </div>
 						<div class="card-body">
-							<form method="post" action="/transactions" enctype="multipart/form-data">
+							<form method="post" action="/purchases" enctype="multipart/form-data">
 								@csrf
 								<table class="table table-striped" id="dataItem">
 									<thead align="center">
@@ -133,40 +133,24 @@
 									<tbody>
 										<tr>
 											<td colspan="2">
-												<label for="">Nama Pelanggan</label>
-												<select name="customer_id" id="pelanggan" style="width: 100%" required>
-													<option value="">-- Cari Pelanggan --</option>
-													
-													<input type="hidden" name="user_id" value="{{ Auth::user()->id }}" readonly>
+												<label for="">Supplier</label>
+												<select name="supplier_id" id="supplier" style="width: 100%" required>
+													<option value="">-- Cari Supplier --</option>												
+													{{-- <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" readonly> --}}
 												</select>
 											</td>
 										</tr>
 									</tbody>
 									<tfoot>
 										<tr>
-											<td colspan="4"></td>
-											<td colspan="1">
-												<label for="">Discount %</label>
-												<input type="text" class="form-control" style="width: 100%;" id="discount" name="disc" value="" maxlength="2" onkeypress="return hanyaAngka(event)" required>
-											</td>
-											<td colspan="1">
-												<label for="">Total Awal</label>
-												<input type="text" class="form-control" style="width: 100%;" id="first_total" value="" maxlength="2" readonly>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="4"></td>											
-											<td colspan="1">
-												<label for="">PPN 10%</label>
-												<input type="text" class="form-control" style="width: 100%;" id="tax" name="tax" value="" readonly>
-											</td>
+											<td colspan="5"></td>	
 											<td colspan="1">
 												<label for="">Total Akhir</label>
 												<input type="text" class="form-control" style="width: 100%;" id="total" name="total_cost" value="" readonly required>
 											</td>
 										</tr>
 										<tr>
-											<td colspan="5" align="right">
+											<td colspan="6" align="right">
 												<input type="checkbox" required> Saya menyatakan transaksi ini sudah benar
 											</td>
 										</tr>
@@ -188,7 +172,15 @@
 			$('#field-product').load("/produk");
 			$('#field-units').load("/satuan");
 			$('#field-brands').load("/merek");
+			$('#supplier').load("/supplier");
 		});
+
+		function cekProduct(){
+			var harga_jl = $('#field-product option:selected').attr('harga');
+
+			$('#field-harga-jual').val(harga_jl);
+
+		}
 
 		function cekJenisProduct(){
 			var jenis = $('#field-jenis_product').val()
@@ -245,7 +237,7 @@
 		}
 
 		$('.addRow').on('click', function(){
-			$('#discount').val(0);
+			// $('#discount').val(0);
 			addRow();
 		});
 
@@ -258,12 +250,12 @@
 		}
 
 		function hitungHargBeli(){
-			// var jml_beli = $('#field-jumlah').val();
+			var jml_beli = $('#field-jumlah').val();
 			var isi = $('#field-isi').val();
 			var harga = document.getElementById('field-total-harga').value;
 			var cnv_harga = convertToAngka(harga);
 
-			var harga_satuan = parseInt(cnv_harga) / parseInt(isi);
+			var harga_satuan = ( parseInt(cnv_harga) / parseInt(jml_beli) ) / parseInt(isi);
 			if(!isNaN(harga_satuan)){
 					document.getElementById('field-harga-satuan').value = formatCurrency(harga_satuan);
 			}
@@ -315,24 +307,6 @@
 
 		function addRow(){
 
-			if($('#field-producte').val() == ''){
-				Swal.fire({
-					icon: 'error',
-					title: 'Oops...',
-					text: 'Field Product Kosong',
-				})
-			}
-
-			else if($('#field-beli').val() == ''){
-				Swal.fire({
-					icon: 'error',
-					title: 'Oops...',
-					text: 'Field Beli Kosong',
-				})
-			}
-
-			else{
-
 				var id_jenis = $('#field-jenis_product').val();
 				var id_product;
 				var nama_product;
@@ -346,155 +320,276 @@
 				var harga_jual_satuan = $('#field-harga-jual').val();
 
 				if(id_jenis == 'old'){
+
 					id_product = $('#field-product').val();
 					nama_product = $('#field-product option:selected').attr('nama');
+
+					if(id_product == '' || jml_beli == 0 || jml_beli == '' || satuan_beli == '' || isi == 0 || isi == '' || total_harga == '' || harga_jual_satuan == '' ){
+						Swal.fire({
+							icon: 'error',
+							title: 'Mohon',
+							text: 'Lengkapi Field Yang Tersedia',
+						})
+					}					
+					else{
+						addDataToList(id_product , nama_product , jml_beli, satuan_beli, isi , total_harga, harga_satuan , harga_jual_satuan);
+					}					
+
 				}
-				else{
+
+				else if (id_jenis == 'new'){
 					// ajax
 					brands = $('#field-brands').val();
 					units = $('#field-units').val();
 					nama_product = $('#field-name_product').val();
 
+					// proses ajax 
+
 					if(units == "new" & brands == "new"){
-						console.log('data baru untuk satuan dan merek');
+						var nama_unit = $('#field-new_satuan').val();
+						var nama_brand = $('#field-new_merek').val();
+
+						if(id_product == '' || jml_beli == 0 || jml_beli == '' || satuan_beli == '' || isi == 0 || isi == '' || total_harga == '' || harga_jual_satuan == '' || brands == '' || units == '' || nama_product == '' || nama_unit == '' || nama_brand == '' ){
+							Swal.fire({
+								icon: 'error',
+								title: 'Mohon',
+								text: 'Lengkapi Field Yang Tersedia',
+							})
+						}
+
+						else{
+							$.ajax({
+								url				: '/addSatuan',
+								method 		: "get",
+								data			: {
+									"_token": "{{ csrf_token() }}",
+									"name" 	: nama_unit
+								},
+								dataType	: 'json',
+								success		: function(data){
+
+									units = data.id_unit;							
+									
+
+									$.ajax({
+										url				: '/addMerek',
+										method 		: "get",
+										data			: {
+											"_token": "{{ csrf_token() }}",
+											"name" 	: nama_brand
+										},
+										dataType	: 'json',
+										success		: function(data){
+
+											brands = data.id_brand
+
+											dataRequireSaveNewProduct(nama_product, harga_jual_satuan, units, brands, jml_beli, satuan_beli, isi , total_harga, harga_satuan );
+										}
+
+									});
+								}
+							});
+						}
+
+						
 					}
 
 					else if(units == "new"){
 						// ajax brands
 						var nama_unit = $('#field-new_satuan').val();
 
-						// $.ajax({
-						// 	url			: '/addSatuan',
-						// 	method 	: "get",
-						// 	data		: {
-						// 		"_token": "{{ csrf_token() }}",
-						// 		"name" : nama_unit
-						// 	},
-						// 	dataType	: 'json',
-						// 	success	: function(data){
-						// 		// console.log(data.id_unit);
-						// 		units = data.id_unit;
-								
-						// 		dataRequireSaveNewProduct(nama_product, harga_jual_satuan, units, brands);
-						// 	}
-						// });
+						if(id_product == '' || jml_beli == 0 || jml_beli == '' || satuan_beli == '' || isi == 0 || isi == '' || total_harga == '' || harga_jual_satuan == '' || brands == '' || units == '' || nama_product == '' || nama_unit == ''){
+							Swal.fire({
+								icon: 'error',
+								title: 'Mohon',
+								text: 'Lengkapi Field Yang Tersedia',
+							})
+						}
+
+						else{
+							$.ajax({
+								url				: '/addSatuan',
+								method 		: "get",
+								data			: {
+									"_token": "{{ csrf_token() }}",
+									"name" 	: nama_unit
+								},
+								dataType	: 'json',
+								success		: function(data){
+									// console.log(data.id_unit);
+									units = data.id_unit;
+									
+									dataRequireSaveNewProduct(nama_product, harga_jual_satuan, units, brands, jml_beli, satuan_beli, isi , total_harga, harga_satuan );
+								}
+							})
+						}
+
+						;
 					}
+
 					else if(brands == "new"){
 						// ajax unit
 						var nama_brand = $('#field-new_merek').val();
 
-						// $.ajax({
-						// 	url			: '/addMerek',
-						// 	method 	: "get",
-						// 	data		: {
-						// 		"_token": "{{ csrf_token() }}",
-						// 		"name" : nama_brand
-						// 	},
-						// 	dataType	: 'json',
-						// 	success	: function(data){
-						// 		// console.log(data.id_brand);
-						// 		brand = data.id_brand
-						// 		dataRequireSaveNewProduct(nama_product, harga_jual_satuan, units, brands);
-						// 	}
+						if(id_product == '' || jml_beli == 0 || jml_beli == '' || satuan_beli == '' || isi == 0 || isi == '' || total_harga == '' || harga_jual_satuan == '' || brands == '' || units == '' || nama_product == '' || nama_brand == '' ){
+							Swal.fire({
+								icon: 'error',
+								title: 'Mohon',
+								text: 'Lengkapi Field Yang Tersedia',
+							})
+						}
 
-						// });
-					}				
+						else{
+							$.ajax({
+								url				: '/addMerek',
+								method 		: "get",
+								data			: {
+									"_token": "{{ csrf_token() }}",
+									"name" 	: nama_brand
+								},
+								dataType	: 'json',
+								success		: function(data){
+									// console.log(data.id_brand);
+									brands = data.id_brand
+									dataRequireSaveNewProduct(nama_product, harga_jual_satuan, units, brands, jml_beli, satuan_beli, isi , total_harga, harga_satuan );
+								}
+
+							});
+						}
+
+						
+					}		
+
+					else{
+
+						if(id_product == '' || jml_beli == 0 || jml_beli == '' || satuan_beli == '' || isi == 0 || isi == '' || total_harga == '' || harga_jual_satuan == '' || brands == '' || units == '' || nama_product == ''){
+							Swal.fire({
+								icon: 'error',
+								title: 'Mohon',
+								text: 'Lengkapi Field Yang Tersedia',
+							})
+						}
+
+						else{
+							dataRequireSaveNewProduct(nama_product, harga_jual_satuan, units, brands, jml_beli, satuan_beli, isi , total_harga, harga_satuan );
+						}
+					}		
 					
 				}
 
-				// console.log(id_product);
-				// console.log(nama_product);
-
-
-				// var subTotal = parseInt(hargaInt) * parseInt(beli) - (parseInt(hargaInt) * parseInt(beli)) * discInt / 100;
-				// var tax = 0.1 * subTotal;
-
-				// var subTotalRP = formatCurrency(subTotal);
-
-				// console.log(tax);
-
-				// var row = $('tbody tr').length;
-				// var tr = '<tr>'+
-				// 								'<td>'+
-				// 									'<label for="">Nama Produk</label>'+
-				// 									'<input type="text" class="form-control" style="width: 100%;" id="name" name="name_product[]" value="'+nama_product+'" readonly>'+
-				// 									'<input type="hidden" class="form-control" style="width: 100%;" id="product_id" name="product_id[]" value="'+id_product+'" readonly>'+
-				// 								'</td>'+
-				// 								'<td>'+
-				// 									'<label for="">Jumlah</label>'+
-				// 									'<input type="text" class="form-control" style="width: 100%;" id="price" name="price[]" value="'+jml_beli+'"/"'+satuan_beli+'" readonly>'+
-				// 								'</td>'+
-				// 								'<td>'+
-				// 									'<label for="">Isi/Satuan</label>'+
-				// 									'<input type="text" class="form-control" style="width: 100%;" id="disc" name="disc_item[]" value="'+isi+'" readonly>'+
-				// 								'</td>'+
-				// 								'<td>'+
-				// 									'<label for="">Total</label>'+
-				// 									'<input type="text" class="form-control" style="width: 100%;" id="stock" name="amount[]" value="'+total_harga+'" readonly>'+
-				// 								'</td>'+
-				// 								'<td>'+
-				// 									'<label for="">Harga Satuan</label>'+
-				// 									'<input type="text" class="form-control subTotal" style="width: 100%;" id="subTotal" name="sub[]" value="'+harga_satuan+'" readonly>'+
-				// 								'</td>'+
-				// 								'<td>'+
-				// 									'<label for="">Harga Jual</label>'+
-				// 									'<input type="text" class="form-control subTotal" style="width: 100%;" id="subTotal" name="sub[]" value="'+harga_jual_satuan+'" readonly>'+
-				// 								'</td>'+
-				// 								'<td align="center">'+
-				// 									'<label for="">Hapus</label>'+
-				// 									'<br>'+
-				// 									'<a href="#" class="btn btn-danger btn-sm remove" data-harga="'+total_harga+'">X</a>'+
-				// 								'</td>'+
-				// 				'</tr>';
-
-				// // set_total(subTotal);
-				// // set_discount();
-
-				// $('tbody').append(tr);
-
-				// $('#field-harga').val('');
-				// $('#field-merek').val('');
-				// $('#field-hargaInt').val('');
-				// $('#field-stock').val('');
-				// $('#field-beli').val('');
-				// $('#field-disc').val('');
-				// $('#field-product').val(null).trigger('change');
-			}
+				else{
+					Swal.fire({
+						icon: 'error',
+						title: 'Mohon',
+						text: 'Pilih Jenis Product',
+					})
+				}
 
 			
 		}
 
-		function dataRequireSaveNewProduct(name , price , unit , brand){
-			console.log(name);
-			console.log(price);
-			console.log(unit);
-			console.log(brand);
+		function dataRequireSaveNewProduct(name , price , unit , brand, jumlah, satuan, isi , total_harga, harga_satuan){
+			// ajax save produk
+
+			$.ajax({
+				url				: '/addProduk',
+				method 		: "get",
+				data			: {
+					"_token": "{{ csrf_token() }}",
+					"name_product" 	: name,
+					"price"					: convertToAngka(price),
+					"unit_id"				: unit,
+					"brand_id"			: brand
+				},
+				dataType	: 'json',
+				success		: function(data){
+					// return data.id_product;
+
+					var id_product = data.id_product;
+
+					addDataToList(id_product , name , jumlah, satuan, isi , total_harga, harga_satuan , price);
+				}
+
+			});
+
+			$('#field-product').load("/produk");
+			$('#field-units').load("/satuan");
+			$('#field-brands').load("/merek");
+
+		}
+
+		function addDataToList(id_product , nama_product , jumlah, satuan, isi , total_harga, harga_satuan , harga_jual){
+
+				var row = $('tbody tr').length;
+				var tr = '<tr>'+
+												'<td>'+
+													'<label for="">Nama Produk</label>'+
+													'<input type="text" class="form-control" style="width: 100%;" name="name_product[]" value="'+nama_product+'" readonly>'+
+													'<input type="hidden" class="form-control" style="width: 100%;" name="product[]" value="'+id_product+'" readonly>'+ 															//detail_purchase.product
+												'</td>'+
+												'<td>'+
+													'<label for="">Jumlah</label>'+
+													'<input type="text" class="form-control" style="width: 100%;" value="'+jumlah+'  '+satuan+'" readonly>'+
+													'<input type="hidden" class="form-control" style="width: 100%;" name="amount[]" value="'+jumlah+'" readonly>'+																		//detail_purchase.amount
+													'<input type="hidden" class="form-control" style="width: 100%;" name="unit[]" value="'+satuan+'" readonly>'+																			//detail_purchase.unit
+												'</td>'+
+												'<td>'+
+													'<label for="">Isi/Satuan</label>'+
+													'<input type="text" class="form-control" style="width: 100%;" value="'+isi+'" readonly>'+	
+													'<input type="hidden" class="form-control" style="width: 100%;" name="value[]" value="'+(isi*jumlah)+'" readonly>'+																	//detail_purchase.value (isi * jumlah)
+												'</td>'+
+												'<td>'+
+													'<label for="">Total</label>'+
+													'<input type="text" class="form-control" style="width: 100%;" value="'+total_harga+'" readonly>'+						
+													'<input type="hidden" class="form-control" style="width: 100%;" name="total_price[]" value="'+convertToAngka(total_harga)+'" readonly>'+						//detail_purchase.total_price
+												'</td>'+
+												'<td>'+
+													'<label for="">Harga Satuan</label>'+
+													'<input type="text" class="form-control subTotal" style="width: 100%;" value="'+harga_satuan+'" readonly>'+		
+													'<input type="hidden" class="form-control subTotal" style="width: 100%;" name="price_per[]" value="'+convertToAngka(harga_satuan)+'" readonly>'+		//detail_purchase.price_per_seed
+												'</td>'+
+												'<td>'+
+													'<label for="">Harga Jual</label>'+
+													'<input type="text" class="form-control subTotal" style="width: 100%;" value="'+harga_jual+'" readonly>'+			
+													'<input type="hidden" class="form-control subTotal" style="width: 100%;" name="price_sell[]" value="'+convertToAngka(harga_jual)+'" readonly>'+			
+												'</td>'+
+												'<td align="center">'+
+													'<label for="">Hapus</label>'+
+													'<br>'+
+													'<a href="#" class="btn btn-danger btn-sm remove" data-harga="'+total_harga+'">X</a>'+
+												'</td>'+
+								'</tr>';
+
+				$('tbody').append(tr);
+
+				set_total(total_harga);
+
+				$('#field-jumlah').val(0);
+				$('#field-satuan-beli').val('');
+				$('#field-isi').val(0);
+				$('#field-total-harga').val('');
+				$('#field-harga-satuan').val('');
+				$('#field-harga-jual').val('');
+				$('#field-new_satuan').val('');
+				$('#field-new_merek').val('');
+				$('#field-name_product').val('');
+				$('#field-product').val(null).trigger('change');
+				$('#field-jenis_product').val(null).trigger('change');
+				$('#field-brands').val(null).trigger('change');
+				$('#field-units').val(null).trigger('change');
+
+
 		}
 
 		var total = 0;
-		var tax = 0;
 		function set_total(subTotal){
 			
-			total += subTotal;
+			total += convertToAngka(subTotal);
 
-				
-			tax = 0.1 * total;
-			$('#first_total').val(formatCurrency(total));
 			$('#total').val(formatCurrency(total));
-			$('#tax').val(formatCurrency(tax));
 			
 		}
 
-		function set_discount(){
-			$('#discount').on('keyup', function() {
-				var discount = $(this).val();
-				var totalAkhir = total - (parseInt(discount) * total / 100);
-
-				tax = 0.1 * totalAkhir;
-				$('#total').val(formatCurrency(totalAkhir));
-				$('#tax').val(formatCurrency(tax));
-			});
-		}
 		
 		$('.remove').live('click', function(){
 			var last = $('tbody tr').length;
@@ -509,13 +604,9 @@
 			else{
 				var sub = $(this).attr('data-harga');
 				// console.log(sub);
-				total = total-sub;
-				tax = 0.1 * total;
+				total = total-convertToAngka(sub);
 
-				$('#discount').val(0);
-				$('#first_total').val(formatCurrency(total));
 				$('#total').val(formatCurrency(total));
-				$('#tax').val(formatCurrency(tax));
 
 				$(this).parent().parent().remove();
 
@@ -525,7 +616,7 @@
 		
 
 		$(document).ready(function() {
-        $('#pelanggan').select2();
+        $('#supplier').select2();
         $('#field-jenis_product').select2();
         $('#field-product').select2();
         $('#field-units').select2();
