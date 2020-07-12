@@ -8,7 +8,12 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <title>Faktur</title>
+		<title>Faktur {{ $transactions->id_tr }}-/{{ $transactions->dibuat }}-/{{ $transactions->id }}</title>
+		{{-- <style type="text/css" media="print">
+
+			@page{ size: A4 landscape; margin: 2cm; }
+			
+			</style> --}}
   </head>
   <body>
 		
