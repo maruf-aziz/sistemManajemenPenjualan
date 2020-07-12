@@ -9,6 +9,8 @@ use App\Product;
 use App\User;
 use Illuminate\Http\Request;
 
+use PDF;
+
 class TransactionsController extends Controller
 {
     /**
@@ -188,5 +190,30 @@ class TransactionsController extends Controller
     public function destroy(Transaction $transaction)
     {
         //
+    }
+
+    public function generateInvoice($id){
+        // $id = 5;
+        $data = array(
+            'transactions' => Transaction::select('*', 'customers.name AS pelanggan', 'users.name AS petugas', 'transactions.created_at AS dibuat', 'transactions.id AS id_tr', 'customers.address AS alamat')
+                                        ->join('customers', 'transactions.customer_id','=','customers.id')
+                                        ->join('users', 'transactions.user_id', '=', 'users.id')
+                                        ->where('transactions.id', $id)
+                                        ->orderby('transactions.created_at','DESC')
+                                        ->first(),
+            
+            'detail' => Detail_Transaction::join('transactions', 'detail_transactions.transaction_id', '=', 'transactions.id')
+                                        ->join('products','detail_transactions.product_id','=','products.id_product')
+                                        ->join('brands','products.brand_id', '=','brands.id_brands')
+                                        ->join('units', 'products.unit_id','=','units.id_unit')
+                                        ->where('transaction_id', $id)
+                                        ->get(),
+            'total' => Detail_Transaction::where('transaction_id', $id)->sum('subTotal')
+        );
+
+        // $pdf = PDF::loadView('pages.transactions.invoice')->setPaper('a4', 'landscape');
+        // return $pdf->stream();
+
+        return view('pages.transactions.invoice', $data);
     }
 }

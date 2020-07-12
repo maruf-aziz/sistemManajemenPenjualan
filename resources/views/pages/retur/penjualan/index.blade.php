@@ -1,8 +1,8 @@
 @extends('layouts/main')
 
-@section('title', 'Transactions')
+@section('title', 'Retur Penjualan')
 
-@section('title_pages', 'Transactions')
+@section('title_pages', 'Retur Penjualan')
 
 @section('content')
 
@@ -18,26 +18,25 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Transaksi Penjualan</h4>              
+              <h4 class="card-title">Retur Penjualan</h4>              
             </div>
             <div class="card-body">
-							<a href="/transactions/create" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>
+							<a href="/transactions/create" class="btn btn-success"><i class="material-icons">create</i> Buat Retur Penjualan</a>
               <table class="table table-hover" id="transaksi" style="width:100%">
                 <thead>
                   <tr>
                     <th scope="col" width="5%">#</th>
                     <th scope="col" width="25%">Pelanggan</th>
-                    <th scope="col" width="15%">Tanggal</th>
+                    <th scope="col" width="20%">Tanggal</th>
                     <th scope="col" width="10%">Disc</th>
                     <th scope="col" width="10%">PPN</th>
                     <th scope="col" width="10%">Total</th>
                     <th scope="col" width="10%">Status</th>
                     <th scope="col" width="10%">Petugas</th>
-                    <th scope="col" width="5%">Faktur</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($transactions as $item)
+                  {{-- @foreach ($transactions as $item)
 											<tr>
 												<td>{{ $loop->iteration }}</td>
 												<td><a href="/transactions/{{ $item->id_tr }}" class="btn btn-outline-primary btn-sm">{{ $item->pelanggan }}</a></td>
@@ -47,9 +46,8 @@
 												<td>@currency($item->total_cost)</td>
 												<td><span class="{{ $item->status != 'sukses' ? 'badge badge-danger' : 'badge badge-success' }}">{{ $item->status }}</span></td>
 												<td>{{ $item->petugas }}</td>
-												<td><a href="/invoice/{{ $item->id_tr }}" class="btn btn-outline-success btn-sm" target="_blank"><i class="material-icons">print</i></a></td>
 											</tr>
-									@endforeach
+									@endforeach --}}
                 </tbody>
               </table>
             </div>

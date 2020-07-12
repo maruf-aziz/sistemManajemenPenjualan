@@ -31,11 +31,28 @@ Route::resource('brands', 'BrandsController')->middleware('auth');
 Route::resource('units', 'UnitsController')->middleware('auth');
 Route::resource('transactions', 'TransactionsController')->middleware('auth');
 Route::resource('purchases', 'PurchasesController')->middleware('auth');
-Route::get('/produk', 'PurchasesController@getProduct');
-Route::get('/satuan', 'PurchasesController@getSatuan');
-Route::get('/merek', 'PurchasesController@getMerek');
-Route::get('/supplier', 'PurchasesController@getSupplier');
-Route::get('/addSatuan', 'PurchasesController@addNewUnit');
-Route::get('/addMerek', 'PurchasesController@addNewBrand');
-Route::get('/addMerek', 'PurchasesController@addNewBrand');
-Route::get('/addProduk', 'PurchasesController@addNewProduct');
+Route::resource('retur_penjualan','RetursalesController')->middleware('auth');
+
+Route::get('/invoice/{id}', 'TransactionsController@generateInvoice')->middleware('auth');;
+
+Route::get('/produk', 'PurchasesController@getProduct')->middleware('auth');
+Route::get('/satuan', 'PurchasesController@getSatuan')->middleware('auth');
+Route::get('/merek', 'PurchasesController@getMerek')->middleware('auth');
+Route::get('/supplier', 'PurchasesController@getSupplier')->middleware('auth');
+
+Route::get('/addSatuan', 'PurchasesController@addNewUnit')->middleware('auth');
+Route::get('/addMerek', 'PurchasesController@addNewBrand')->middleware('auth');
+Route::get('/addMerek', 'PurchasesController@addNewBrand')->middleware('auth');
+Route::get('/addProduk', 'PurchasesController@addNewProduct')->middleware('auth');
+
+Route::get('/report_product', 'ReportController@reportProduct')->middleware('auth');
+Route::get('/report_penjualan', 'ReportController@reportPenjualan')->middleware('auth');
+Route::get('/report_pembelian', 'ReportController@reportPembelian')->middleware('auth');
+
+Route::get('/data_report_product', 'ReportController@getProduct')->middleware('auth');
+Route::get('/data_report_penjualan', 'ReportController@getTransaction')->middleware('auth');
+Route::get('/data_report_pembelian', 'ReportController@getPembelian')->middleware('auth');
+
+
+Route::get('/data_report_penjualan_custom/{tangal}/{month}/{tahun}', 'ReportController@searchTransaction')->middleware('auth');
+Route::get('/data_report_pembelian_custom/{tangal}/{month}/{tahun}', 'ReportController@searchPembelian')->middleware('auth');

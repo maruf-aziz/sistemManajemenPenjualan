@@ -29,6 +29,7 @@ The above copyright notice and this permission notice shall be included in all c
   <link href="/assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <!-- CSS Just for demo purpose, don't include it in your project -->
   {{-- <link href="/assets/demo/demo.css" rel="stylesheet" /> --}}
 
@@ -38,6 +39,7 @@ The above copyright notice and this permission notice shall be included in all c
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/accounting.js/0.4.1/accounting.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/accounting.js/0.4.1/accounting.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
   <style>
     .input-css{
@@ -157,17 +159,17 @@ The above copyright notice and this permission notice shall be included in all c
               <p>Notifications</p>
             </a>
           </li> --}}
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown {{ Request::segment(1) == 'report_product' | Request::segment(1) == 'report_penjualan' | Request::segment(1) == 'report_pembelian' ? 'active' : '' }}">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 							<i class="material-icons">dynamic_feed</i>
 								Laporan
 						</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#">Laporan Barang</a>
-							<a class="dropdown-item" href="#">Laporan Penjualan</a>
-							<a class="dropdown-item" href="#">Laporan Pembelian</a>
-							<a class="dropdown-item" href="#">Laporan Retur Penjualan</a>
-							<a class="dropdown-item" href="#">Laporan Retur Pembelian</a>
+							<a class="dropdown-item" href="/report_product">Laporan Barang</a>   
+							<a class="dropdown-item" href="/report_penjualan">Laporan Penjualan</a>
+							<a class="dropdown-item" href="/report_pembelian">Laporan Pembelian</a>
+							{{-- <a class="dropdown-item" href="#">Laporan Retur Penjualan</a>
+							<a class="dropdown-item" href="#">Laporan Retur Pembelian</a> --}}
 							{{-- <div class="dropdown-divider"></div> --}}
 						</div>
           </li>
