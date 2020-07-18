@@ -14,7 +14,7 @@
           </div>
       @endif
 
-      <div class="row">
+      {{-- <div class="row">
         <div class="col-md-12">
           <div class="card">
             <div class="card-header card-header-primary">
@@ -70,7 +70,7 @@
 						</div>
           </div>
         </div>
-			</div>
+			</div> --}}
 
 			<div class="row">
         <div class="col-md-12">
@@ -94,7 +94,7 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td colspan="2">
+											<td>
 												<label for="">Nama Pelanggan</label>
 												<select name="customer_id" id="pelanggan" style="width: 100%" required>
 													<option value="">-- Cari Pelanggan --</option>
@@ -104,7 +104,78 @@
 													<input type="hidden" name="user_id" value="{{ Auth::user()->id }}" readonly>
 												</select>
 											</td>
-										</tr>
+                    </tr>
+										<tr>
+											<td>
+                        <label for="">Tanggal Transaksi</label>
+                        <br>
+                        <input type="text" class="input-css name" style="width: 50%; border: 1px solid red;" value="{{ date('D, d-M-Y') }}" disabled>
+											</td>
+                    </tr>
+										<tr>
+											<td>
+                        <label for="">No Transaksi</label>
+                        <br>
+                        <input type="text" class="input-css name" style="width: 50%; border: 1px solid red;" value="{{ $new_id+1 }}" disabled>
+											</td>
+                    </tr>
+
+                    <tr>
+                      <td colspan="6">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <label for="">Produk</label>
+                            <select name="" id="field-product" style="width: 100%" onchange="cekProduct()">
+                              <option selected value="">-- Pilih Produk --</option>
+                              @foreach ($products as $item)
+                                  <option value="{{ $item->id_product }}" 
+          
+                                    nama="{{ $item->name_product }}" 
+                                    harga="@currency($item->price)" 
+                                    hargaInt="{{ $item->price }}" 
+                                    stock="{{ $item->stock }}" 
+                                    merek="{{ $item->name }}"
+                                    satuan="{{ $item->unit }}"
+                                    lot="{{ $item->lot }}" 
+                                    exp="{{ $item->exp }}"
+                                    
+                                    >{{ $item->name_product }}  [ lot : {{ $item->lot }} / Exp : {{ $item->exp }} ]</option>
+                              @endforeach
+                            </select>
+                          </div>
+                          <div class="col-md-2">
+                            <label for="">Merek</label>
+                            <input type="text" class="input-css name" style="width: 100%; border: 1px solid red;" id="field-merek" value="" disabled>
+                          </div>
+                          <div class="col-md-1">
+                            <label for="">harga</label>
+                            <input type="text" class="input-css name" style="width: 100%; border: 1px solid red;" id="field-harga" value="" disabled>
+                          </div>
+                          <div class="col-md-1">
+                            <label for="">Satuan</label>
+                            <input type="text" class="input-css name" style="width: 100%; border: 1px solid red;" id="field-satuan" value="" disabled>
+                          </div>
+                          <div class="col-md-1">
+                            <label for="">Stok</label>
+                            <input type="text" class="input-css name" style="width: 100%; border: 1px solid red;" id="field-stock" disabled>
+                          </div>
+                          <div class="col-md-1">
+                            <label for="">Disc item%</label>
+                            <input type="text" class="input-css name" style="width: 100%;" id="field-disc" value="" maxlength="2" onkeypress="return hanyaAngka(event)">
+                          </div>
+                          <div class="col-md-1">
+                            <label for="">Beli</label>
+                            <input type="text" class="input-css name" style="width: 100%;" id="field-beli" value="" maxlength="2" onkeypress="return hanyaAngka(event)">
+                          </div>
+                          <div class="col-md-1" style="margin-top: 5px;">
+                            <button type="button" id="tambahItem" class="btn btn-primary mt-3 addRow"><i class="material-icons">add_shopping_cart</i></button>
+                          </div>
+                        </div>
+                        {{-- <button type="button" id="tambahItem" class="btn btn-primary pull-right mt-5 addRow">Tambah Item</button> --}}
+                      </td>
+                    </tr>
+                    
+
 									</tbody>
 									<tfoot>
 										<tr>
@@ -211,6 +282,8 @@
 				var hargaInt = $('#field-product option:selected').attr('hargaInt');
 				var merek = $('#field-product option:selected').attr('merek');
 				var stock = $('#field-product option:selected').attr('stock');
+				var lot = $('#field-product option:selected').attr('lot');
+				var exp = $('#field-product option:selected').attr('exp');
 				var beli = $('#field-beli').val();
 				var disc = $('#field-disc').val();
 				var discInt;
@@ -233,7 +306,7 @@
 				var tr = '<tr>'+
 												'<td>'+
 													'<label for="">Nama Produk</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" id="name" name="name_product[]" value="'+nama+'" readonly>'+
+													'<input type="text" class="form-control" style="width: 100%;" id="name" name="name_product[]" value="'+nama+' [ lot : '+ lot+' / exp : '+exp+']" readonly>'+
 													'<input type="hidden" class="form-control" style="width: 100%;" id="product_id" name="product_id[]" value="'+id+'" readonly>'+
 												'</td>'+
 												'<td>'+

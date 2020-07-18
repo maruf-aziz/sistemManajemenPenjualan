@@ -11,5 +11,5 @@ class Product extends Model
     protected $primaryKey = 'id_product';
 
     use SoftDeletes;
-    protected $fillable = ['name_product','price','unit_id','stock','brand_id'];
+    protected $fillable = ['name_product','price','unit_id','stock','brand_id', 'lot','exp'];
 }

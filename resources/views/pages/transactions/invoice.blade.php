@@ -37,7 +37,7 @@
 				<div class="col-md-6">
 					<div class="card" style="width: 100%;">
 						<div class="card-body">
-							<h6 class="card-title">============== FAKTUR PENJUALAN ============</h6>
+							<h6 class="card-title">============ FAKTUR PENJUALAN ==========</h6>
 							<table class="table table-borderless">
 								<tr>
 									<td> NO TRANS</td>
@@ -82,7 +82,7 @@
 								<th scope="col">Nama Barang</th>
 								<th scope="col">Qty</th>
 								<th scope="col">Unit</th>
-								<th scope="col">Batch</th>
+								<th scope="col">No lot</th>
 								<th scope="col">Exp Date</th>
 								<th scope="col">Harga</th>
 								<th scope="col">Disc</th>
@@ -96,8 +96,8 @@
 										<td>{{ $item->name_product }}</td>
 										<td>{{ $item->amount }}</td>
 										<td>{{ $item->unit }}</td>
-										<td>-</td>
-										<td>-</td>
+										<td>{{ $item->lot }}</td>
+										<td>{{ $item->exp }}</td>
 										<td>@currency($item->unit_price)</td>
 										<td>{{ $item->disc_item }}</td>
 										<td>@currency($item->subTotal)</td>

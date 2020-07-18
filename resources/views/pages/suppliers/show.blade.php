@@ -20,9 +20,9 @@
 								@method('patch')
                 @csrf
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <div class="form-group">
-                      <label class="bmd-label-floating">Name *</label>
+                      <label class="bmd-label-floating">Nama *</label>
                       <input type="text" class="form-control @error('name') is-invalid @enderror"" name="name" value="{{ $supplier->name }}">
                       @error('name')
                       <div class="invalid-feedback">
@@ -31,9 +31,9 @@
                     @enderror
                     </div>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <div class="form-group">
-                      <label class="bmd-label-floating">Email address</label>
+                      <label class="bmd-label-floating">Email</label>
                       <input type="email" class="form-control @error('email') is-invalid @enderror"" name="email" value="{{ $supplier->email }}">
                       @error('email')
                       <div class="invalid-feedback">
@@ -42,11 +42,22 @@
                     @enderror
                     </div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-3">
                     <div class="form-group">
-                      <label class="bmd-label-floating">Phone *</label>
+                      <label class="bmd-label-floating">No Telepon *</label>
                       <input type="text" class="form-control @error('phone') is-invalid @enderror"" name="phone" value="{{ $supplier->phone }}">
                       @error('phone')
+                      <div class="invalid-feedback">
+                          {{ $message }}
+                      </div>
+                    @enderror
+                    </div>
+                  </div>
+									<div class="col-md-3">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Alamat *</label>
+                      <input type="text" class="form-control @error('address') is-invalid @enderror"" name="address" value="{{ $supplier->address }}">
+                      @error('address')
                       <div class="invalid-feedback">
                           {{ $message }}
                       </div>

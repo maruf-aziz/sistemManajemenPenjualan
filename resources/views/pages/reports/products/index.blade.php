@@ -21,36 +21,14 @@
               <h4 class="card-title">Laporan Produk</h4>              
             </div>
             <div class="card-body">
-							{{-- <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
-								Lihat Berdasarkan
-							</button>
-							
-							<!-- Modal -->
-							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">Lihat Berdasarkan</h5>
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<form action="#">
-												<div class="form-group">
-													<label for="">Tanggal</label>
-													<input type="text" id="datepicker" style="width: 100%">
-												</div>
-												
-											</form>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-											<button type="button" class="btn btn-primary">Tampilkan</button>
-										</div>
-									</div>
-								</div>
-							</div> --}}
+							<style>
+								@media print{
+									.nonprint {display: none}
+								}
+							</style>
+							<div class="nonprint">
+								<a href="javascript:window.print()" class="btn btn-outline-success"><i class="material-icons">print</i></a>
+							</div> 
 
               <table class="table table-hover" style="width:100%">
                 <thead>

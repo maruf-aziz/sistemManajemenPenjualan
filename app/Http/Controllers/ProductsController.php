@@ -58,11 +58,13 @@ class ProductsController extends Controller
             foreach ($request->name_product as $item=> $val) {
                 # code...
                 $data = array(
-                    'name_product' => $request->name_product[$item],
-                    'price' => $request->price[$item],
-                    'unit_id' => $request->unit_id[$item],
-                    'stock' => $request->stock[$item],
-                    'brand_id' => $request->brand_id[$item],
+                    'name_product'  => $request->name_product[$item],
+                    'price'         => $request->price[$item],
+                    'unit_id'       => $request->unit_id[$item],
+                    'stock'         => $request->stock[$item],
+                    'brand_id'      => $request->brand_id[$item],
+                    'lot'           => $request->lot[$item],
+                    'exp'           => $request->exp[$item],
                 );
                 Product::create($data);
             }

@@ -48,6 +48,7 @@ class SuppliersController extends Controller
                 Rule::unique('suppliers')->where('email', !null),
             ],
             'phone' => 'required|max:13',
+            'addesss' => 'max:255'
         ]);
         
         Supplier::create($request->all());
@@ -96,6 +97,7 @@ class SuppliersController extends Controller
                 Rule::unique('suppliers')->ignore($supplier->id),
             ],
             'phone' => 'required|max:13',
+            'addesss' => 'max:255'
         ]);
 
         Supplier::where('id', $supplier->id)
@@ -103,6 +105,7 @@ class SuppliersController extends Controller
                     'name' => $request->name,
                     'email' => $request->email,
                     'phone' => $request->phone,
+                    'address' => $request->address
                 ]);
         
         return redirect('/suppliers')->with('status', 'Data berhasil diubah');

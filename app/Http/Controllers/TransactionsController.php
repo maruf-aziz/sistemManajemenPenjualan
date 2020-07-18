@@ -44,8 +44,9 @@ class TransactionsController extends Controller
             'products' => Product::join('brands','products.brand_id', '=','brands.id_brands')
                     ->join('units', 'products.unit_id','=','units.id_unit')
                     ->orderby('products.name_product','asc')->get(),
+            'new_id' => Transaction::latest()->value('id'),
         );
-        return view('pages.transactions.add', $data);
+        return view('pages.transactions.addV2', $data);
     }
 
     /**

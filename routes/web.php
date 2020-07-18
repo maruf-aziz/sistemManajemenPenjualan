@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'PagesController@dashboard')->name('home')->middleware('auth');
 // Route::get('/user', 'PagesController@user')->name('user')->middleware('auth');
 
