@@ -55,6 +55,7 @@
               <h6 class="card-category text-gray">Supplier</h6>
               <h4 class="card-title">{{ $purchases->name }}</h4>
               <h5 class="card-title">{{ $purchases->email }}</h5>
+              <h6 class="card-title">{{ $purchases->address }}</h6>
             </div>
           </div>
         </div>
@@ -76,8 +77,9 @@
                       <th scope="col">#</th>
                       <th scope="col">Produk</th>
                       <th scope="col">Jumlah Beli</th>
-                      <th scope="col">Isi / satuan</th>
+                      <th scope="col">Satuan</th>
                       <th scope="col">Harga Satuan</th>
+                      <th scope="col">Discount</th>
                       <th scope="col">Total Harga</th>
                     </tr>
                   </thead>
@@ -86,9 +88,10 @@
                       <tr>
                         <td>{{ $loop->iteration }}</td>	
                         <td>{{ $item->name_product }}</td>	
-                        <td>{{ $item->amount }} / {{ $item->unit }}</td>	
-                        <td>{{ $item->value }}</td>	
+                        <td>{{ $item->amount }}</td>	
+                        <td>{{ $item->unit }}</td>	
                         <td>@currency($item->price_per_seed)</td>	
+                        <td>{{ $item->disc }} %</td>	
                         <td>@currency($item->total_price)</td>	
                       </tr>											
                     @endforeach

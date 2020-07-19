@@ -16,7 +16,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $product = Product::join('brands','products.brand_id', '=','brands.id_brands')
+        $product = Product::join('brands','products.brand_id', '=','brands.id_brands', 'left')
             ->join('units', 'products.unit_id','=','units.id_unit')
             ->orderby('name_product', 'asc')
             ->get();

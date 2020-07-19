@@ -161,8 +161,10 @@
                 <thead>
                   <tr>
                     <th scope="col" width="5%">#</th>
-                    <th scope="col" width="25%">Nama</th>
-                    <th scope="col" width="20%">Merek</th>
+                    <th scope="col" width="15%">Nama</th>
+                    <th scope="col" width="10%">No. lot</th>
+                    <th scope="col" width="5%">Exp</th>
+                    <th scope="col" width="15%">Merek</th>
                     <th scope="col" width="15%">Harga</th>
                     <th scope="col" width="10%">Stok</th>
                     <th scope="col" width="10%">Satuan</th>
@@ -174,7 +176,9 @@
 											<tr>
 												<td>{{ $loop->iteration }}</td>
 												<td><a href="/products/{{ $item->id_product }}" class="btn btn-outline-primary btn-sm">{{ $item->name_product }}</a></td>
-												<td>{{ $item->name }}</td>
+												<td>{{ $item->lot != null ? $item->lot : '-' }}</td>
+												<td>{{ $item->exp != null ? $item->exp : '-' }}</td>
+												<td>{{ $item->name != null ? $item->name : '-' }}</td>
 												<td>@currency($item->price)</td>
 												<td>{{ $item->stock }}</td>
 												<td>{{ $item->unit }}</td>

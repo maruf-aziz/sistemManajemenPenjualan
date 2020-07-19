@@ -83,6 +83,10 @@ The above copyright notice and this permission notice shall be included in all c
     .select-css option {
       font-weight:normal;
     }
+
+    .bg-white{
+      background-color: white;
+    }
   </style>
   
 
@@ -101,7 +105,7 @@ The above copyright notice and this permission notice shall be included in all c
         </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item {{ Request::segment(1) == '' ? 'active' : '' }}">
+          <li class="nav-item {{ Request::segment(1) == '' | Request::segment(1) == 'home' ? 'active' : '' }}">
             <a class="nav-link" href="/">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
@@ -571,7 +575,7 @@ The above copyright notice and this permission notice shall be included in all c
         $('#example').DataTable();
         $('table.display').DataTable({
           "pageLength": 5,
-          "ordering": false,
+          // "ordering": false,
           "lengthMenu": [[5, 20, 50, -1], [5, 20, 50, "All"]]
         });
         $('#transaksi').DataTable({

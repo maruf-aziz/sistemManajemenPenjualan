@@ -186,18 +186,18 @@
 											</td>
 											<td colspan="1">
 												<label for="">Total Awal</label>
-												<input type="text" class="form-control" style="width: 100%;" id="first_total" value="" maxlength="2" readonly>
+												<input type="text" class="form-control bg-white" style="width: 100%;" id="first_total" value="" maxlength="2" readonly>
 											</td>
 										</tr>
 										<tr>
 											<td colspan="3"></td>											
 											<td colspan="1">
 												<label for="">PPN 10%</label>
-												<input type="text" class="form-control" style="width: 100%;" id="tax" name="tax" value="" readonly>
+												<input type="text" class="form-control bg-white" style="width: 100%;" id="tax" name="tax" value="" readonly>
 											</td>
 											<td colspan="1">
 												<label for="">Total Akhir</label>
-												<input type="text" class="form-control" style="width: 100%;" id="total" name="total_cost" value="" readonly required>
+												<input type="text" class="form-control bg-white" style="width: 100%;" id="total" name="total_cost" value="" readonly required>
 											</td>
 										</tr>
 										<tr>
@@ -306,25 +306,25 @@
 				var tr = '<tr>'+
 												'<td>'+
 													'<label for="">Nama Produk</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" id="name" name="name_product[]" value="'+nama+' [ lot : '+ lot+' / exp : '+exp+']" readonly>'+
+													'<input type="text" class="form-control bg-white" style="width: 100%;" id="name" name="name_product[]" value="'+nama+' [ lot : '+ lot+' / exp : '+exp+']" readonly>'+
 													'<input type="hidden" class="form-control" style="width: 100%;" id="product_id" name="product_id[]" value="'+id+'" readonly>'+
 												'</td>'+
 												'<td>'+
 													'<label for="">Harga</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" id="price" name="price[]" value="'+harga+'" readonly>'+
+													'<input type="text" class="form-control bg-white" style="width: 100%;" id="price" name="price[]" value="'+harga+'" readonly>'+
 													'<input type="hidden" class="form-control" style="width: 100%;" id="price" name="unit_price[]" value="'+hargaInt+'" readonly>'+
 												'</td>'+
 												'<td>'+
 													'<label for="">Disc Item %</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" id="disc" name="disc_item[]" value="'+discInt+'" readonly>'+
+													'<input type="text" class="form-control bg-white" style="width: 100%;" id="disc" name="disc_item[]" value="'+discInt+'" readonly>'+
 												'</td>'+
 												'<td>'+
 													'<label for="">Beli</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" id="stock" name="amount[]" value="'+beli+'" readonly>'+
+													'<input type="text" class="form-control bg-white" style="width: 100%;" id="stock" name="amount[]" value="'+beli+'" readonly>'+
 												'</td>'+
 												'<td>'+
 													'<label for="">Sub Total</label>'+
-													'<input type="text" class="form-control subTotal" style="width: 100%;" id="subTotal" name="sub[]" value="'+subTotalRP+'" readonly>'+
+													'<input type="text" class="form-control bg-white subTotal" style="width: 100%;" id="subTotal" name="sub[]" value="'+subTotalRP+'" readonly>'+
 													'<input type="hidden" class="form-control subTotal" style="width: 100%;" id="subTotal" name="subTotal[]" value="'+subTotal+'" readonly>'+
 												'</td>'+
 												'<td align="center">'+
