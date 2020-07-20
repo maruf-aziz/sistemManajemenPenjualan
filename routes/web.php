@@ -53,6 +53,10 @@ Route::resource('retur_penjualan','RetursalesController')->middleware('auth');
 Route::post('/list_penjualan', 'RetursalesController@getById')->middleware('auth');
 Route::get('/cek', 'RetursalesController@cek')->middleware('auth');
 
+// route retur purchase
+Route::resource('retur_pembelian', 'ReturpurchaseController')->middleware('auth');
+Route::post('/list_pembelian', 'ReturpurchaseController@getById')->middleware('auth');
+
 Route::get('/invoice/{id}', 'TransactionsController@generateInvoice')->middleware('auth');;                                       // route get invoice
 
 Route::get('/produk', 'PurchasesController@getProduct')->middleware('auth');                                                   		// route get select option produk
