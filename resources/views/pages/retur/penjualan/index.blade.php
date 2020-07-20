@@ -21,33 +21,33 @@
               <h4 class="card-title">Retur Penjualan</h4>              
             </div>
             <div class="card-body">
-							<a href="/transactions/create" class="btn btn-success"><i class="material-icons">create</i> Buat Retur Penjualan</a>
+							<a href="/retur_penjualan/create" class="btn btn-success"><i class="material-icons">create</i> Buat Retur Penjualan</a>
               <table class="table table-hover" id="transaksi" style="width:100%">
                 <thead>
                   <tr>
                     <th scope="col" width="5%">#</th>
-                    <th scope="col" width="25%">Pelanggan</th>
-                    <th scope="col" width="20%">Tanggal</th>
-                    <th scope="col" width="10%">Disc</th>
-                    <th scope="col" width="10%">PPN</th>
+                    <th scope="col" width="15%">Pelanggan</th>
+                    <th scope="col" width="10%">Tanggal Transaksi</th>
+                    <th scope="col" width="10%">Tanggal Retur</th>
+                    <th scope="col" width="20%">Deskripsi</th>
+                    <th scope="col" width="20%">Produk</th>
+                    <th scope="col" width="10%">Qty</th>
                     <th scope="col" width="10%">Total</th>
-                    <th scope="col" width="10%">Status</th>
-                    <th scope="col" width="10%">Petugas</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {{-- @foreach ($transactions as $item)
+                  @foreach ($retur as $item)
 											<tr>
 												<td>{{ $loop->iteration }}</td>
-												<td><a href="/transactions/{{ $item->id_tr }}" class="btn btn-outline-primary btn-sm">{{ $item->pelanggan }}</a></td>
+												<td>{{ $item->pelanggan }}</td>
 												<td>{{ $item->dibuat }}</td>
-												<td>{{ $item->disc }} %</td>
-												<td>@currency($item->tax)</td>
-												<td>@currency($item->total_cost)</td>
-												<td><span class="{{ $item->status != 'sukses' ? 'badge badge-danger' : 'badge badge-success' }}">{{ $item->status }}</span></td>
-												<td>{{ $item->petugas }}</td>
+												<td>{{ $item->tgl_retur }}</td>
+												<td>{{ $item->desc }}</td>
+												<td>{{ $item->name_product }}</td>
+												<td>{{ $item->qty }}</td>
+												<td>@currency($item->harga)</td>
 											</tr>
-									@endforeach --}}
+									@endforeach
                 </tbody>
               </table>
             </div>

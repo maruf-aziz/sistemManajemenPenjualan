@@ -147,7 +147,7 @@ The above copyright notice and this permission notice shall be included in all c
               <p>Pembelian</p>
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item {{ Request::segment(1) == 'retur_penjualan' ? 'active' : '' }}">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 							<i class="material-icons">cached</i>
                 Retur

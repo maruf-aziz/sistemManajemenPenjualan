@@ -41,7 +41,7 @@ class TransactionsController extends Controller
         //
         $data = array(
             'customers' => Customer::orderby('name','asc')->get(),
-            'products' => Product::join('brands','products.brand_id', '=','brands.id_brands')
+            'products' => Product::join('brands','products.brand_id', '=','brands.id_brands', 'left')
                     ->join('units', 'products.unit_id','=','units.id_unit')
                     ->orderby('products.name_product','asc')->get(),
             'new_id' => Transaction::latest()->value('id'),
@@ -127,7 +127,7 @@ class TransactionsController extends Controller
             
             'detail' => Detail_Transaction::join('transactions', 'detail_transactions.transaction_id', '=', 'transactions.id')
                                         ->join('products','detail_transactions.product_id','=','products.id_product')
-                                        ->join('brands','products.brand_id', '=','brands.id_brands')
+                                        ->join('brands','products.brand_id', '=','brands.id_brands','left')
                                         ->join('units', 'products.unit_id','=','units.id_unit')
                                         ->where('transaction_id', $transaction->id)
                                         ->get(),
