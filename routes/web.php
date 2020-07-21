@@ -20,42 +20,62 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', 'PagesController@dashboard')->name('home')->middleware('auth');
-// Route::get('/user', 'PagesController@user')->name('user')->middleware('auth');
+
+Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
+  // route user
+  Route::resource('users', 'UsersController');
+  // route supplier
+  Route::resource('suppliers', 'SuppliersController');
+
+  // route customers
+  Route::resource('customers', 'CustomersController');
+
+  // route product
+  Route::resource('products', 'ProductsController');
+
+  // route brand
+  Route::resource('brands', 'BrandsController');
+
+  // route units
+  Route::resource('units', 'UnitsController');
+
+  // route transactions
+  Route::resource('transactions', 'TransactionsController');
+
+  // route purchase
+  Route::resource('purchases', 'PurchasesController');
+
+  // route retur sales
+  Route::resource('retur_penjualan','RetursalesController');
+  Route::post('/list_penjualan', 'RetursalesController@getById');
+  Route::get('/cek', 'RetursalesController@cek');
+
+  // route retur purchase
+  Route::resource('retur_pembelian', 'ReturpurchaseController');
+  Route::post('/list_pembelian', 'ReturpurchaseController@getById');
+});
+
+Route::group(['middleware' => ['auth', 'checkRole:admin,sales']], function(){
+  Route::resource('products', 'ProductsController');
+  Route::get('/report_product', 'ReportController@reportProduct');																							// route get page laporan produk
+});
+
+Route::group(['middleware' => ['auth', 'checkRole:admin,pimpinan']], function(){
+  Route::get('/report_product', 'ReportController@reportProduct');																							// route get page laporan produk
+  Route::get('/report_penjualan', 'ReportController@reportPenjualan');																					// route get page laporan penjualan
+  Route::get('/report_pembelian', 'ReportController@reportPembelian');																					// route get page laporan pembelian
+});
+
+Route::group(['middleware' => ['auth', 'checkRole:admin,sales,pimpinan']], function(){
+  Route::get('/', 'PagesController@dashboard');
+});
 
 
-// route user
-Route::resource('users', 'UsersController')->middleware('auth');
 
-// route supplier
-Route::resource('suppliers', 'SuppliersController')->middleware('auth');
 
-// route customers
-Route::resource('customers', 'CustomersController')->middleware('auth');
 
-// route product
-Route::resource('products', 'ProductsController')->middleware('auth');
 
-// route brand
-Route::resource('brands', 'BrandsController')->middleware('auth');
 
-// route units
-Route::resource('units', 'UnitsController')->middleware('auth');
-
-// route transactions
-Route::resource('transactions', 'TransactionsController')->middleware('auth');
-
-// route purchase
-Route::resource('purchases', 'PurchasesController')->middleware('auth');
-
-// route retur sales
-Route::resource('retur_penjualan','RetursalesController')->middleware('auth');
-Route::post('/list_penjualan', 'RetursalesController@getById')->middleware('auth');
-Route::get('/cek', 'RetursalesController@cek')->middleware('auth');
-
-// route retur purchase
-Route::resource('retur_pembelian', 'ReturpurchaseController')->middleware('auth');
-Route::post('/list_pembelian', 'ReturpurchaseController@getById')->middleware('auth');
 
 Route::get('/invoice/{id}', 'TransactionsController@generateInvoice')->middleware('auth');;                                       // route get invoice
 
@@ -69,14 +89,20 @@ Route::get('/addMerek', 'PurchasesController@addNewBrand')->middleware('auth');	
 Route::get('/addMerek', 'PurchasesController@addNewBrand')->middleware('auth');																										// route json add merek
 Route::get('/addProduk', 'PurchasesController@addNewProduct')->middleware('auth');																								// route json add produk
 
-Route::get('/report_product', 'ReportController@reportProduct')->middleware('auth');																							// route get page laporan produk
+// Route::get('/report_product', 'ReportController@reportProduct')->middleware('auth');																							// route get page laporan produk
 Route::get('/report_penjualan', 'ReportController@reportPenjualan')->middleware('auth');																					// route get page laporan penjualan
 Route::get('/report_pembelian', 'ReportController@reportPembelian')->middleware('auth');																					// route get page laporan pembelian
+Route::get('/report_retur_penjualan', 'ReportController@reportReturPenjualan')->middleware('auth');																// route get page laporan pembelian
+Route::get('/report_retur_pembelian', 'ReportController@reportReturPembelian')->middleware('auth');																// route get page laporan pembelian
 
-Route::get('/data_report_product', 'ReportController@getProduct')->middleware('auth');																						// route get data laporan produk
-Route::get('/data_report_penjualan', 'ReportController@getTransaction')->middleware('auth');																			// route get data laporan penjualan
-Route::get('/data_report_pembelian', 'ReportController@getPembelian')->middleware('auth');																				// route get data laporan pembelian
+Route::get('/data_report_product', 'ReportController@getProduct')->middleware('auth');																						  // route get data laporan produk
+Route::get('/data_report_penjualan', 'ReportController@getTransaction')->middleware('auth');																			  // route get data laporan penjualan
+Route::get('/data_report_pembelian', 'ReportController@getPembelian')->middleware('auth');																				  // route get data laporan pembelian
+Route::get('/data_report_retur_penjualan', 'ReportController@getReturPenjualan')->middleware('auth');														  	// route get data laporan pembelian
+Route::get('/data_report_retur_pembelian', 'ReportController@getReturPembelian')->middleware('auth');															// route get data laporan pembelian
 
 
-Route::get('/data_report_penjualan_custom/{tangal}/{month}/{tahun}', 'ReportController@searchTransaction')->middleware('auth');		// route get data custom laporan penjualan
-Route::get('/data_report_pembelian_custom/{tangal}/{month}/{tahun}', 'ReportController@searchPembelian')->middleware('auth');			// route get data custom laporan pembelian
+Route::get('/data_report_penjualan_custom/{tangal}/{month}/{tahun}', 'ReportController@searchTransaction')->middleware('auth');		            // route get data custom laporan penjualan
+Route::get('/data_report_pembelian_custom/{tangal}/{month}/{tahun}', 'ReportController@searchPembelian')->middleware('auth');		            	// route get data custom laporan pembelian
+Route::get('/data_report_retur_penjualan_custom/{tangal}/{month}/{tahun}', 'ReportController@searchReturPenjualan')->middleware('auth');			// route get data custom laporan pembelian
+Route::get('/data_report_retur_pembelian_custom/{tangal}/{month}/{tahun}', 'ReportController@searchReturPembelian')->middleware('auth');			// route get data custom laporan pembelian

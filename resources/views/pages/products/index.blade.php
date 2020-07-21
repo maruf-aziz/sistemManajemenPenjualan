@@ -15,138 +15,141 @@
       @endif
 
       <div class="row">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-header card-header-primary">
-              <h4 class="card-title">Brands</h4>
-            </div>
-            
-            <div class="card-body">
-							<a href="/brands/create" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>
-              <table class="table table-hover display" style="width:100%">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Merek</th>
-                    <th scope="col" width="200px">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($brands as $item)
-											<tr>
-												<td>{{ $loop->iteration }}</td>
-												<td>{{ $item->name }}</td>
-												<td>
-													<a href="#" class=" btn btn-info btn-sm" data-toggle="modal" data-target="#editModalBrand{{ $item->id_brands }}">Edit</a>
-													{{-- <a href="" class=" btn btn-danger btn-sm">Hapus</a> --}}
-													<form action="/brands/{{ $item->id_brands }}" method="POST" class="d-inline" id="del_brands{{ $item->id_brands }}">
-														@method('delete')
-														@csrf
-														<button type="button" data-nama="{{ $item->name }}" data-formid="{{ $item->id_brands }}" class="btn btn-danger btn-sm delete-btn-brands">Hapus</button>
-													</form>
-												</td>
-											</tr>
+				@if (auth()->user()->role == 'admin')
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-header card-header-primary">
+								<h4 class="card-title">Brands</h4>
+							</div>
+							
+							<div class="card-body">
+								<a href="/brands/create" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>
+								<table class="table table-hover display" style="width:100%">
+									<thead>
+										<tr>
+											<th scope="col">#</th>
+											<th scope="col">Merek</th>
+											<th scope="col" width="200px">Aksi</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach ($brands as $item)
+												<tr>
+													<td>{{ $loop->iteration }}</td>
+													<td>{{ $item->name }}</td>
+													<td>
+														<a href="#" class=" btn btn-info btn-sm" data-toggle="modal" data-target="#editModalBrand{{ $item->id_brands }}">Edit</a>
+														{{-- <a href="" class=" btn btn-danger btn-sm">Hapus</a> --}}
+														<form action="/brands/{{ $item->id_brands }}" method="POST" class="d-inline" id="del_brands{{ $item->id_brands }}">
+															@method('delete')
+															@csrf
+															<button type="button" data-nama="{{ $item->name }}" data-formid="{{ $item->id_brands }}" class="btn btn-danger btn-sm delete-btn-brands">Hapus</button>
+														</form>
+													</td>
+												</tr>
 
-											{{-- modal edit --}}
-											<div class="modal fade" id="editModalBrand{{ $item->id_brands }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-												<div class="modal-dialog">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title" id="exampleModalLabel">Edit Merek</h5>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
+												{{-- modal edit --}}
+												<div class="modal fade" id="editModalBrand{{ $item->id_brands }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="exampleModalLabel">Edit Merek</h5>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<form method="POST" action="/brands/{{ $item->id_brands }}">
+																	@method('patch')
+																	@csrf	
+																	<div class="form-group">
+																		<label for="name">Nama Merek</label>
+																		<input type="text" class="input-css" id="name" name="name" value="{{ $item->name }}" style="width: 100%" required>
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Close</button>
+																		<button type="submit" class="btn btn-outline-primary btn-sm">Simpan Perubahan</button>
+																	</div>
+																</form>
+															</div>														
 														</div>
-														<div class="modal-body">
-															<form method="POST" action="/brands/{{ $item->id_brands }}">
-																@method('patch')
-																@csrf	
-																<div class="form-group">
-																	<label for="name">Nama Merek</label>
-																	<input type="text" class="input-css" id="name" name="name" value="{{ $item->name }}" style="width: 100%" required>
-																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Close</button>
-																	<button type="submit" class="btn btn-outline-primary btn-sm">Simpan Perubahan</button>
-																</div>
-															</form>
-														</div>														
 													</div>
 												</div>
-											</div>
-									@endforeach
-                </tbody>
-							</table>
+										@endforeach
+									</tbody>
+								</table>
 
-            </div>
-          </div>
-				</div>
-				
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-header card-header-primary">
-              <h4 class="card-title">Units</h4>
-            </div>
-            
-            <div class="card-body">
-							<a href="/units/create" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>
-              <table class="table table-hover display" style="width:100%">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Unit</th>
-                    <th scope="col" width="200px">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($units as $item)
-											<tr>
-												<td>{{ $loop->iteration }}</td>
-												<td>{{ $item->unit }}</td>
-												<td>
-													<a href="" class=" btn btn-info btn-sm" data-toggle="modal" data-target="#editModalUnit{{ $item->id_unit }}">Edit</a>
-													{{-- <a href="" class=" btn btn-danger btn-sm">Hapus</a> --}}
-													<form action="/units/{{ $item->id_unit }}" method="POST" class="d-inline" id="del_unit{{ $item->id_unit }}">
-														@method('delete')
-														@csrf
-														<button type="button" data-nama="{{ $item->unit }}" data-formid="{{ $item->id_unit }}" class="btn btn-danger btn-sm delete-btn-unit">Hapus</button>
-													</form>
-												</td>
-											</tr>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-header card-header-primary">
+								<h4 class="card-title">Units</h4>
+							</div>
+							
+							<div class="card-body">
+								<a href="/units/create" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>
+								<table class="table table-hover display" style="width:100%">
+									<thead>
+										<tr>
+											<th scope="col">#</th>
+											<th scope="col">Unit</th>
+											<th scope="col" width="200px">Aksi</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach ($units as $item)
+												<tr>
+													<td>{{ $loop->iteration }}</td>
+													<td>{{ $item->unit }}</td>
+													<td>
+														<a href="" class=" btn btn-info btn-sm" data-toggle="modal" data-target="#editModalUnit{{ $item->id_unit }}">Edit</a>
+														{{-- <a href="" class=" btn btn-danger btn-sm">Hapus</a> --}}
+														<form action="/units/{{ $item->id_unit }}" method="POST" class="d-inline" id="del_unit{{ $item->id_unit }}">
+															@method('delete')
+															@csrf
+															<button type="button" data-nama="{{ $item->unit }}" data-formid="{{ $item->id_unit }}" class="btn btn-danger btn-sm delete-btn-unit">Hapus</button>
+														</form>
+													</td>
+												</tr>
 
-											{{-- modal edit --}}
-											<div class="modal fade" id="editModalUnit{{ $item->id_unit }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-												<div class="modal-dialog">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title" id="exampleModalLabel">Edit Satuan</h5>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
+												{{-- modal edit --}}
+												<div class="modal fade" id="editModalUnit{{ $item->id_unit }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="exampleModalLabel">Edit Satuan</h5>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<form method="POST" action="/units/{{ $item->id_unit }}">
+																	@method('patch')
+																	@csrf	
+																	<div class="form-group">
+																		<label for="name">Nama Satuan</label>
+																		<input type="text" class="input-css" id="unit" name="unit" value="{{ $item->unit }}" style="width: 100%" required>
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Close</button>
+																		<button type="submit" class="btn btn-outline-primary btn-sm">Simpan Perubahan</button>
+																	</div>
+																</form>
+															</div>														
 														</div>
-														<div class="modal-body">
-															<form method="POST" action="/units/{{ $item->id_unit }}">
-																@method('patch')
-																@csrf	
-																<div class="form-group">
-																	<label for="name">Nama Satuan</label>
-																	<input type="text" class="input-css" id="unit" name="unit" value="{{ $item->unit }}" style="width: 100%" required>
-																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Close</button>
-																	<button type="submit" class="btn btn-outline-primary btn-sm">Simpan Perubahan</button>
-																</div>
-															</form>
-														</div>														
 													</div>
 												</div>
-											</div>
-									@endforeach
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+										@endforeach
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				@endif
+        
       </div>
 
       <div class="row">
@@ -156,7 +159,10 @@
               <h4 class="card-title">Products</h4>              
             </div>
             <div class="card-body">
-							<a href="/products/create" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>
+							@if (auth()->user()->role == 'admin')
+									<a href="/products/create" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>
+							@endif
+							
               <table class="table table-hover display" style="width:100%">
                 <thead>
                   <tr>
@@ -175,7 +181,13 @@
                   @foreach ($products as $item)
 											<tr>
 												<td>{{ $loop->iteration }}</td>
-												<td><a href="/products/{{ $item->id_product }}" class="btn btn-outline-primary btn-sm">{{ $item->name_product }}</a></td>
+												
+												@if (auth()->user()->role == 'admin')
+														<td><a href="/products/{{ $item->id_product }}" class="btn btn-outline-primary btn-sm">{{ $item->name_product }}</a></td>
+												@else
+														<td>{{ $item->name_product }}</td>
+												@endif
+												
 												<td>{{ $item->lot != null ? $item->lot : '-' }}</td>
 												<td>{{ $item->exp != null ? $item->exp : '-' }}</td>
 												<td>{{ $item->name != null ? $item->name : '-' }}</td>

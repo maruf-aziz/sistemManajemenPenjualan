@@ -1,8 +1,8 @@
 @extends('layouts/main')
 
-@section('title', 'Laporan Pembelian')
+@section('title', 'Laporan Retur Pembelian')
 
-@section('title_pages', 'Laporan Pembelian')
+@section('title_pages', 'Laporan Retur Pembelian')
 
 @section('content')
 
@@ -18,7 +18,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Laporan Transaksi Pembelian</h4>              
+              <h4 class="card-title">Laporan Retur Pembelian</h4>              
             </div>
             <div class="card-body">
 							<style>
@@ -93,13 +93,14 @@
               <table class="table table-hover" style="width:100%">
                 <thead>
                   <tr>
-										<th scope="col">#</th>
-										<th scope="col">Supplier</th>
-										<th scope="col">Produk</th>
-										<th scope="col">Tanggal</th>
-										<th scope="col">Jumlah Beli</th>
-										<th scope="col">Harga Satuan</th>
-										<th scope="col">Total Harga</th>
+										<th scope="col" width="5%">#</th>
+                    <th scope="col" width="15%">Supplier</th>
+                    <th scope="col" width="10%">Tanggal Transaksi</th>
+                    <th scope="col" width="10%">Tanggal Retur</th>
+                    <th scope="col" width="20%">Deskripsi</th>
+                    <th scope="col" width="20%">Produk</th>
+                    <th scope="col" width="10%">Qty</th>
+                    <th scope="col" width="10%">Total</th>
                   </tr>
                 </thead>
                 <tbody id="reportTransaction">
@@ -119,7 +120,7 @@
 			$( function() {
 				$("#datepicker").datepicker();
 			} );
-			$('#reportTransaction').load("/data_report_pembelian");
+			$('#reportTransaction').load("/data_report_retur_pembelian");
 
         $('#month').select2();
         $('#tahun').select2();
@@ -142,7 +143,7 @@
 				tgl = 0;
 			}
 
-      $('#reportTransaction').load("/data_report_pembelian_custom/"+tgl+"/"+mounth+"/"+thn);
+      $('#reportTransaction').load("/data_report_retur_pembelian_custom/"+tgl+"/"+mounth+"/"+thn);
 
     }
 

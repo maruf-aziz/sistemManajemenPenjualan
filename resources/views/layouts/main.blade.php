@@ -111,69 +111,87 @@ The above copyright notice and this permission notice shall be included in all c
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item {{ Request::segment(1) == 'users' ? 'active' : '' }}">
-            <a class="nav-link" href="/users">
-              <i class="material-icons">person</i>
-              <p>Profile</p>
-            </a>
-          </li>
-          <li class="nav-item {{ Request::segment(1) == 'suppliers' ? 'active' : '' }}">
-            <a class="nav-link" href="/suppliers">
-              <i class="material-icons">assignment_ind</i>
-              <p>Supplier</p>
-            </a>
-          </li>
-          <li class="nav-item {{ Request::segment(1) == 'customers' ? 'active' : '' }}">
-            <a class="nav-link" href="/customers">
-              <i class="material-icons">people</i>
-              <p>Pelanggan</p>
-            </a>
-          </li>
-          <li class="nav-item {{ Request::segment(1) == 'products' | Request::segment(1) == 'brands' | Request::segment(1) == 'units' ? 'active' : '' }}">
-            <a class="nav-link" href="/products">
-              <i class="material-icons">library_books</i>
-              <p>Produk</p>
-            </a>
-          </li>
-          <li class="nav-item {{ Request::segment(1) == 'transactions' ? 'active' : '' }}">
-            <a class="nav-link" href="/transactions">
-              <i class="material-icons">monetization_on</i>
-              <p>Penjualan</p>
-            </a>
-          </li>
-          <li class="nav-item {{ Request::segment(1) == 'purchases' ? 'active' : '' }}">
-            <a class="nav-link" href="/purchases">
-              <i class="material-icons">add_shopping_cart</i>
-              <p>Pembelian</p>
-            </a>
-          </li>
-          <li class="nav-item {{ Request::segment(1) == 'retur_penjualan' ? 'active' : '' }}">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-							<i class="material-icons">cached</i>
-                Retur
-						</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="/retur_pembelian">Retur Pembelian</a>
-							<a class="dropdown-item" href="/retur_penjualan">Retur Penjualan</a>
-						</div>
-          </li>
-          {{-- <li class="nav-item ">
-            <a class="nav-link" href="./notifications.html">
-              <i class="material-icons">notifications</i>
-              <p>Notifications</p>
-            </a>
-          </li> --}}
-          <li class="nav-item dropdown {{ Request::segment(1) == 'report_product' | Request::segment(1) == 'report_penjualan' | Request::segment(1) == 'report_pembelian' ? 'active' : '' }}">
+          
+          @if (auth()->user()->role == 'admin')
+            <li class="nav-item {{ Request::segment(1) == 'users' ? 'active' : '' }}">
+              <a class="nav-link" href="/users">
+                <i class="material-icons">person</i>
+                <p>Profile</p>
+              </a>
+            </li>
+            <li class="nav-item {{ Request::segment(1) == 'suppliers' ? 'active' : '' }}">
+              <a class="nav-link" href="/suppliers">
+                <i class="material-icons">assignment_ind</i>
+                <p>Supplier</p>
+              </a>
+            </li>
+            <li class="nav-item {{ Request::segment(1) == 'customers' ? 'active' : '' }}">
+              <a class="nav-link" href="/customers">
+                <i class="material-icons">people</i>
+                <p>Pelanggan</p>
+              </a>
+            </li>
+            <li class="nav-item {{ Request::segment(1) == 'products' | Request::segment(1) == 'brands' | Request::segment(1) == 'units' ? 'active' : '' }}">
+              <a class="nav-link" href="/products">
+                <i class="material-icons">library_books</i>
+                <p>Produk</p>
+              </a>
+            </li>
+            <li class="nav-item {{ Request::segment(1) == 'transactions' ? 'active' : '' }}">
+              <a class="nav-link" href="/transactions">
+                <i class="material-icons">monetization_on</i>
+                <p>Penjualan</p>
+              </a>
+            </li>
+            <li class="nav-item {{ Request::segment(1) == 'purchases' ? 'active' : '' }}">
+              <a class="nav-link" href="/purchases">
+                <i class="material-icons">add_shopping_cart</i>
+                <p>Pembelian</p>
+              </a>
+            </li>
+            <li class="nav-item {{ Request::segment(1) == 'retur_pembelian' | Request::segment(1) == 'retur_penjualan'  ? 'active' : '' }}">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">cached</i>
+                  Retur
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="/retur_pembelian">Retur Pembelian</a>
+                <a class="dropdown-item" href="/retur_penjualan">Retur Penjualan</a>
+              </div>
+            </li>
+
+          @elseif(auth()->user()->role == 'sales')
+
+            <li class="nav-item {{ Request::segment(1) == 'products' | Request::segment(1) == 'brands' | Request::segment(1) == 'units' ? 'active' : '' }}">
+              <a class="nav-link" href="/products">
+                <i class="material-icons">library_books</i>
+                <p>Produk</p>
+              </a>
+            </li>
+
+          @endif
+          
+          
+          
+          
+          
+          
+          <li class="nav-item dropdown {{ Request::segment(1) == 'report_product' | Request::segment(1) == 'report_penjualan' | Request::segment(1) == 'report_pembelian' | Request::segment(1) == 'report_retur_penjualan' | Request::segment(1) == 'report_retur_pembelian' ? 'active' : '' }}">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 							<i class="material-icons">dynamic_feed</i>
 								Laporan
 						</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="/report_product">Laporan Barang</a>   
-							<a class="dropdown-item" href="/report_penjualan">Laporan Penjualan</a>
-							<a class="dropdown-item" href="/report_pembelian">Laporan Pembelian</a>
-							{{-- <a class="dropdown-item" href="#">Laporan Retur Penjualan</a>
-							<a class="dropdown-item" href="#">Laporan Retur Pembelian</a> --}}
+              @if (auth()->user()->role == 'sales')
+                  <a class="dropdown-item" href="/report_product">Laporan Barang</a>   
+              @else
+                <a class="dropdown-item" href="/report_product">Laporan Barang</a>
+                <a class="dropdown-item" href="/report_penjualan">Laporan Penjualan</a>
+                <a class="dropdown-item" href="/report_pembelian">Laporan Pembelian</a>
+                <a class="dropdown-item" href="/report_retur_penjualan">Laporan Retur Penjualan</a>
+                <a class="dropdown-item" href="/report_retur_pembelian">Laporan Retur Pembelian</a>
+              @endif												
+							
 							{{-- <div class="dropdown-divider"></div> --}}
 						</div>
           </li>
