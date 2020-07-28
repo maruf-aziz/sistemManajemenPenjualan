@@ -2,7 +2,7 @@
 
 @section('title', 'Laporan Produk')
 
-@section('title_pages', 'Laporan Produk')
+@section('title_pages', 'Laporan PT.SAMUDERA INDAH INTERMEDIKA')
 
 @section('content')
 

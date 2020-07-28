@@ -2,7 +2,7 @@
 
 @section('title', 'Laporan Retur Pembelian')
 
-@section('title_pages', 'Laporan Retur Pembelian')
+@section('title_pages', 'Laporan PT.SAMUDERA INDAH INTERMEDIKA')
 
 @section('content')
 
