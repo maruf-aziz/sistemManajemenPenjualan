@@ -71,7 +71,8 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->name_product }} <input type="hidden" name="product[]" id="" value="{{ $item->product}}"></td>
                             <td>{{ $item->unit }}</td>
-                            <td>@currency($item->price_per_seed) /{{ $item->unit }} <input type="hidden" name="harga[]" id="" value="{{ $item->price_per_seed }}"></td>
+                            {{-- <td>@currency($item->price_per_seed) /{{ $item->unit }} <input type="hidden" name="harga[]" id="" value="{{ $item->price_per_seed }}"></td> --}}
+                            <td>@currency($item->price_per_seed) <input type="hidden" name="harga[]" id="" value="{{ $item->price_per_seed }}"></td>
                             <td>{{ $item->amount }} <input type="hidden" name="qty[]" id="" value="{{ $item->amount }}"></td>
                             <td>@currency($item->total_price) <input type="hidden" name="total[]" id="" value="{{ $item->total_price }}"></td>
                             <td>

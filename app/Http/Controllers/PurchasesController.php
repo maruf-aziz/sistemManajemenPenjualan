@@ -40,7 +40,7 @@ class PurchasesController extends Controller
         $data = array(
             'new_id' => Purchase::latest()->value('id'),
         );
-        return view('pages.purchases.addV2', $data);
+        return view('pages.purchases.add', $data);
     }
 
     /**
@@ -63,61 +63,61 @@ class PurchasesController extends Controller
 
         $lastid = Purchase::create($data_purchase)->id;
 
-        if(count($request->name_product) > 0){
-            foreach ($request->name_product as $item => $value) {
-                # code insert product
-
-                $data_product = array(
-                    'name_product'  => $request->name_product[$item],
-                    'price'         => $request->price_per[$item],
-                    'unit_id'       => $request->unit_id[$item],
-                    'stock'         => $request->amount[$item],
-								);
-								
-								$id_product = Product::create($data_product)->id_product;
-
-								# code insert detail purchase
-
-								$data_detail = array(
-									'product'					=> $id_product,
-									'amount'					=> $request->amount[$item],
-									'unit_id'					=> $request->unit_id[$item],
-									'price_per_seed'	=> $request->price_per[$item],
-									'total_price'			=> $request->price_per[$item] * $request->amount[$item],
-									'purchase_id' 		=> $lastid,
-								);
-
-								Detail_Purchase::create($data_detail);
-            }
-        }
-
         // if(count($request->name_product) > 0){
-        //     foreach ($request->name_product as $item=> $val) {
-        //         # code...
-        //         $data2 = array(
-        //             'product' => $request->product[$item],
-        //             'amount' => $request->amount[$item],
-        //             'unit' => $request->unit[$item],
-        //             'value' => $request->value[$item],
-        //             'price_per_seed' => $request->price_per[$item],
-        //             'total_price' => $request->total_price[$item],
-        //             'purchase_id' => $lastid
-        //         );
+        //     foreach ($request->name_product as $item => $value) {
+        //         # code insert product
 
-        //         Detail_Purchase::create($data2);
+        //         $data_product = array(
+        //             'name_product'  => $request->name_product[$item],
+        //             'price'         => $request->price_per[$item],
+        //             'unit_id'       => $request->unit_id[$item],
+        //             'stock'         => $request->amount[$item],
+		// 						);
+								
+		// 						$id_product = Product::create($data_product)->id_product;
 
-        //         $produk = Product::where('id_product', $request->product[$item])->first();
+		// 						# code insert detail purchase
 
-        //         $stock = $produk->stock;
+		// 						$data_detail = array(
+		// 							'product'					=> $id_product,
+		// 							'amount'					=> $request->amount[$item],
+		// 							'unit_id'					=> $request->unit_id[$item],
+		// 							'price_per_seed'	=> $request->price_per[$item],
+		// 							'total_price'			=> $request->price_per[$item] * $request->amount[$item],
+		// 							'purchase_id' 		=> $lastid,
+		// 						);
 
-        //         Product::where('id_product', $request->product[$item])
-        //                 ->update([
-        //                     'stock' => ($stock + $request->value[$item]),
-        //                     'price' => $request->price_sell[$item]
-        //                 ]);
+		// 						Detail_Purchase::create($data_detail);
         //     }
-           
         // }
+
+        if(count($request->name_product) > 0){
+            foreach ($request->name_product as $item=> $val) {
+                # code...
+                $data2 = array(
+                    'product' => $request->product[$item],
+                    'amount' => $request->amount[$item],
+                    'unit' => $request->unit[$item],
+                    'value' => $request->value[$item],
+                    'price_per_seed' => $request->price_per[$item],
+                    'total_price' => $request->total_price[$item],
+                    'purchase_id' => $lastid
+                );
+
+                Detail_Purchase::create($data2);
+
+                $produk = Product::where('id_product', $request->product[$item])->first();
+
+                $stock = $produk->stock;
+
+                Product::where('id_product', $request->product[$item])
+                        ->update([
+                            'stock' => ($stock + $request->value[$item]),
+                            'price' => $request->price_sell[$item]
+                        ]);
+            }
+           
+        }
 
         return redirect('/purchases')->with('status', 'Data berhasil ditambah');
     }
@@ -140,7 +140,7 @@ class PurchasesController extends Controller
             
             'detail' => Detail_Purchase::join('products','detail_purchases.product','=','products.id_product')
                                         ->join('purchases', 'detail_purchases.purchase_id', '=', 'purchases.id')
-                                        ->join('units', 'detail_purchases.unit_id', '=', 'units.id_unit')
+                                        // ->join('units', 'detail_purchases.unit_id', '=', 'units.id_unit', 'left')
                                         ->where('purchase_id', $purchase->id)
                                         ->get(),
             // 'total' => Detail_Transaction::where('transaction_id', $transaction->id)->sum('subTotal')
@@ -204,7 +204,7 @@ class PurchasesController extends Controller
         foreach ($data as $key => $value) {
             echo "<option value='".$value->id_unit."' nama='".$value->unit."'>".$value->unit."</option>";
         }
-        // echo "<option value='new'>Tambah Satuan</option>";
+        echo "<option value='new'>Tambah Satuan</option>";
     }
 
     public function getMerek(){

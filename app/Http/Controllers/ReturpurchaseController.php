@@ -49,7 +49,7 @@ class ReturpurchaseController extends Controller
             
             'detail' => Detail_Purchase::join('products','detail_purchases.product','=','products.id_product')
                                         ->join('purchases', 'detail_purchases.purchase_id', '=', 'purchases.id')
-                                        ->join('units', 'detail_purchases.unit_id', '=', 'units.id_unit')
+                                        // ->join('units', 'detail_purchases.unit_id', '=', 'units.id_unit')
                                         ->where('purchase_id', $id)
                                         ->get(),
             'new_id' => Retur_Purchase::latest()->value('id_retur'),

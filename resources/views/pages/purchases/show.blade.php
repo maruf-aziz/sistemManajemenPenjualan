@@ -78,6 +78,7 @@
                       <th scope="col">Produk</th>
                       <th scope="col">Jumlah Beli</th>
                       <th scope="col">Satuan</th>
+                      <th scope="col">Isi</th>
                       <th scope="col">Harga Satuan</th>
                       <th scope="col">Discount</th>
                       <th scope="col">Total Harga</th>
@@ -90,6 +91,7 @@
                         <td>{{ $item->name_product }}</td>	
                         <td>{{ $item->amount }}</td>	
                         <td>{{ $item->unit }}</td>	
+                        <td>{{ $item->value }} / {{ $item->unit }}</td>
                         <td>@currency($item->price_per_seed)</td>	
                         <td>{{ $item->disc }} %</td>	
                         <td>@currency($item->total_price)</td>	

@@ -127,7 +127,7 @@ class ReportController extends Controller
     public function getPembelian(){
         $data = Detail_Purchase::select('suppliers.name', 'products.name_product', 'detail_purchases.amount','units.unit','detail_purchases.price_per_seed', 'detail_purchases.total_price','detail_purchases.created_at')
                                 ->join('products','detail_purchases.product','=','products.id_product')        
-                                ->join('units','detail_purchases.unit_id','=','units.id_unit')        
+                                ->join('units','detail_purchases.unit_id','=','units.id_unit','left')        
                                 ->join('purchases', 'detail_purchases.purchase_id', '=', 'purchases.id')
                                 ->join('suppliers','purchases.supplier_id','=','suppliers.id')
                                 ->orderby('detail_purchases.created_at', 'DESC')
@@ -155,7 +155,7 @@ class ReportController extends Controller
         if($tanggal == 0){
             $data =  Detail_Purchase::select('suppliers.name', 'products.name_product', 'detail_purchases.amount','units.unit','detail_purchases.price_per_seed', 'detail_purchases.total_price','detail_purchases.created_at')
                                 ->join('products','detail_purchases.product','=','products.id_product')   
-                                ->join('units','detail_purchases.unit_id','=','units.id_unit')      
+                                ->join('units','detail_purchases.unit_id','=','units.id_unit','left')      
                                 ->join('purchases', 'detail_purchases.purchase_id', '=', 'purchases.id')
                                 ->join('suppliers','purchases.supplier_id','=','suppliers.id')
                                 ->whereMonth('detail_purchases.created_at', $month)
@@ -166,7 +166,7 @@ class ReportController extends Controller
         else{
             $data =  Detail_Purchase::select('suppliers.name', 'products.name_product', 'detail_purchases.amount','units.unit','detail_purchases.price_per_seed', 'detail_purchases.total_price','detail_purchases.created_at')
                                 ->join('products','detail_purchases.product','=','products.id_product') 
-                                ->join('units','detail_purchases.unit_id','=','units.id_unit')        
+                                ->join('units','detail_purchases.unit_id','=','units.id_unit','left')        
                                 ->join('purchases', 'detail_purchases.purchase_id', '=', 'purchases.id')
                                 ->join('suppliers','purchases.supplier_id','=','suppliers.id')
                                 ->whereDay('detail_purchases.created_at', $tanggal)
