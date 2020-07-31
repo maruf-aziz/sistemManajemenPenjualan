@@ -204,7 +204,7 @@ class PurchasesController extends Controller
         foreach ($data as $key => $value) {
             echo "<option value='".$value->id_unit."' nama='".$value->unit."'>".$value->unit."</option>";
         }
-        echo "<option value='new'>Tambah Satuan</option>";
+        // echo "<option value='new'>Tambah Satuan</option>";
     }
 
     public function getMerek(){

@@ -28,7 +28,7 @@
                   <div class="col-md-5">
                     <div class="form-group">
                       <label class="bmd-label-floating">Company (disabled)</label>
-                      <input type="text" class="form-control" value="Apotik Sugih Waras" disabled>
+                      <input type="text" class="form-control" value="PT ..." disabled>
                     </div>
                   </div>
                   <div class="col-md-3">

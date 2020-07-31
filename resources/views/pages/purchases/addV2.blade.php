@@ -75,11 +75,11 @@
                           </div>
                           <div class="col-md-2">
                             <label for=""><small>Harga Satuan</small></label>
-                            <input type="text" class="input-css name" style="width: 100%;" id="field-harga" value="" onkeypress="return hanyaAngka(event)" >
+                            <input type="text" class="input-css name" style="width: 100%;" id="field-harga" value="" onkeypress="return hanyaAngka(event);" onkeyup="hitungTotalHrg()">
                           </div>
                           <div class="col-md-2">
                             <label for="">Jumlah</label>
-                            <input type="text" class="input-css name" style="width: 100%;" id="field-jumlah" onkeypress="return hanyaAngka(event)">
+                            <input type="text" class="input-css name" style="width: 100%;" id="field-jumlah" onkeypress="return hanyaAngka(event);" onkeyup="hitungTotal()">
                           </div>
                           <div class="col-md-1">
                             <label for=""><small>Disc %</small></label>
@@ -87,7 +87,7 @@
                           </div>
                           <div class="col-md-2">
                             <label for=""><small>Total Harga</small></label>
-                            <input type="text" class="input-css name" style="width: 100%;" id="field-total" value="" onkeypress="return hanyaAngka(event)">
+                            <input type="text" class="input-css name" style="width: 100%;" id="field-total" value="" onkeypress="return hanyaAngka(event)" readonly>
                           </div>
                           <div class="col-md-1" style="margin-top: 5px;">
                             <button type="button" class="btn btn-primary mt-3 addRow"><i class="material-icons">add_shopping_cart</i></button>
@@ -215,6 +215,39 @@
 			if(!isNaN(harga_satuan)){
 					document.getElementById('field-harga-satuan').value = formatCurrency(harga_satuan);
 			}
+
+		}
+
+		function hitungTotal(){
+			var harga = $('#field-harga').val();
+			// var jml = parseInt(('#field-jumlah').val());
+
+			// var harga = document.getElementById('field-harga').value;
+			var jml = document.getElementById('field-jumlah').value;
+
+			if(harga == '') harga = 0;
+			if(jml == '') harga = 0
+
+			var parseHarga = convertToAngka(harga);
+
+			var total_hrg = parseHarga * jml;
+			$('#field-total').val(formatCurrency(total_hrg));
+
+		}
+		function hitungTotalHrg(){
+			// var harga = $('#field-harga').val();
+			var jml = parseInt($('#field-jumlah').val());
+
+			var harga = document.getElementById('field-harga').value;
+			// var jml = document.getElementById('field-jumlah').value;
+
+			if(harga == '') harga = 0;
+			if(jml == '') harga = 0
+
+			var parseHarga = convertToAngka(harga);
+
+			var total_hrg = parseHarga * jml;
+			$('#field-total').val(formatCurrency(total_hrg));
 
 		}
 

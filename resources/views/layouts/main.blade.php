@@ -270,7 +270,7 @@ The above copyright notice and this permission notice shall be included in all c
       @yield('content')
       
 
-      <footer class="footer">
+      {{-- <footer class="footer">
         <div class="container-fluid">
           <nav class="float-left">
             <ul>
@@ -304,7 +304,7 @@ The above copyright notice and this permission notice shall be included in all c
             <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
           </div>
         </div>
-      </footer>
+      </footer> --}}
     </div>
   </div>
   <div class="fixed-plugin">
