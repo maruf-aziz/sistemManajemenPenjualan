@@ -1,8 +1,8 @@
 @extends('layouts/main')
 
-@section('title', 'User Add')
+@section('title', 'Tambah Akun')
 
-@section('title_pages', 'User Add')
+@section('title_pages', 'Tambah Akun')
 
 @section('content')
 
@@ -12,7 +12,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Tambah User</h4>
+              <h4 class="card-title">Tambah Data</h4>
               <p class="card-category">Admin / Pimpinan / Sales</p>
             </div>
             <div class="card-body">

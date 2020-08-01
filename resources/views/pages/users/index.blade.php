@@ -1,8 +1,8 @@
 @extends('layouts/main')
 
-@section('title', 'User Profile')
+@section('title', 'Profil Saya')
 
-@section('title_pages', 'User Profile')
+@section('title_pages', 'Profil Saya')
 
 @section('content')
 
@@ -28,7 +28,7 @@
                   <div class="col-md-5">
                     <div class="form-group">
                       <label class="bmd-label-floating">Company (disabled)</label>
-                      <input type="text" class="form-control" value="PT ..." disabled>
+                      <input type="text" class="form-control" value="PT Samudera Indah Intermedika" disabled>
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -132,7 +132,7 @@
                     </div>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-primary pull-right">Simpan Edit</button>
+                <button type="submit" class="btn btn-primary pull-right">Edit</button>
                 <div class="clearfix"></div>
               </form>
             </div>

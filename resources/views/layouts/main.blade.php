@@ -169,12 +169,7 @@ The above copyright notice and this permission notice shall be included in all c
               </a>
             </li>
 
-          @endif
-          
-          
-          
-          
-          
+          @endif    
           
           <li class="nav-item dropdown {{ Request::segment(1) == 'report_product' | Request::segment(1) == 'report_penjualan' | Request::segment(1) == 'report_pembelian' | Request::segment(1) == 'report_retur_penjualan' | Request::segment(1) == 'report_retur_pembelian' ? 'active' : '' }}">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -396,6 +391,7 @@ The above copyright notice and this permission notice shall be included in all c
   {{-- <script src="/assets/demo/demo.js"></script> --}}
   {{-- <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script> --}}
+  @yield('footer')
   <script>
     $(document).ready(function() {
       $().ready(function() {

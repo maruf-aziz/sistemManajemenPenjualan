@@ -67,7 +67,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin,pimpinan']], function(){
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:admin,sales,pimpinan']], function(){
-  Route::get('/', 'PagesController@dashboard');
+  Route::get('/', 'HomeController@index');
 });
 
 

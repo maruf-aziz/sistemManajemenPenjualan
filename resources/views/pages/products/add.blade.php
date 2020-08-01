@@ -1,8 +1,8 @@
 @extends('layouts/main')
 
-@section('title', 'Product')
+@section('title', 'Produk')
 
-@section('title_pages', 'Product')
+@section('title_pages', 'Produk')
 
 @section('content')
 

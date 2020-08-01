@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Supplier;
+use App\Customer;
+use App\Product;
+use App\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +27,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('pages.dashboard');
+        $data = array(
+            'produk'        => Product::count(),
+            'pelanggan'     => Customer::count(),
+            'supplier'      => Supplier::count(),
+            'karyawan'      => User::count()
+        );
+        return view('pages.dashboard', $data);
     }
 }

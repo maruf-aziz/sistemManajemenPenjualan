@@ -1,8 +1,8 @@
 @extends('layouts/main')
 
-@section('title', 'Transactions')
+@section('title', 'Transaksi Penjualan')
 
-@section('title_pages', 'Transactions')
+@section('title_pages', 'Transaksi Penjualan')
 
 @section('content')
 
@@ -101,7 +101,7 @@
 													@foreach ($customers as $item)
 															<option value="{{ $item->id }}">{{ $item->name }}</option>
 													@endforeach
-													<input type="hidden" name="user_id" value="{{ Auth::user()->id }}" readonly>
+													{{-- <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" readonly> --}}
 												</select>
 											</td>
                     </tr>
@@ -117,6 +117,17 @@
                         <label for="">No Transaksi</label>
                         <br>
                         <input type="text" class="input-css name" style="width: 50%; border: 1px solid red;" value="{{ $new_id+1 }}" disabled>
+											</td>
+                    </tr>
+										<tr>
+											<td>
+												<label for="">Sales</label>
+												<select name="user_id" id="user_id" style="width: 100%" required>
+													<option value="">-- Cari Sales --</option>
+													@foreach ($user as $item)
+															<option value="{{ $item->id }}">{{ $item->name }}</option>
+													@endforeach
+												</select>
 											</td>
                     </tr>
 
@@ -407,6 +418,7 @@
 		$(document).ready(function() {
         $('#pelanggan').select2();
         $('#field-product').select2();
+        $('#user_id').select2();
     });
 
 	</script>

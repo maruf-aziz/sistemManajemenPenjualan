@@ -1,8 +1,8 @@
 @extends('layouts/main')
 
-@section('title', 'Transactions')
+@section('title', 'Transaksi Penjualan')
 
-@section('title_pages', 'Transactions')
+@section('title_pages', 'Transaksi Penjualan')
 
 @section('content')
 

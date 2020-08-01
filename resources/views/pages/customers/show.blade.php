@@ -1,8 +1,8 @@
 @extends('layouts/main')
 
-@section('title', 'Update Customer')
+@section('title', 'Ubah Pelanggan')
 
-@section('title_pages', 'Update Customer')
+@section('title_pages', 'Ubah Pelanggan')
 
 @section('content')
 
@@ -12,7 +12,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Edit Customer</h4>
+              <h4 class="card-title">Edit Pelanggan</h4>
             </div>
             
             <div class="card-body">

@@ -45,6 +45,7 @@ class TransactionsController extends Controller
                     ->join('units', 'products.unit_id','=','units.id_unit')
                     ->orderby('products.name_product','asc')->get(),
             'new_id' => Transaction::latest()->value('id'),
+            'user' => User::where('role','sales')->get()
         );
         return view('pages.transactions.addV2', $data);
     }

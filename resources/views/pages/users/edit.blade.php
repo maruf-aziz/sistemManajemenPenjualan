@@ -1,8 +1,8 @@
 @extends('layouts/main')
 
-@section('title', 'Update User')
+@section('title', 'Ubah Akun')
 
-@section('title_pages', 'Update User')
+@section('title_pages', 'Ubah Akun')
 
 @section('content')
 
@@ -17,7 +17,7 @@
         <div class="col-md-8">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Edit User</h4>
+              <h4 class="card-title">Edit</h4>
             </div>
             
             <div class="card-body">
@@ -117,7 +117,7 @@
                   </div>
 								</div>
 								<a href="/users/{{ $user->id }}" class="btn btn-warning">Kembali</a>
-                <button type="submit" class="btn btn-primary pull-right">Simpan Edit</button>
+                <button type="submit" class="btn btn-primary pull-right">Edit</button>
                 <div class="clearfix"></div>
               </form>
             </div>

@@ -1,8 +1,8 @@
 @extends('layouts/main')
 
-@section('title', 'Update Supplier')
+@section('title', 'Ubah Supplier')
 
-@section('title_pages', 'Update Supplier')
+@section('title_pages', 'Ubah Supplier')
 
 @section('content')
 
@@ -12,7 +12,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Upate Supplier</h4>
+              <h4 class="card-title">Ubah Supplier</h4>
             </div>
             
             <div class="card-body">

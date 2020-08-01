@@ -115,11 +115,11 @@
 								<td>Discount</td>
 								<td>{{ $transactions->disc }} %</td>
 							</tr>
-							<tr>
+							{{-- <tr>
 								<td colspan="7"></td>
 								<td>DPP</td>
 								<td>@currency($transactions->total_cost)</td>
-							</tr>
+							</tr> --}}
 							<tr>
 								<td colspan="7"></td>
 								<td>PPN 10%</td>
@@ -128,7 +128,8 @@
 							<tr>
 								<td colspan="7"></td>
 								<td>Total</td>
-								<td>@currency($transactions->total_cost + $transactions->tax)</td>
+								{{-- <td>@currency($transactions->total_cost + $transactions->tax)</td> --}}
+								<td>@currency($transactions->total_cost)</td>
 							</tr>
 						</tfoot>
 					</table>

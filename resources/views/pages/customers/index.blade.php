@@ -1,8 +1,8 @@
 @extends('layouts/main')
 
-@section('title', 'Customer')
+@section('title', 'Pelanggan')
 
-@section('title_pages', 'Customer')
+@section('title_pages', 'Pelanggan')
 
 @section('content')
 
@@ -18,7 +18,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Tambah Customer</h4>
+              <h4 class="card-title">Tambah Pelanggan</h4>
             </div>
             
             <div class="card-body">
@@ -72,7 +72,7 @@
 										</div>
 									</div>
 								</div>
-                <button type="submit" class="btn btn-primary pull-right">Tambah customer</button>
+                <button type="submit" class="btn btn-primary pull-right">Tambah Data</button>
                 <div class="clearfix"></div>
               </form>
             </div>
@@ -84,7 +84,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Data customer</h4>              
+              <h4 class="card-title">Data Pelanggan</h4>              
             </div>
             <div class="card-body">
               <table class="table table-hover" id="example" style="width:100%">
