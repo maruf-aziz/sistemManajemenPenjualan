@@ -225,14 +225,15 @@ The above copyright notice and this permission notice shall be included in all c
                 <p>Dashboard</p>
               </a>
             </li>
+
+            <li class="nav-item {{ Request::segment(1) == 'users' ? 'active' : '' }}">
+              <a class="nav-link" href="/users">
+                <i class="material-icons">person</i>
+                <p>Profile</p>
+              </a>
+            </li>
             
-            @if (auth()->user()->role == 'admin')
-              <li class="nav-item {{ Request::segment(1) == 'users' ? 'active' : '' }}">
-                <a class="nav-link" href="/users">
-                  <i class="material-icons">person</i>
-                  <p>Profile</p>
-                </a>
-              </li>
+            @if (auth()->user()->role == 'admin')              
               <li class="nav-item {{ Request::segment(1) == 'suppliers' ? 'active' : '' }}">
                 <a class="nav-link" href="/suppliers">
                   <i class="material-icons">assignment_ind</i>
@@ -332,7 +333,7 @@ The above copyright notice and this permission notice shall be included in all c
             </button>
             <div class="collapse navbar-collapse justify-content-end">
               <ul class="navbar-nav">
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
                   <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="material-icons">notifications</i>
                     <span class="notification">5</span>
@@ -347,7 +348,7 @@ The above copyright notice and this permission notice shall be included in all c
                     <a class="dropdown-item" href="#">Another Notification</a>
                     <a class="dropdown-item" href="#">Another One</a>
                   </div>
-                </li>
+                </li> --}}
                 <li class="nav-item dropdown">
                   <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="material-icons">person</i>

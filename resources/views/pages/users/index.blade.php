@@ -157,41 +157,44 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header card-header-primary">
-              <h4 class="card-title">Data User</h4>              
-            </div>
-            <div class="card-body">
-              <a href="/users/create" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>
-              <table class="table table-striped table-bordered" id="example" style="width:100%">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nama</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">No Phone</th>
-                    <th scope="col">Akses</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($users as $item)
+      @if (auth()->user()->role == 'admin' | auth()->user()->role == 'pimpinan')
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title">Data User</h4>              
+              </div>
+              <div class="card-body">
+                <a href="/users/create" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>
+                <table class="table table-striped table-bordered" id="example" style="width:100%">
+                  <thead>
                     <tr>
-                      <th scope="row">{{ $loop->iteration }}</th>
-                      {{-- <td>{{ $item->name }}</td> --}}
-                      <td><a href="/users/{{ $item->id }}" class="btn btn-outline-primary btn-sm">{{ $item->name }}</a></td>
-                      <td>{{ $item->email }}</td>
-                      <td>{{ $item->phone }}</td>
-                      <td>{{ $item->role }}</td>
+                      <th scope="col">#</th>
+                      <th scope="col">Nama</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">No Phone</th>
+                      <th scope="col">Akses</th>
                     </tr>
-                  @endforeach
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    @foreach ($users as $item)
+                      <tr>
+                        <th scope="row">{{ $loop->iteration }}</th>
+                        {{-- <td>{{ $item->name }}</td> --}}
+                        <td><a href="/users/{{ $item->id }}" class="btn btn-outline-primary btn-sm">{{ $item->name }}</a></td>
+                        <td>{{ $item->email }}</td>
+                        <td>{{ $item->phone }}</td>
+                        <td>{{ $item->role }}</td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      @endif
+      
     </div>
   </div>
 

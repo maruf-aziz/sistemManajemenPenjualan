@@ -56,38 +56,40 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card card-chart">
-            <div class="card-header card-header-success">
-              <h4 class="card-title">Grafik Penjualan</h4>
-            </div>
-            <div class="card-body" id="chart">
-                            
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">access_time</i> 15 hari penjualan terakhir
+      @if (auth()->user()->role == 'admin' | auth()->user()->role == 'pimpinan')
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card card-chart">
+              <div class="card-header card-header-success">
+                <h4 class="card-title">Grafik Penjualan</h4>
+              </div>
+              <div class="card-body" id="chart">
+                              
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  <i class="material-icons">access_time</i> 15 hari penjualan terakhir
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card card-chart">
-            <div class="card-header card-header-warning">
-              <h4 class="card-title">Grafik Pembelian</h4>
-            </div>
-            <div class="card-body" id="chartPembelian">
+          <div class="col-md-6">
+            <div class="card card-chart">
+              <div class="card-header card-header-warning">
+                <h4 class="card-title">Grafik Pembelian</h4>
+              </div>
+              <div class="card-body" id="chartPembelian">
 
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">access_time</i> 15 hari pembelian terakhir
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  <i class="material-icons">access_time</i> 15 hari pembelian terakhir
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      @endif
     </div>
 	</div>
 

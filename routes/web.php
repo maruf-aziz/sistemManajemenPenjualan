@@ -22,8 +22,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth', 'checkRole:admin']], function(){
-  // route user
-  Route::resource('users', 'UsersController');
+  
   // route supplier
   Route::resource('suppliers', 'SuppliersController');
 
@@ -61,13 +60,16 @@ Route::group(['middleware' => ['auth', 'checkRole:admin,sales']], function(){
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:admin,pimpinan']], function(){
-  Route::get('/report_product', 'ReportController@reportProduct');																							// route get page laporan produk
+  
   Route::get('/report_penjualan', 'ReportController@reportPenjualan');																					// route get page laporan penjualan
   Route::get('/report_pembelian', 'ReportController@reportPembelian');																					// route get page laporan pembelian
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:admin,sales,pimpinan']], function(){
   Route::get('/', 'HomeController@index');
+  // route user
+  Route::resource('users', 'UsersController');
+  Route::get('/report_product', 'ReportController@reportProduct');																							// route get page laporan produk
 });
 
 
