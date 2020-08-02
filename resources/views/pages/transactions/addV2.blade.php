@@ -101,7 +101,6 @@
 													@foreach ($customers as $item)
 															<option value="{{ $item->id }}">{{ $item->name }}</option>
 													@endforeach
-													{{-- <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" readonly> --}}
 												</select>
 											</td>
                     </tr>
@@ -283,6 +282,14 @@
 					icon: 'error',
 					title: 'Oops...',
 					text: 'Field Beli Kosong',
+				})
+			}
+
+			else if($('#field-beli').val() > $('#field-stock').val()){
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Jumlah Beli Melebihi Stok',
 				})
 			}
 

@@ -141,7 +141,7 @@
           type: 'column'
       },
       title: {
-          text: 'Laporan Penjualan'
+          text: 'Laporan Pembelian'
       },
       xAxis: {
           categories: {!! json_encode(array_reverse($pemb)) !!},
@@ -150,7 +150,7 @@
       yAxis: {
           min: 0,
           title: {
-              text: 'Penjualan (Rp)'
+              text: 'Pembelian (Rp)'
           }
       },
       tooltip: {
