@@ -38,7 +38,8 @@ class PurchasesController extends Controller
     {
         //
         $data = array(
-            'new_id' => Purchase::latest()->value('id'),
+            'new_id'    => Purchase::latest()->value('id'),
+            'satuan'    => Unit::all()
         );
         return view('pages.purchases.add', $data);
     }
@@ -58,7 +59,8 @@ class PurchasesController extends Controller
 
         $data_purchase = array(
             'total_cost'    => $total_int,
-            'supplier_id'   => $request->supplier_id
+            'supplier_id'   => $request->supplier_id,
+            'date' => date('Y-m-d')
         );
 
         $lastid = Purchase::create($data_purchase)->id;

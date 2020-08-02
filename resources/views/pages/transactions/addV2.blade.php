@@ -81,7 +81,7 @@
 						<div class="card-body">
 							<form method="post" action="/transactions" enctype="multipart/form-data">
 								@csrf
-								<table class="table table-striped" id="dataItem">
+								<table class="table" id="dataItem">
 									<thead align="center">
 										<tr>
 											<th scope="col" width="30%"></th>
@@ -95,23 +95,59 @@
 									<tbody>
 										<tr>
 											<td>
+												<label for="">Jenis Pelanggan</label>
+												<br>
+												<div class="form-check form-check-inline">
+													<input type="radio" name="inlineRadioOptions" checked id="old_cust" value="option1" onclick="cek_cust()">
+													<label class="form-check-label" for="old_cust">Pelanggan Lama</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<input  type="radio" name="inlineRadioOptions" id="new_cust" value="option2" onclick="cek_cust()">
+													<label class="form-check-label" for="new_cust">Pelanggan Baru</label>
+												</div>
+												<input type="hidden" name="customer_id" id="customer_id" placeholder="id supplier" required>
+											</td>
+											<td style="display: none" id="field-cust">
 												<label for="">Nama Pelanggan</label>
-												<select name="customer_id" id="pelanggan" style="width: 100%" required>
+												<select id="pelanggan" style="width: 100%" onchange="setValueCust()">
 													<option value="">-- Cari Pelanggan --</option>
 													@foreach ($customers as $item)
 															<option value="{{ $item->id }}">{{ $item->name }}</option>
 													@endforeach
 												</select>
 											</td>
+											<td>
+												<div style="display: none" id="field-name-cust">
+													<label for="">Nama Pelanggan</label>
+													<input type="text" class="input-css name" id="name-cust" style="width: 100%;">
+												</div>
+												
+											</td>
+											<td>
+												<div style="display: none" id="field-phone-cust">
+													<label for="">No Telepon</label>
+													<input type="text" class="input-css name" id="phone-cust" maxlength="13" style="width: 100%;" onkeypress="return hanyaAngka(event)">
+												</div>												
+											</td>
+											<td>
+												<div style="display: none" id="field-address-cust">
+													<label for="">Alamat</label>
+													<input type="text" class="input-css name" id="address-cust" maxlength="255" style="width: 100%;">
+												</div>												
+											</td>
+											<td>
+												<div id="btn-new" style="margin-top : 15px; display: none">
+													<button type="button" id="newCust" onclick="addNewCust()" class="btn btn-success mt-3 btn-sm"><i class="material-icons">save</i></button>
+												</div>
+												
+											</td>
                     </tr>
 										<tr>
 											<td>
                         <label for="">Tanggal Transaksi</label>
                         <br>
-                        <input type="text" class="input-css name" style="width: 50%; border: 1px solid red;" value="{{ date('D, d-M-Y') }}" disabled>
+                        <input type="text" class="input-css name" style="width: 100%; border: 1px solid red;" value="{{ date('D, d-M-Y') }}" disabled>
 											</td>
-                    </tr>
-										<tr>
 											<td>
                         <label for="">No Transaksi</label>
                         <br>
@@ -167,7 +203,7 @@
                           </div>
                           <div class="col-md-1">
                             <label for="">Stok</label>
-                            <input type="text" class="input-css name" style="width: 100%; border: 1px solid red;" id="field-stock" disabled>
+                            <input type="number" class="input-css name" style="width: 100%; border: 1px solid red;" id="field-stock" disabled>
                           </div>
                           <div class="col-md-1">
                             <label for="">Disc item%</label>
@@ -175,7 +211,7 @@
                           </div>
                           <div class="col-md-1">
                             <label for="">Beli</label>
-                            <input type="text" class="input-css name" style="width: 100%;" id="field-beli" value="" maxlength="2" onkeypress="return hanyaAngka(event)">
+                            <input type="text" class="input-css name" style="width: 100%;" id="field-beli" value="" onkeypress="return hanyaAngka(event)">
                           </div>
                           <div class="col-md-1" style="margin-top: 5px;">
                             <button type="button" id="tambahItem" class="btn btn-primary mt-3 addRow"><i class="material-icons">add_shopping_cart</i></button>
@@ -228,6 +264,70 @@
 	</div>
 	
 	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#field-cust').css("display","block");
+		});
+
+		function cek_cust(){
+			if (document.getElementById('old_cust').checked) {
+				// console.log('lamea');
+				$('#field-cust').css("display","block");
+				$('#field-name-cust').css("display","none");
+				$('#field-phone-cust').css("display","none");
+				$('#field-address-cust').css("display","none");
+				$('#btn-new').css("display","none");
+			}
+			else if (document.getElementById('new_cust').checked) {
+				// console.log('barue');
+				$('#field-cust').css("display","none");
+				$('#field-name-cust').css("display","block");
+				$('#field-phone-cust').css("display","block");
+				$('#field-address-cust').css("display","block");
+				$('#btn-new').css("display","block");
+			}
+		}
+
+		function setValueCust(){
+			var id_cust = $('#pelanggan').val();
+
+			$('#customer_id').val(id_cust);
+		}
+
+		function addNewCust(){
+			var nama_cust = $('#name-cust').val();
+			var phone_cust = $('#phone-cust').val();
+			var alamat_cust = $('#address-cust').val();
+
+			if(nama_cust == '' | phone_cust == '' | alamat_cust == ''){
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Data Pelanggan Baru Masih Kosong !!!',
+				})
+			}
+			else{
+				// console.log('ajax');
+				$.ajax({
+					url 					: '/addCustomer',
+					type					: 'get',
+					data			: {
+						"_token": "{{ csrf_token() }}",
+						"name"	: nama_cust,
+						"phone"	: phone_cust,
+						"address" : alamat_cust
+					},
+					dataType	: 'json',
+					success		: function(data){
+						$('#customer_id').val(data.id);
+
+						document.getElementById("name-cust").readOnly = true;
+						document.getElementById("phone-cust").readOnly = true;
+						document.getElementById("address-cust").readOnly = true;
+					}
+				});
+			}
+		}
+
 		function cekProduct(){
 			var nama = $('#field-product option:selected').attr('nama');
 			var harga = $('#field-product option:selected').attr('harga');
@@ -269,6 +369,8 @@
 
 		function addRow(){
 
+			var cekStok = parseInt($('#field-stock').val()) - parseInt($('#field-beli').val());
+
 			if($('#field-product').val() == ''){
 				Swal.fire({
 					icon: 'error',
@@ -284,8 +386,8 @@
 					text: 'Field Beli Kosong',
 				})
 			}
-
-			else if($('#field-beli').val() > $('#field-stock').val()){
+			
+			else if(cekStok < 0){
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',

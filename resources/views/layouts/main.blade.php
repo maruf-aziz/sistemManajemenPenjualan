@@ -42,10 +42,119 @@ The above copyright notice and this permission notice shall be included in all c
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
   <style>
+    /* Center the loader */
+
+    #loader {
+
+      /* position: absolute;
+
+      left: 50%;
+
+      top: 50%;
+
+      z-index: 1;
+
+      width: 150px;
+
+      height: 150px;
+
+      margin: -75px 0 0 -75px;
+
+      border: 16px solid #f3f3f3;
+
+      border-radius: 50%;
+
+      border-top: 16px solid #3498db;
+
+      width: 120px;
+
+      height: 120px;
+
+      -webkit-animation: spin 2s linear infinite;
+
+      animation: spin 2s linear infinite; */
+
+      position: fixed;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background: url('/assets/img/loader.gif') 50% 50% no-repeat rgb(249,249,249);
+      opacity: .8;
+
+    }
+
+
+
+    @-webkit-keyframes spin {
+
+      0% { -webkit-transform: rotate(0deg); }
+
+      100% { -webkit-transform: rotate(360deg); }
+
+    }
+
+
+
+    @keyframes spin {
+
+      0% { transform: rotate(0deg); }
+
+      100% { transform: rotate(360deg); }
+
+    }
+
+
+
+    /* Add animation to "page content" */
+
+    .animate-bottom {
+
+      position: relative;
+
+      -webkit-animation-name: animatebottom;
+
+      -webkit-animation-duration: 1s;
+
+      animation-name: animatebottom;
+
+      animation-duration: 1s
+
+    }
+
+
+
+    @-webkit-keyframes animatebottom {
+
+      from { bottom:-100px; opacity:0 }
+
+      to { bottom:0px; opacity:1 }
+
+    }
+
+
+
+    @keyframes animatebottom {
+
+      from{ bottom:-100px; opacity:0 }
+
+      to{ bottom:0; opacity:1 }
+
+    }
+
+
+
+    #myDiv {
+
+      display: none;
+
+    }
+
     .input-css{
       padding: .2em .2em .2em .2em;
       border: 1px solid #aaa;
-      border-radius: .5em;
+      border-radius: .2em;
     }
 
     .select-css {
@@ -62,7 +171,7 @@ The above copyright notice and this permission notice shall be included in all c
       margin: 0;
       border: 1px solid #aaa;
       box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
-      border-radius: .5em;
+      border-radius: .2em;
       -moz-appearance: none;
       -webkit-appearance: none;
       appearance: none;
@@ -92,258 +201,261 @@ The above copyright notice and this permission notice shall be included in all c
 
 </head>
 
-<body class="">
-  <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="/assets/img/sidebar-1.jpg">
-      <!--
-        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+<body class="" onload="myFunction()" style="margin:0;">
+  <div id="loader"></div>
+  <div style="display:none;" id="myDiv" class="animate-bottom">
+    <div class="wrapper ">
+      <div class="sidebar" data-color="purple" data-background-color="white" data-image="/assets/img/sidebar-1.jpg">
+        <!--
+          Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
-        Tip 2: you can also add an image using data-image tag
-    -->
-      <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
-        PT.SAMUDERA INDAH <br>INTERMEDIKA
-        </a></div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="nav-item {{ Request::segment(1) == '' | Request::segment(1) == 'home' ? 'active' : '' }}">
-            <a class="nav-link" href="/">
-              <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          
-          @if (auth()->user()->role == 'admin')
-            <li class="nav-item {{ Request::segment(1) == 'users' ? 'active' : '' }}">
-              <a class="nav-link" href="/users">
-                <i class="material-icons">person</i>
-                <p>Profile</p>
+          Tip 2: you can also add an image using data-image tag
+      -->
+        <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
+          PT.SAMUDERA INDAH <br>INTERMEDIKA
+          </a></div>
+        <div class="sidebar-wrapper">
+          <ul class="nav">
+            <li class="nav-item {{ Request::segment(1) == '' | Request::segment(1) == 'home' ? 'active' : '' }}">
+              <a class="nav-link" href="/">
+                <i class="material-icons">dashboard</i>
+                <p>Dashboard</p>
               </a>
             </li>
-            <li class="nav-item {{ Request::segment(1) == 'suppliers' ? 'active' : '' }}">
-              <a class="nav-link" href="/suppliers">
-                <i class="material-icons">assignment_ind</i>
-                <p>Supplier</p>
-              </a>
-            </li>
-            <li class="nav-item {{ Request::segment(1) == 'customers' ? 'active' : '' }}">
-              <a class="nav-link" href="/customers">
-                <i class="material-icons">people</i>
-                <p>Pelanggan</p>
-              </a>
-            </li>
-            <li class="nav-item {{ Request::segment(1) == 'products' | Request::segment(1) == 'brands' | Request::segment(1) == 'units' ? 'active' : '' }}">
-              <a class="nav-link" href="/products">
-                <i class="material-icons">library_books</i>
-                <p>Produk</p>
-              </a>
-            </li>
-            <li class="nav-item {{ Request::segment(1) == 'transactions' ? 'active' : '' }}">
-              <a class="nav-link" href="/transactions">
-                <i class="material-icons">monetization_on</i>
-                <p>Penjualan</p>
-              </a>
-            </li>
-            <li class="nav-item {{ Request::segment(1) == 'purchases' ? 'active' : '' }}">
-              <a class="nav-link" href="/purchases">
-                <i class="material-icons">add_shopping_cart</i>
-                <p>Pembelian</p>
-              </a>
-            </li>
-            <li class="nav-item {{ Request::segment(1) == 'retur_pembelian' | Request::segment(1) == 'retur_penjualan'  ? 'active' : '' }}">
+            
+            @if (auth()->user()->role == 'admin')
+              <li class="nav-item {{ Request::segment(1) == 'users' ? 'active' : '' }}">
+                <a class="nav-link" href="/users">
+                  <i class="material-icons">person</i>
+                  <p>Profile</p>
+                </a>
+              </li>
+              <li class="nav-item {{ Request::segment(1) == 'suppliers' ? 'active' : '' }}">
+                <a class="nav-link" href="/suppliers">
+                  <i class="material-icons">assignment_ind</i>
+                  <p>Supplier</p>
+                </a>
+              </li>
+              <li class="nav-item {{ Request::segment(1) == 'customers' ? 'active' : '' }}">
+                <a class="nav-link" href="/customers">
+                  <i class="material-icons">people</i>
+                  <p>Pelanggan</p>
+                </a>
+              </li>
+              <li class="nav-item {{ Request::segment(1) == 'products' | Request::segment(1) == 'brands' | Request::segment(1) == 'units' ? 'active' : '' }}">
+                <a class="nav-link" href="/products">
+                  <i class="material-icons">library_books</i>
+                  <p>Produk</p>
+                </a>
+              </li>
+              <li class="nav-item {{ Request::segment(1) == 'transactions' ? 'active' : '' }}">
+                <a class="nav-link" href="/transactions">
+                  <i class="material-icons">monetization_on</i>
+                  <p>Penjualan</p>
+                </a>
+              </li>
+              <li class="nav-item {{ Request::segment(1) == 'purchases' ? 'active' : '' }}">
+                <a class="nav-link" href="/purchases">
+                  <i class="material-icons">add_shopping_cart</i>
+                  <p>Pembelian</p>
+                </a>
+              </li>
+              <li class="nav-item {{ Request::segment(1) == 'retur_pembelian' | Request::segment(1) == 'retur_penjualan'  ? 'active' : '' }}">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons">cached</i>
+                    Retur
+                </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="/retur_pembelian">Retur Pembelian</a>
+                  <a class="dropdown-item" href="/retur_penjualan">Retur Penjualan</a>
+                </div>
+              </li>
+
+            @elseif(auth()->user()->role == 'sales')
+
+              <li class="nav-item {{ Request::segment(1) == 'products' | Request::segment(1) == 'brands' | Request::segment(1) == 'units' ? 'active' : '' }}">
+                <a class="nav-link" href="/products">
+                  <i class="material-icons">library_books</i>
+                  <p>Produk</p>
+                </a>
+              </li>
+
+            @endif    
+            
+            <li class="nav-item dropdown {{ Request::segment(1) == 'report_product' | Request::segment(1) == 'report_penjualan' | Request::segment(1) == 'report_pembelian' | Request::segment(1) == 'report_retur_penjualan' | Request::segment(1) == 'report_retur_pembelian' ? 'active' : '' }}">
               <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <i class="material-icons">cached</i>
-                  Retur
+                <i class="material-icons">dynamic_feed</i>
+                  Laporan
               </a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="/retur_pembelian">Retur Pembelian</a>
-                <a class="dropdown-item" href="/retur_penjualan">Retur Penjualan</a>
+                @if (auth()->user()->role == 'sales')
+                    <a class="dropdown-item" href="/report_product">Laporan Barang</a>   
+                @else
+                  <a class="dropdown-item" href="/report_product">Laporan Barang</a>
+                  <a class="dropdown-item" href="/report_penjualan">Laporan Penjualan</a>
+                  <a class="dropdown-item" href="/report_pembelian">Laporan Pembelian</a>
+                  <a class="dropdown-item" href="/report_retur_penjualan">Laporan Retur Penjualan</a>
+                  <a class="dropdown-item" href="/report_retur_pembelian">Laporan Retur Pembelian</a>
+                @endif												
+                
+                {{-- <div class="dropdown-divider"></div> --}}
               </div>
             </li>
-
-          @elseif(auth()->user()->role == 'sales')
-
-            <li class="nav-item {{ Request::segment(1) == 'products' | Request::segment(1) == 'brands' | Request::segment(1) == 'units' ? 'active' : '' }}">
-              <a class="nav-link" href="/products">
-                <i class="material-icons">library_books</i>
-                <p>Produk</p>
+            <li class="nav-item active-pro ">
+              <a class="nav-link" href="{{ route('logout') }}"
+              onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                <i class="material-icons">report</i>
+                <p>Log Out</p>
               </a>
             </li>
+          </ul>
+        </div>
+      </div>
+      <div class="main-panel">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+          <div class="container-fluid">
+            <div class="navbar-wrapper">
+              <a class="navbar-brand" href="javascript:;">
+                @yield('title_pages')
+              </a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="navbar-toggler-icon icon-bar"></span>
+              <span class="navbar-toggler-icon icon-bar"></span>
+              <span class="navbar-toggler-icon icon-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end">
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="material-icons">notifications</i>
+                    <span class="notification">5</span>
+                    <p class="d-lg-none d-md-block">
+                      Some Actions
+                    </p>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#">Mike John responded to your email</a>
+                    <a class="dropdown-item" href="#">You have 5 new tasks</a>
+                    <a class="dropdown-item" href="#">You're now friend with Andrew</a>
+                    <a class="dropdown-item" href="#">Another Notification</a>
+                    <a class="dropdown-item" href="#">Another One</a>
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="material-icons">person</i>
+                    <p class="d-lg-none d-md-block">
+                      Account
+                    </p>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                    <a class="dropdown-item" href="#">{{ Auth::user()->name }}</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                      onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
 
-          @endif    
-          
-          <li class="nav-item dropdown {{ Request::segment(1) == 'report_product' | Request::segment(1) == 'report_penjualan' | Request::segment(1) == 'report_pembelian' | Request::segment(1) == 'report_retur_penjualan' | Request::segment(1) == 'report_retur_pembelian' ? 'active' : '' }}">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-							<i class="material-icons">dynamic_feed</i>
-								Laporan
-						</a>
-						<div class="dropdown-menu">
-              @if (auth()->user()->role == 'sales')
-                  <a class="dropdown-item" href="/report_product">Laporan Barang</a>   
-              @else
-                <a class="dropdown-item" href="/report_product">Laporan Barang</a>
-                <a class="dropdown-item" href="/report_penjualan">Laporan Penjualan</a>
-                <a class="dropdown-item" href="/report_pembelian">Laporan Pembelian</a>
-                <a class="dropdown-item" href="/report_retur_penjualan">Laporan Retur Penjualan</a>
-                <a class="dropdown-item" href="/report_retur_pembelian">Laporan Retur Pembelian</a>
-              @endif												
-							
-							{{-- <div class="dropdown-divider"></div> --}}
-						</div>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <!-- End Navbar -->
+
+        @yield('content')
+        
+
+        {{-- <footer class="footer">
+          <div class="container-fluid">
+            <nav class="float-left">
+              <ul>
+                <li>
+                  <a href="https://www.creative-tim.com">
+                    Creative Tim
+                  </a>
+                </li>
+                <li>
+                  <a href="https://creative-tim.com/presentation">
+                    About Us
+                  </a>
+                </li>
+                <li>
+                  <a href="http://blog.creative-tim.com">
+                    Blog
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.creative-tim.com/license">
+                    Licenses
+                  </a>
+                </li>
+              </ul>
+            </nav>
+            <div class="copyright float-right">
+              &copy;
+              <script>
+                document.write(new Date().getFullYear())
+              </script>, made with <i class="material-icons">favorite</i> by
+              <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+            </div>
+          </div>
+        </footer> --}}
+      </div>
+    </div>
+    <div class="fixed-plugin">
+      <div class="dropdown show-dropdown">
+        <a href="#" data-toggle="dropdown">
+          <i class="fa fa-cog fa-2x"> </i>
+        </a>
+        <ul class="dropdown-menu">
+          <li class="header-title"> Sidebar Filters</li>
+          <li class="adjustments-line">
+            <a href="javascript:void(0)" class="switch-trigger active-color">
+              <div class="badge-colors ml-auto mr-auto">
+                <span class="badge filter badge-purple" data-color="purple"></span>
+                <span class="badge filter badge-azure" data-color="azure"></span>
+                <span class="badge filter badge-green" data-color="green"></span>
+                <span class="badge filter badge-warning" data-color="orange"></span>
+                <span class="badge filter badge-danger" data-color="danger"></span>
+                <span class="badge filter badge-rose active" data-color="rose"></span>
+              </div>
+              <div class="clearfix"></div>
+            </a>
           </li>
-          <li class="nav-item active-pro ">
-            <a class="nav-link" href="{{ route('logout') }}"
-            onclick="event.preventDefault();
-                          document.getElementById('logout-form').submit();">
-              <i class="material-icons">report</i>
-              <p>Log Out</p>
+          <li class="header-title">Images</li>
+          <li class="active">
+            <a class="img-holder switch-trigger" href="javascript:void(0)">
+              <img src="/assets/img/sidebar-1.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a class="img-holder switch-trigger" href="javascript:void(0)">
+              <img src="/assets/img/sidebar-2.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a class="img-holder switch-trigger" href="javascript:void(0)">
+              <img src="/assets/img/sidebar-3.jpg" alt="">
+            </a>
+          </li>
+          <li>
+            <a class="img-holder switch-trigger" href="javascript:void(0)">
+              <img src="/assets/img/sidebar-4.jpg" alt="">
             </a>
           </li>
         </ul>
       </div>
-    </div>
-    <div class="main-panel">
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-        <div class="container-fluid">
-          <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:;">
-              @yield('title_pages')
-            </a>
-          </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-end">
-            <ul class="navbar-nav">
-              <li class="nav-item dropdown">
-                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
-                  <p class="d-lg-none d-md-block">
-                    Some Actions
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                  <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                  <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                  <a class="dropdown-item" href="#">Another Notification</a>
-                  <a class="dropdown-item" href="#">Another One</a>
-                </div>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">person</i>
-                  <p class="d-lg-none d-md-block">
-                    Account
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                  <a class="dropdown-item" href="#">{{ Auth::user()->name }}</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{{ route('logout') }}"
-										onclick="event.preventDefault();
-																	document.getElementById('logout-form').submit();">
-											{{ __('Logout') }}
-									</a>
-
-
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-											@csrf
-									</form>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <!-- End Navbar -->
-
-      @yield('content')
-      
-
-      {{-- <footer class="footer">
-        <div class="container-fluid">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href="https://www.creative-tim.com">
-                  Creative Tim
-                </a>
-              </li>
-              <li>
-                <a href="https://creative-tim.com/presentation">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="http://blog.creative-tim.com">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="https://www.creative-tim.com/license">
-                  Licenses
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright float-right">
-            &copy;
-            <script>
-              document.write(new Date().getFullYear())
-            </script>, made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-          </div>
-        </div>
-      </footer> --}}
-    </div>
-  </div>
-  <div class="fixed-plugin">
-    <div class="dropdown show-dropdown">
-      <a href="#" data-toggle="dropdown">
-        <i class="fa fa-cog fa-2x"> </i>
-      </a>
-      <ul class="dropdown-menu">
-        <li class="header-title"> Sidebar Filters</li>
-        <li class="adjustments-line">
-          <a href="javascript:void(0)" class="switch-trigger active-color">
-            <div class="badge-colors ml-auto mr-auto">
-              <span class="badge filter badge-purple" data-color="purple"></span>
-              <span class="badge filter badge-azure" data-color="azure"></span>
-              <span class="badge filter badge-green" data-color="green"></span>
-              <span class="badge filter badge-warning" data-color="orange"></span>
-              <span class="badge filter badge-danger" data-color="danger"></span>
-              <span class="badge filter badge-rose active" data-color="rose"></span>
-            </div>
-            <div class="clearfix"></div>
-          </a>
-        </li>
-        <li class="header-title">Images</li>
-        <li class="active">
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="/assets/img/sidebar-1.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="/assets/img/sidebar-2.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="/assets/img/sidebar-3.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="/assets/img/sidebar-4.jpg" alt="">
-          </a>
-        </li>
-      </ul>
     </div>
   </div>
   <!--   Core JS Files   -->
@@ -392,6 +504,31 @@ The above copyright notice and this permission notice shall be included in all c
   {{-- <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script> --}}
   @yield('footer')
+  <script>
+
+    // Loading Page
+    
+    var myVar;
+    
+    
+    
+    function myFunction() {
+    
+    myVar = setTimeout(showPage, 100);
+    
+    }
+    
+    
+    
+    function showPage() {
+    
+    document.getElementById("loader").style.display = "none";
+    
+    document.getElementById("myDiv").style.display = "block";
+    
+    }
+    
+    </script>
   <script>
     $(document).ready(function() {
       $().ready(function() {

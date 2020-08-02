@@ -83,7 +83,13 @@
 								</div>
 								<div class="col-md-2">
 									<label for="">Satuan Beli</label>
-									<input type="text" class="input-css name" style="width: 100%;" id="field-satuan-beli" value="" >
+									{{-- <input type="text" class="input-css name" style="width: 100%;" id="field-satuan-beli" value="" > --}}
+									<select name="field-satuan-beli" id="field-satuan-beli" style="width: 100%">
+										<option value="">-- Satuan Beli --</option>
+										@foreach ($satuan as $item)
+												<option value="{{ $item->unit }}">{{ $item->unit }}</option>
+										@endforeach
+									</select>
 								</div>
 								<div class="col-md-2">
 									<label for=""><small>Isi Dalam Satuan</small></label>
@@ -621,6 +627,7 @@
         $('#field-product').select2();
         $('#field-units').select2();
         $('#field-brands').select2();
+        $('#field-satuan-beli').select2();
     });
 
 	</script>

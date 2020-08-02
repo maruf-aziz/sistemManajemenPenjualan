@@ -219,4 +219,17 @@ class TransactionsController extends Controller
 
         return view('pages.transactions.invoice', $data);
     }
+
+    public function addNewCustomer(Request $request){
+        #code with response json
+        $data = array(
+            'name'          => $request->name,
+            'phone'         => $request->phone,
+            'address'       => $request->address
+        );
+
+        $lastid = Customer::create($data)->id;
+
+        return response()->json(['id'=>$lastid]);
+    }
 }
