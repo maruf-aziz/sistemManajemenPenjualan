@@ -10,7 +10,6 @@ use App\Detail_Purchase;
 use App\User;
 use App\Transaction;
 use App\Detail_Transaction;
-use Carbon\carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
