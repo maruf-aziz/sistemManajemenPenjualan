@@ -75,7 +75,8 @@ class TransactionsController extends Controller
             'disc' => $request->disc,
             'tax' => $ppn_int,
             'user_id' => $request->user_id,
-            'customer_id' => $request->customer_id
+            'customer_id' => $request->customer_id,
+            'date' => date('Y-m-d')
         );
 
         $lastId = Transaction::create($data)->id;

@@ -11,5 +11,5 @@ class Purchase extends Model
     use SoftDeletes;
 
     protected $table = 'purchases'; 
-    protected $fillable = ['total_cost','supplier_id'];
+    protected $fillable = ['total_cost','supplier_id', 'date'];
 }
