@@ -90,7 +90,7 @@
               <form method="post" action="/transactions/{{ $transactions->id_tr}}" enctype="multipart/form-data" id="batal{{ $transactions->id_tr }}">
                 @method('patch')
                 @csrf
-                <table class="table table-hover" id="example" style="width:100%">
+                <table class="table table-striped table-bordered" id="example" style="width:100%">
                   <thead>
                     <tr>
                       <th scope="col">#</th>

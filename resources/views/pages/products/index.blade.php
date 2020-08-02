@@ -24,7 +24,7 @@
 							
 							<div class="card-body">
 								<a href="/brands/create" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>
-								<table class="table table-hover display" style="width:100%">
+								<table class="table table-striped table-bordered display" style="width:100%">
 									<thead>
 										<tr>
 											<th scope="col">#</th>
@@ -91,7 +91,7 @@
 							
 							<div class="card-body">
 								<a href="/units/create" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>
-								<table class="table table-hover display" style="width:100%">
+								<table class="table table-striped table-bordered display" style="width:100%">
 									<thead>
 										<tr>
 											<th scope="col">#</th>
@@ -163,12 +163,13 @@
 									<a href="/products/create" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>
 							@endif
 							
-              <table class="table table-hover display" style="width:100%">
+              <table class="table table-striped table-bordered" id="produk" style="width:100%">
                 <thead>
                   <tr>
                     <th scope="col" width="5%">#</th>
-                    <th scope="col" width="15%">Nama</th>
-                    <th scope="col" width="10%">No. lot</th>
+                    <th scope="col" width="10%">Nama</th>
+                    <th scope="col" width="10%" align="center">Gambar</th>
+                    <th scope="col" width="5%">No. lot</th>
                     <th scope="col" width="5%">Exp</th>
                     <th scope="col" width="15%">Merek</th>
                     <th scope="col" width="15%">Harga</th>
@@ -180,13 +181,21 @@
                 <tbody>
                   @foreach ($products as $item)
 											<tr>
-												<td>{{ $loop->iteration }}</td>
+												<td>{{ $loop->iteration }}</td>											
 												
 												@if (auth()->user()->role == 'admin')
 														<td><a href="/products/{{ $item->id_product }}" class="btn btn-outline-primary btn-sm">{{ $item->name_product }}</a></td>
 												@else
 														<td>{{ $item->name_product }}</td>
 												@endif
+
+												<td align="center">
+													@if ($item->pict != '')
+														<img src="{{ url('/images/produk/'.$item->pict) }}" alt="" style="width: 70px; border-radius : 5px;">
+													@else
+														<img src="{{ url('/images/produk/no_file.png') }}" alt="" style="width: 70px; border-radius : 5px;">
+													@endif
+												</td>
 												
 												<td>{{ $item->lot != null ? $item->lot : '-' }}</td>
 												<td>{{ $item->exp != null ? $item->exp : '-' }}</td>

@@ -22,7 +22,7 @@
             </div>
             <div class="card-body">
 							<a href="/retur_penjualan/create" class="btn btn-success"><i class="material-icons">create</i> Buat Retur Penjualan</a>
-              <table class="table table-hover" id="transaksi" style="width:100%">
+              <table class="table table-striped table-bordered" id="transaksi" style="width:100%">
                 <thead>
                   <tr>
                     <th scope="col" width="5%">#</th>

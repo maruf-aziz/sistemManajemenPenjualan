@@ -22,10 +22,10 @@
             </div>
             <div class="card-body">
 							<a href="/purchases/create" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>
-              <table class="table table-hover" id="transaksi" style="width:100%">
+              <table class="table table-striped table-bordered" id="transaksi" style="width:100%">
                 <thead>
                   <tr>
-                    <th scope="col" width="5%">#</th>
+                    <th scope="col" width="15%">#</th>
                     <th scope="col">Supplier</th>
                     <th scope="col">Tanggal</th>
                     <th scope="col">Total</th>

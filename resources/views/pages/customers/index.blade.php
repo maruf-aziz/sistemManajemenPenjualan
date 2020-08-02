@@ -87,7 +87,7 @@
               <h4 class="card-title">Data Pelanggan</h4>              
             </div>
             <div class="card-body">
-              <table class="table table-hover" id="example" style="width:100%">
+              <table class="table table-striped table-bordered" id="example" style="width:100%">
                 <thead>
                   <tr>
                     <th scope="col">#</th>

@@ -28,9 +28,10 @@
 									<thead align="center">
 										<tr>
 											<th scope="col" width="20%">Nama Produk</th>
-											<th scope="col" width="15%">Merek</th>
+											<th scope="col" width="10%">Update Gambar <small>( < 1 mb )</small></th>
+											<th scope="col" width="10%">Merek</th>
 											<th scope="col" width="10%">Harga Satuan</th>
-											<th scope="col" width="15%">Satuan</th>
+											<th scope="col" width="10%">Satuan</th>
 											<th scope="col" width="10%">Stok Lama</th>
 											<th scope="col" width="10%">Stok Baru</th>
 											<th scope="col" width="10%">Dibuat</th>
@@ -41,6 +42,15 @@
 										<tr>
 											<td>
 												<input type="text" class="input-css name" style="width: 100%;" id="name" name="name_product" value="{{ $product->name_product }}" required>
+											</td>
+											<td>
+												<input type="file" style="width: 100%;" id="pict" name="pict" value="">
+												<br>
+												@if ($product->pict != '')
+													<img src="{{ url('/images/produk/'.$product->pict) }}" alt="" style="width: 70px; border-radius : 5px;">
+												@else
+													<img src="{{ url('/images/produk/no_file.png') }}" alt="" style="width: 70px; border-radius : 5px;">	
+												@endif
 											</td>
 											<td>
 												<select name="brand_id" id="select_brand" style="width: 100%;" required>

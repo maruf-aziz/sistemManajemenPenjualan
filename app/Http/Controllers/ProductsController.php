@@ -56,9 +56,23 @@ class ProductsController extends Controller
         //
         if(count($request->name_product) > 0){
             foreach ($request->name_product as $item=> $val) {
+
+                if (!empty($request->file('pict')[$item])) {
+                    # code...
+                    $images = $request->file('pict')[$item];
+        
+                    $nama_file = time()."_".$images->getClientOriginalName();
+                    $tujuan_upload = 'images/produk';
+                    $images->move($tujuan_upload,$nama_file);
+                }
+                else{
+                    $nama_file = 'no_file.png';
+                }
+
                 # code...
                 $data = array(
                     'name_product'  => $request->name_product[$item],
+                    'pict'          => $nama_file,
                     'price'         => $request->price[$item],
                     'unit_id'       => $request->unit_id[$item],
                     'stock'         => $request->stock[$item],
@@ -116,13 +130,35 @@ class ProductsController extends Controller
         $harga_str = preg_replace("/[^0-9]/", "", $harga);
         $harga_int = (int) $harga_str;
 
+        if (!empty($request->file('pict'))) {
+            # code...
+            $file = $request->file('pict');
+ 
+            $nama_file = time()."_".$file->getClientOriginalName();
+
+            if ($product->file != null) {
+                # code...
+                $path = public_path()."/images/produk/".$product->pict;
+                if ($product->pict != 'no_file.png') {
+                    # code...
+                    unlink($path);
+                }
+                
+            }
+            
+
+            $tujuan_upload = 'images/produk';
+            $file->move($tujuan_upload,$nama_file);
+        }
+
         Product::where('id_product', $product->id_product)
                 ->update([
-                    'name_product' => $request->name_product,
-                    'brand_id' => $request->brand_id,
-                    'price' =>  $harga_int,
-                    'unit_id' => $request->unit_id,
-                    'stock' => ($product->stock + $request->stock)
+                    'name_product'  => $request->name_product,
+                    'pict'          => ($request->file('pict') != null ? $nama_file : $user->images),
+                    'brand_id'      => $request->brand_id,
+                    'price'         =>  $harga_int,
+                    'unit_id'       => $request->unit_id,
+                    'stock'         => ($product->stock + $request->stock)
                 ]);
 
         return redirect('/products')->with('status', 'Data berhasil diubah');

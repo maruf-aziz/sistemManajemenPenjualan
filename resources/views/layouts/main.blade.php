@@ -26,8 +26,8 @@ The above copyright notice and this permission notice shall be included in all c
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-  <link href="/assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+  <link href="/assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <!-- CSS Just for demo purpose, don't include it in your project -->
@@ -40,6 +40,9 @@ The above copyright notice and this permission notice shall be included in all c
   <script src="https://cdnjs.cloudflare.com/ajax/libs/accounting.js/0.4.1/accounting.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/accounting.js/0.4.1/accounting.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
   <style>
     /* Center the loader */
@@ -476,7 +479,7 @@ The above copyright notice and this permission notice shall be included in all c
   <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
   <script src="/assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
   <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
-  <script src="/assets/js/plugins/jquery.dataTables.min.js"></script>
+  {{-- <script src="/assets/js/plugins/jquery.dataTables.min.js"></script> --}}
   <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
   <script src="/assets/js/plugins/bootstrap-tagsinput.js"></script>
   <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
@@ -501,8 +504,7 @@ The above copyright notice and this permission notice shall be included in all c
   <script src="/assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   {{-- <script src="/assets/demo/demo.js"></script> --}}
-  {{-- <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script> --}}
+  
   @yield('footer')
   <script>
 
@@ -718,6 +720,11 @@ The above copyright notice and this permission notice shall be included in all c
           "pageLength": 10,
           "ordering": false,
           "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]]
+        });
+        $('#produk').DataTable({
+          "pageLength": 20,
+          "ordering": false,
+          "lengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]]
         });
     } );
 

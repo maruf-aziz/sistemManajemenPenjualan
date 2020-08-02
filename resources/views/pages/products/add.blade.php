@@ -27,11 +27,12 @@
 									<thead align="center">
 										<tr>
 											<th scope="col" width="20%">Nama Produk</th>
+											<th scope="col" width="10%">Foto <small> ( < 1 mb)</small></th>
 											<th scope="col" width="10%">No lot</th>
 											<th scope="col" width="10%">Exp</th>
-											<th scope="col" width="15%">Merek</th>
+											<th scope="col" width="10%">Merek</th>
 											<th scope="col" width="10%">Harga Satuan</th>
-											<th scope="col" width="15%">Satuan</th>
+											<th scope="col" width="10%">Satuan</th>
 											<th scope="col" width="10%">Stok</th>
 											<th scope="col" width="10%">
 												<a href="#" class="btn btn-success addRow">+</a>
@@ -42,6 +43,9 @@
 										<tr>
 											<td>
 												<input type="text" class="input-css name" style="width: 100%;" id="name" name="name_product[]" value="" required>
+											</td>
+											<td>
+												<input type="file" style="width: 100%;" id="pict" name="pict[]" value="">
 											</td>
 											<td>
 												<input type="text" class="input-css name" style="width: 100%;" id="lot" name="lot[]" value="" required>
@@ -105,7 +109,8 @@
 			var row = $('tbody tr').length;
 			var tr = '<tr>'+
 							'<td><input type="text" class="input-css name" style="width: 100%;" id="name'+row+'" name="name_product[]" value="" required></td>'+
-							'<td><input type="text" class="input-css name" style="width: 100%;" id="lot" name="lott[]" value="" required></td>'+
+							'<td><input type="file" style="width: 100%;" id="pict" name="pict[]" value=""></td>'+
+							'<td><input type="text" class="input-css name" style="width: 100%;" id="lot" name="lot[]" value="" required></td>'+
 							'<td><input type="date" class="input-css name" style="width: 100%;" id="exp" name="exp[]" value="" required></td>'+
 							'<td>'+
 												'<select name="brand_id[]" id="brand" style="width: 100%;" class="select-css" required>'+

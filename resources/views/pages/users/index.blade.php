@@ -165,7 +165,7 @@
             </div>
             <div class="card-body">
               <a href="/users/create" class="btn btn-success"><i class="material-icons">create</i> Tambah</a>
-              <table class="table table-hover" id="example" style="width:100%">
+              <table class="table table-striped table-bordered" id="example" style="width:100%">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
