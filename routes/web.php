@@ -91,6 +91,7 @@ Route::get('/addMerek', 'PurchasesController@addNewBrand')->middleware('auth');	
 Route::get('/addMerek', 'PurchasesController@addNewBrand')->middleware('auth');																										// route json add merek
 Route::get('/addProduk', 'PurchasesController@addNewProduct')->middleware('auth');																								// route json add produk
 Route::get('/addCustomer', 'TransactionsController@addNewCustomer')->middleware('auth');																								// route json add customer
+Route::get('/addSupplier', 'PurchasesController@addNewSupplier')->middleware('auth');																								// route json add customer
 
 // Route::get('/report_product', 'ReportController@reportProduct')->middleware('auth');																							// route get page laporan produk
 Route::get('/report_penjualan', 'ReportController@reportPenjualan')->middleware('auth');																					// route get page laporan penjualan

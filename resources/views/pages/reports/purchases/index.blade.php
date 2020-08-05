@@ -2,7 +2,7 @@
 
 @section('title', 'Laporan Pembelian')
 
-@section('title_pages', 'Laporan PT.SAMUDERA INDAH INTERMEDIKA')
+{{-- @section('title_pages', 'Laporan PT.SAMUDERA INDAH INTERMEDIKA') --}}
 
 @section('content')
 
@@ -13,6 +13,19 @@
               {{ session('status') }}
           </div>
 			@endif
+
+			<div class="row">
+        <div class="col-xl-4"></div>
+        <div class="col-xl-8">
+          <img src="{{ url('/images/logo/logo.png') }}" style="width: 100px; float:left; margin-right : 5px;" alt="">          
+         
+          <h2>PT.SAMUDERA INDAH INTERMEDIKA</h2>
+          <br>
+          <p class="" style="font-size: 16px; position : relative; top : -20px;">
+            Jl.KH Agus Salim No.36, Laweyan, Surakarta, Telp.(0271) 730998 Fax. (0271) 723251
+          </p>
+        </div>        
+      </div>
 			
       <div class="row">
         <div class="col-12">

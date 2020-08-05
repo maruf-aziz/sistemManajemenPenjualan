@@ -248,6 +248,22 @@ class PurchasesController extends Controller
         return response()->json(['id_brand'=>$lastid]);
     }
 
+    public function addNewSupplier(Request $request){
+        $data = array(
+            'name' => $request->name_sp,
+            'phone' => $request->phone
+        );
+
+        $lastid = Supplier::create($data);
+
+        if($lastid)
+            return response()->json(['status'=>'succes']);
+
+        else   
+            return response()->json(['status'=>'failed']);
+        
+    }
+
     public function rupiah($angka){
 	
         $hasil_rupiah = "Rp " . number_format($angka,0,',','.');

@@ -145,6 +145,12 @@
 													{{-- <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" readonly> --}}
 												</select>
 											</td>
+											<td>
+												<div class="div" style="padding-top: 22px;">
+													<button type="button" class="btn btn-info btn-sm" id="addDataSupplier" data-toggle="modal" data-target="#addSupplier"><i class="material-icons">assignment_ind</i> Supplier Baru</button>
+												</div>
+												
+											</td>
 										</tr>
 									</tbody>
 									<tfoot>
@@ -168,6 +174,37 @@
           </div>
         </div>
 			</div>
+
+			{{-- modal tambah supplier --}}
+
+			<div class="modal fade" id="addSupplier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Tambah Supplier</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form>
+								<div class="form-group">
+									<label for="name">Nama Supplier</label>
+									<input type="text" class="input-css" id="name_sp" name="name_sp" autofocus style="width: 100%">
+								</div>
+								<div class="form-group">
+									<label for="name">No Telp</label>
+									<input type="text" class="input-css" id="phone_sp" name="phone" maxlength="13" style="width: 100%" onkeypress="return hanyaAngka(event)">
+								</div>
+								<div class="modal-footer">
+									{{-- <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Close</button> --}}
+									<button type="button" class="btn btn-outline-primary btn-sm" data-dismiss="modal" onclick="saveSupplier()">Tambah Data</button>
+								</div>
+							</form>
+						</div>														
+					</div>
+				</div>
+			</div>
 			
     </div>
 	</div>
@@ -186,6 +223,51 @@
 
 			$('#field-harga-jual').val(harga_jl);
 
+		}
+
+		function saveSupplier(){
+			var name_sp 	= $('#name_sp').val();
+			var phone 	= $('#phone_sp').val();
+
+			if(name_sp == '' | phone == ''){
+				Swal.fire({
+					icon: 'error',
+					title: 'Maaf',
+					text: 'Kolom Data Tambah Supplier harus terisi semua !!!',
+				})
+			}
+			else{
+				$.ajax({
+					url				: '/addSupplier',
+					method 		: "get",
+					data			: {
+						"_token": "{{ csrf_token() }}",
+						"name_sp" 	: name_sp,
+						"phone" 		: phone
+					},
+					dataType	: 'json',
+					success		: function(data){
+						if (data.status == 'succes') {
+							Swal.fire({
+								icon: 'success',
+								title: 'Selamat',
+								text: 'Data Suppier Baru Telah Di Tambah',
+							});
+							$('#supplier').load("/supplier");
+						}
+						else{
+							Swal.fire({
+								icon: 'error',
+								title: 'Maaf',
+								text: 'Data Suppier Baru Gagal Di Tambah !!!',
+							});
+						}
+					}
+
+				});
+				$('#name_sp').val('');
+				$('#phone_sp').val('');
+			}
 		}
 
 		function cekJenisProduct(){

@@ -29,7 +29,7 @@
 						------------------------------------------ <br>
 						KEPADA : <br>
 						 {{-- DATABASE SUPPLIER --}}
-						 {{ $transactions->name }} <br>
+						 {{ $transactions->pelanggan }} <br>
 						 {{ $transactions->address }} <br>
 						 {{ $transactions->phone }}
 					</p>

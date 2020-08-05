@@ -214,8 +214,10 @@ The above copyright notice and this permission notice shall be included in all c
 
           Tip 2: you can also add an image using data-image tag
       -->
-        <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          PT.SAMUDERA INDAH <br>INTERMEDIKA
+        <div class="logo"><a href="/" class="simple-text logo-normal">
+          {{-- PT.SAMUDERA INDAH <br>INTERMEDIKA --}}
+
+          <img src="{{ url('/images/logo/logo.png')}}" style="width: 30%" alt="">
           </a></div>
         <div class="sidebar-wrapper">
           <ul class="nav">
@@ -417,7 +419,7 @@ The above copyright notice and this permission notice shall be included in all c
         </footer> --}}
       </div>
     </div>
-    <div class="fixed-plugin">
+    {{-- <div class="fixed-plugin">
       <div class="dropdown show-dropdown">
         <a href="#" data-toggle="dropdown">
           <i class="fa fa-cog fa-2x"> </i>
@@ -460,7 +462,7 @@ The above copyright notice and this permission notice shall be included in all c
           </li>
         </ul>
       </div>
-    </div>
+    </div> --}}
   </div>
   <!--   Core JS Files   -->
   
