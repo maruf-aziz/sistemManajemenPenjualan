@@ -91,11 +91,15 @@
 										@endforeach
 									</select>
 								</div>
-								<div class="col-md-2">
+								<div class="col-md-2" id="merek" style="display: none">
+									<label for=""><small>Merek</small></label>
+									<input type="text" class="input-css name" style="width: 100%;" id="field-merek" readonly>
+								</div>
+								<div class="col-md-1">
 									<label for=""><small>Isi Dalam Satuan</small></label>
 									<input type="text" class="input-css name" style="width: 100%;" id="field-isi" value="0" onkeypress="return hanyaAngka(event)" required>
 								</div>
-								<div class="col-md-2">
+								<div class="col-md-1">
 									<label for="">Total Harga</label>
 									<input type="text" class="input-css name" style="width: 100%;" id="field-total-harga" onkeypress="return hanyaAngka(event)" onkeyup="hitungHargBeli()" required>
 								</div>
@@ -158,7 +162,7 @@
 											<td colspan="5"></td>	
 											<td colspan="1">
 												<label for="">Total Akhir</label>
-												<input type="text" class="form-control" style="width: 100%;" id="total" name="total_cost" value="" readonly required>
+												<input type="text" class="form-control bg-white" style="width: 100%;" id="total" name="total_cost" value="" readonly required>
 											</td>
 										</tr>
 										<tr>
@@ -220,8 +224,10 @@
 
 		function cekProduct(){
 			var harga_jl = $('#field-product option:selected').attr('harga');
+			var merek = $('#field-product option:selected').attr('merek');
 
 			$('#field-harga-jual').val(harga_jl);
+			$('#field-merek').val(merek);
 
 		}
 
@@ -275,6 +281,7 @@
 
 			if (jenis == 'old') {
 				$('.product-lama').css("display","block");
+				$('#merek').css("display","block");
 				$('.product-baru').css("display","none");
 				$('.new-satuan').css("display","none");
 				$('.new-merek').css("display","none");
@@ -287,6 +294,7 @@
 				$('.product-baru').css("display","block");
 				$('.new-satuan').css("display","none");
 				$('.new-merek').css("display","none");
+				$('#merek').css("display","none");
 
 				$('#field-product').val(null).trigger('change');
 			}
@@ -295,6 +303,7 @@
 				$('.product-baru').css("display","none");
 				$('.new-satuan').css("display","none");
 				$('.new-merek').css("display","none");
+				$('#merek').css("display","none");
 
 				$('#field-product').val(null).trigger('change');
 				$('#field-units').val(null).trigger('change');
@@ -612,33 +621,33 @@
 				var tr = '<tr>'+
 												'<td>'+
 													'<label for="">Nama Produk</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" name="name_product[]" value="'+nama_product+'" readonly>'+
+													'<input type="text" class="form-control bg-white" style="width: 100%;" name="name_product[]" value="'+nama_product+'" readonly>'+
 													'<input type="hidden" class="form-control" style="width: 100%;" name="product[]" value="'+id_product+'" readonly>'+ 															//detail_purchase.product
 												'</td>'+
 												'<td>'+
 													'<label for="">Jumlah</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" value="'+jumlah+'  '+satuan+'" readonly>'+
+													'<input type="text" class="form-control bg-white" style="width: 100%;" value="'+jumlah+'  '+satuan+'" readonly>'+
 													'<input type="hidden" class="form-control" style="width: 100%;" name="amount[]" value="'+jumlah+'" readonly>'+																		//detail_purchase.amount
 													'<input type="hidden" class="form-control" style="width: 100%;" name="unit[]" value="'+satuan+'" readonly>'+																			//detail_purchase.unit
 												'</td>'+
 												'<td>'+
 													'<label for="">Isi/Satuan</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" value="'+isi+'" readonly>'+	
+													'<input type="text" class="form-control bg-white" style="width: 100%;" value="'+isi+'" readonly>'+	
 													'<input type="hidden" class="form-control" style="width: 100%;" name="value[]" value="'+(isi*jumlah)+'" readonly>'+																	//detail_purchase.value (isi * jumlah)
 												'</td>'+
 												'<td>'+
 													'<label for="">Total</label>'+
-													'<input type="text" class="form-control" style="width: 100%;" value="'+total_harga+'" readonly>'+						
+													'<input type="text" class="form-control bg-white" style="width: 100%;" value="'+total_harga+'" readonly>'+						
 													'<input type="hidden" class="form-control" style="width: 100%;" name="total_price[]" value="'+convertToAngka(total_harga)+'" readonly>'+						//detail_purchase.total_price
 												'</td>'+
 												'<td>'+
 													'<label for="">Harga Satuan</label>'+
-													'<input type="text" class="form-control subTotal" style="width: 100%;" value="'+harga_satuan+'" readonly>'+		
+													'<input type="text" class="form-control subTotal bg-white" style="width: 100%;" value="'+harga_satuan+'" readonly>'+		
 													'<input type="hidden" class="form-control subTotal" style="width: 100%;" name="price_per[]" value="'+convertToAngka(harga_satuan)+'" readonly>'+		//detail_purchase.price_per_seed
 												'</td>'+
 												'<td>'+
 													'<label for="">Harga Jual</label>'+
-													'<input type="text" class="form-control subTotal" style="width: 100%;" value="'+harga_jual+'" readonly>'+			
+													'<input type="text" class="form-control subTotal bg-white" style="width: 100%;" value="'+harga_jual+'" readonly>'+			
 													'<input type="hidden" class="form-control subTotal" style="width: 100%;" name="price_sell[]" value="'+convertToAngka(harga_jual)+'" readonly>'+			
 												'</td>'+
 												'<td align="center">'+

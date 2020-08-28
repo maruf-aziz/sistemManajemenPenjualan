@@ -193,10 +193,13 @@ class PurchasesController extends Controller
     }
 
     public function getProduct(){
-        $data = Product::all();
+        $data = Product::join('brands','products.brand_id', '=','brands.id_brands', 'left')
+                        ->join('units', 'products.unit_id','=','units.id_unit')
+                        ->orderby('name_product', 'asc')
+                        ->get();
         echo "<option selected value=''>-- Pilih Produk --</option>";
         foreach ($data as $key => $value) {
-            echo "<option value='".$value->id_product."' nama='".$value->name_product."' harga='".$this->rupiah($value->price)."'>".$value->name_product."</option>";
+            echo "<option value='".$value->id_product."' nama='".$value->name_product."' merek='".$value->name."' harga='".$this->rupiah($value->price)."'>".$value->name_product."</option>";
         }
     }
 

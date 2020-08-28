@@ -6,6 +6,7 @@ use App\Transaction;
 use App\Detail_Transaction;
 use App\Retur_Sale;
 use App\Detail_retursales;
+use App\Product;
 use Illuminate\Http\Request;
 
 class RetursalesController extends Controller
@@ -110,6 +111,15 @@ class RetursalesController extends Controller
                     Detail_retursales::create($data_detail);
 
                     # code update tambah stok produk
+
+                    $produk = Product::where('id_product', $request->product[$item])->first();
+
+                    $stock = $produk->stock;
+
+                    Product::where('id_product', $request->product[$item])
+                            ->update([
+                                'stock' => ($stock + $request->qty[$item]),
+                            ]);
                 }
             }
         }

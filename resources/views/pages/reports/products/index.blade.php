@@ -63,10 +63,39 @@
                   
                 </tbody>
               </table>
+
+              <div class="row mt-5">
+                <div class="col-11" align="right">
+                  <h5>{{ date('D, d-M-Y') }}</h5>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-1"></div>
+                <div class="col-2" align="center">
+                  <h4>Pembuat</h4>
+                  <div style="margin-top : 100px;">
+                    <hr>
+                    <h4>{{ Auth::user()->name }}</h4>
+                  </div>                  
+                </div>
+
+                <div class="col-6"></div>
+
+                <div class="col-2" align="center">
+                  <h4>Disetujui</h4>
+                  <div style="margin-top : 100px;">
+                    <hr>
+                  </div> 
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
+
+      
     </div>
 	</div>
 

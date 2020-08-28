@@ -11,6 +11,7 @@ use App\User;
 use App\Transaction;
 use App\Detail_Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -31,17 +32,31 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $transaction = Transaction::orderby('id', 'DESC')
-                        ->limit('15')  
-                        ->selectRaw('*, sum(total_cost) as total')                     
-                        ->groupBy('date')
-                        ->get();
+        // $transaction = Transaction::orderby('id', 'DESC')
+        //                 ->limit('15')  
+        //                 ->selectRaw('*, sum(total_cost) as total')                     
+        //                 ->groupBy('date')
+        //                 ->get();
 
-        $purchase = Purchase::orderby('id', 'DESC')
-                        ->limit('15')  
-                        ->selectRaw('*, sum(total_cost) as total')                     
-                        ->groupBy('date')
-                        ->get();
+        $transaction = DB::table("transactions")
+                            ->select('created_at', DB::Raw('SUM(total_cost) as total'))
+                            ->orderBy('id', 'DESC')
+                            ->groupBy(DB::raw("MONTH(created_at)"))
+                            ->limit('12')
+                            ->get();
+
+        // $purchase = Purchase::orderby('id', 'DESC')
+        //                 ->limit('15')  
+        //                 ->selectRaw('*, sum(total_cost) as total')                     
+        //                 ->groupBy('date')
+        //                 ->get();
+
+        $purchase = DB::table("purchases")
+                            ->select('created_at', DB::Raw('SUM(total_cost) as total'))
+                            ->orderBy('id', 'DESC')
+                            ->groupBy(DB::raw("MONTH(created_at)"))
+                            ->limit('12')
+                            ->get();
 
         $date_tr    = [];
         $total      = [];
@@ -50,14 +65,14 @@ class HomeController extends Controller
         $total_pr   = [];
 
         foreach ($transaction as $tr) {
-            $date_tr[] = $tr->created_at->format('d-M');
+            $date_tr[] = date('M', strtotime($tr->created_at));
 
             $total[] = (int)$tr->total;    
             
         }
 
         foreach ($purchase as $pr){
-            $date_pr[]      = $pr->created_at->format('d-M');
+            $date_pr[]      = date('M', strtotime($pr->created_at));
             $total_pr[]     = (int)$pr->total;
         }
 
